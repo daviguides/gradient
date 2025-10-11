@@ -1,6 +1,6 @@
 
 # Gradient
-<img src="design/logo.png" alt="Diagram" align="right" style="width: 400px"/>
+<img src="design/logo.png" alt="Diagram" align="right" style="width: 300px"/>
 
 > A proposal for a layered context architecture
 
