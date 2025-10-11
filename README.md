@@ -160,7 +160,19 @@ When code is more efficient than tokens:
 
 ### For Humans
 
-Read the [Architecture Guide](docs/architecture-guide.md) for complete understanding with diagrams and examples.
+**Documentation Site**: Visit the [complete documentation site](https://daviguides.github.io/gradient) (when published) with interactive examples and guides.
+
+**Local development**: Run the Jekyll site locally:
+```bash
+cd docs
+bundle exec jekyll serve
+# Access at http://localhost:4000
+```
+
+**Quick reads**:
+- [Quick Start](docs/_pages/quick-start.md) - Create your first Gradient project in 10 minutes
+- [Why Gradient?](docs/_pages/why-gradient.md) - Problems solved and philosophy
+- [Architecture Guide](docs/_pages/architecture-guide.md) - Complete guide with diagrams
 
 ### For LLMs
 
@@ -200,9 +212,34 @@ Like a gradient in design, our architecture dissolves boundaries while maintaini
 
 ## Documentation
 
-- [Architecture Guide](docs/architecture-guide.md) - Complete guide with Mermaid diagrams
+### Jekyll Documentation Site
+
+Complete documentation with interactive examples, Mermaid diagrams, and step-by-step guides:
+
+- [Quick Start](docs/_pages/quick-start.md) - Get started in 10 minutes
+- [Why Gradient?](docs/_pages/why-gradient.md) - Problems, solutions, and philosophy
+- [Specifications](docs/_pages/specifications.md) - Technical layer specifications
+- [Architecture Guide](docs/_pages/architecture-guide.md) - Complete guide with diagrams
+- [Examples](docs/_pages/examples.md) - Real-world implementations
+- [Tools](docs/_pages/tools.md) - Validation scripts and agents
+- [Best Practices](docs/_pages/best-practices.md) - Guidelines and anti-patterns
+- [Cheatsheet](docs/_pages/cheatsheet.md) - Quick reference
+- [Migration Guide](docs/_pages/migration-guide.md) - Refactor existing projects
+
+### Core Specifications (for LLMs)
+
+- [Architecture Specification](gradient-spec/architecture-spec.md) - Complete normative definition
 - [Anti-Duplication Principles](gradient-spec/anti-duplication-principles.md) - Universal principles
+- [Layer Specification](gradient-spec/layer-spec.md) - Technical layer specs
+
+### Applied Knowledge
+
 - [Implementation Guide](context/implementation-guide.md) - Step-by-step implementation
+- [Examples](context/examples.md) - Working examples
+- [Decision Guide](context/decision-guide.md) - Decision trees
+
+### Design
+
 - [Naming Analysis](design/naming-analysis.md) - Why "Gradient"?
 
 ---

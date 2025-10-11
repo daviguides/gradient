@@ -1,0 +1,11 @@
+{
+  "name": "gradient",
+  "version": "0.1.0",
+  "description": "YMD/PMD format specification and authoring tools for structured, modular AI prompts",
+  "author": {
+      "name": "Davi Guides",
+      "url": "https://github.com/daviguides"
+  },
+  "repository": "https://github.com/daviguides/gradient",
+  "license": "MIT"
+}

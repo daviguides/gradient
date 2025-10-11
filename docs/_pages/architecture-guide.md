@@ -1,3 +1,10 @@
+---
+layout: page
+title: Architecture Guide
+nav_order: 5
+permalink: /architecture-guide/
+---
+
 # Gradient Architecture Guide
 
 **For humans: A complete guide to understanding and implementing the Gradient layered context architecture**

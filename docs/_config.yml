@@ -1,0 +1,50 @@
+title: Gradient
+description: A proposal for a layered context architecture for Claude Code plugins.
+author: "Davi Guides"
+
+plugins:
+  - jekyll-spaceship
+
+theme: minima
+
+baseurl: ""
+repository: daviguides/gradient
+
+# Minima social links
+github_username: daviguides
+linkedin_username: daviguides
+
+# Minima: show excerpts in the frontpage
+show_excerpts: true
+
+minima:
+  skin: solarized-light
+  date_format: "%Y-%m-%d"
+
+include:
+    - _pages
+
+header_pages:
+  - index.md
+  - _pages/quick-start.md
+  - _pages/why-gradient.md
+  - _pages/specifications.md
+  - _pages/examples.md
+  - _pages/tools.md
+
+exclude: 
+    - .gitignore
+    - docker-compose.yml
+    - Gemfile
+    - Gemfile.lock
+    - LICENSE
+    - README.md
+
+markdown: kramdown
+kramdown:
+  input: GFM
+
+jekyll-spaceship:
+  mermaid-processor:
+    syntax:
+      code: 'mermaid'
