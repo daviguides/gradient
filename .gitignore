@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+.build/
+dist/
+.eggs/
+*.egg-info/
+.venv/
+venv/
+
+# Editors
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Others
+*.log
+*~
+
+# docs
+.sass-cache
+Gemfile.lock
+docs/_site
+docs/_site/*
+.jekyll-cache
