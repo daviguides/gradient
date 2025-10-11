@@ -1,3 +1,5 @@
+<img src="design/logo.png" alt="Diagram" align="right" style="width: 400px"/>
+
 # Gradient
 
 > A proposal for a layered context architecture
@@ -5,9 +7,9 @@
 **Gradient** defines architectural patterns for building layered context injection systems for Claude Code plugins, emphasizing smooth transitions from normative specifications through applied context to dynamic orchestration.
 
 ```
-████████░░░░░░░░  SPECS     (The WHAT - Normative)
-    ████████░░░░  CONTEXT   (The HOW - Applied)
-        ████████  PROMPTS   (The ACTION - Orchestration)
+███▓▓▒▒░░░░  SPECS     (The WHAT - Normative)
+  ███▓▓▒▒░░  CONTEXT   (The HOW - Applied)
+     ██▓▓▒▒  PROMPTS   (The ACTION - Orchestration)
 ```
 
 ---
