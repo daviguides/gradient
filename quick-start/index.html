@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Quick Start | Gradient</title>
+<meta name="generator" content="Jekyll v4.4.1">
+<meta property="og:title" content="Quick Start">
+<meta name="author" content="Davi Guides">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="A proposal for a layered context architecture for Claude Code plugins.">
+<meta property="og:description" content="A proposal for a layered context architecture for Claude Code plugins.">
+<meta property="og:site_name" content="Gradient">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="Quick Start">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Davi Guides"},"description":"A proposal for a layered context architecture for Claude Code plugins.","headline":"Quick Start","url":"/quick-start/"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
+<link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Gradient">
+</head>
+<body>
+<header class="site-header">
+
+  <div class="wrapper">
+<a class="site-title" rel="author" href="/">Gradient</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger">
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewbox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger">
+<a class="page-link" href="/">Home</a><a class="page-link" href="/quick-start/">Quick Start</a><a class="page-link" href="/why-gradient/">Why Gradient?</a><a class="page-link" href="/specifications/">Specifications</a><a class="page-link" href="/examples/">Examples</a><a class="page-link" href="/tools/">Tools</a>
+</div>
+      </nav>
+</div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <!-- <header class="post-header">
+    <h1 class="post-title">Quick Start</h1>
+  </header> -->
+
+  <div class="post-content">
+    <h1 id="quick-start-guide">Quick Start Guide</h1>
+
+<p>Get your first Gradient project running in 10 minutes.</p>
+
+<hr>
+
+<h2 id="installation">Installation</h2>
+
+<h3 id="one-line-install">One-Line Install</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash <span class="nt">-c</span> <span class="s2">"</span><span class="si">$(</span>curl <span class="nt">-fsSL</span> https://raw.githubusercontent.com/daviguides/gradient/main/install.sh<span class="si">)</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p><strong>What it does</strong>:</p>
+<ul>
+  <li>Copies <code class="language-plaintext highlighter-rouge">gradient-spec/</code> to <code class="language-plaintext highlighter-rouge">~/.claude/gradient/</code>
+</li>
+  <li>Optionally configures <code class="language-plaintext highlighter-rouge">~/.claude/CLAUDE.md</code>
+</li>
+  <li>Makes scripts executable</li>
+</ul>
+
+<h3 id="manual-install">Manual Install</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/daviguides/gradient.git
+<span class="nb">cd </span>gradient
+./install.sh
+</code></pre></div></div>
+
+<h3 id="verify-installation">Verify Installation</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> ~/.claude/gradient/
+</code></pre></div></div>
+
+<p><strong>Expected</strong>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gradient-spec/    # Specifications (SPECS)
+context/          # Examples &amp; guides (CONTEXT)
+prompts/          # Orchestrators (PROMPTS)
+commands/         # Entry points (COMMANDS)
+agents/           # Specialized contexts (AGENTS)
+scripts/          # Validation tools (SCRIPTS)
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="your-first-gradient-project">Your First Gradient Project</h2>
+
+<h3 id="step-1-create-directory-structure">Step 1: Create Directory Structure</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mkdir</span> <span class="nt">-p</span> my-plugin/<span class="o">{</span>my-plugin-spec,context,prompts,commands<span class="o">}</span>
+<span class="nb">cd </span>my-plugin
+</code></pre></div></div>
+
+<p><strong>Result</strong>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>my-plugin/
+├── my-plugin-spec/    # Will contain specifications
+├── context/           # Will contain examples
+├── prompts/           # Will contain orchestrators
+└── commands/          # Will contain entry points
+</code></pre></div></div>
+
+<h3 id="step-2-create-your-first-spec">Step 2: Create Your First Spec</h3>
+
+<p>Create <code class="language-plaintext highlighter-rouge">my-plugin-spec/format-spec.md</code>:</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># Format Specification</span>
+
+<span class="gs">**Purpose**</span>: Define the structure of plugin configuration files.
+<span class="p">
+---
+</span>
+<span class="gu">## File Structure</span>
+
+Configuration files MUST contain:
+<span class="p">1.</span> Settings section (required)
+<span class="p">2.</span> Options section (optional)
+
+<span class="gu">### Settings Section</span>
+
+Required fields:
+<span class="p">-</span> <span class="sb">`name`</span>: Plugin name (string, max 50 chars)
+<span class="p">-</span> <span class="sb">`version`</span>: Semantic version (MAJOR.MINOR.PATCH)
+<span class="p">-</span> <span class="sb">`enabled`</span>: Boolean flag
+
+<span class="gs">**Example**</span>:
+<span class="p">```</span><span class="nl">yaml
+</span><span class="na">settings</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">my-plugin"</span>
+  <span class="na">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">1.0.0"</span>
+  <span class="na">enabled</span><span class="pi">:</span> <span class="kc">true</span>
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="validation-rules">Validation Rules</h2>
+
+<p>Valid configuration if:</p>
+<ul>
+  <li>All required sections present</li>
+  <li>Field types match specification</li>
+  <li>Version follows semver format
+```</li>
+</ul>
+
+<p><strong>Key principle</strong>: Specs define WHAT, not HOW.</p>
+
+<h3 id="step-3-create-context-with-examples">Step 3: Create Context with Examples</h3>
+
+<p>Create <code class="language-plaintext highlighter-rouge">context/examples.md</code>:</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># Configuration Examples</span>
+
+For format rules: @../my-plugin-spec/format-spec.md
+<span class="p">
+---
+</span>
+<span class="gu">## Example 1: Minimal Configuration</span>
+
+<span class="p">```</span><span class="nl">yaml
+</span><span class="na">settings</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">simple-plugin"</span>
+  <span class="na">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">1.0.0"</span>
+  <span class="na">enabled</span><span class="pi">:</span> <span class="kc">true</span>
+</code></pre></div></div>
+
+<p><strong>Validates</strong>: All required fields present, correct types.</p>
+
+<hr>
+
+<h2 id="example-2-with-options">Example 2: With Options</h2>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">settings</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">advanced-plugin"</span>
+  <span class="na">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">2.1.0"</span>
+  <span class="na">enabled</span><span class="pi">:</span> <span class="kc">true</span>
+
+<span class="na">options</span><span class="pi">:</span>
+  <span class="na">debug</span><span class="pi">:</span> <span class="kc">false</span>
+  <span class="na">timeout</span><span class="pi">:</span> <span class="m">30</span>
+</code></pre></div></div>
+
+<p><strong>Validates</strong>: Optional section added, maintains required fields.</p>
+
+<hr>
+
+<h2 id="example-3-invalid-configuration">Example 3: Invalid Configuration</h2>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">settings</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">broken-plugin"</span>
+  <span class="na">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">invalid"</span>
+  <span class="na">enabled</span><span class="pi">:</span> <span class="s2">"</span><span class="s">yes"</span>
+</code></pre></div></div>
+
+<p><strong>Fails validation</strong>:</p>
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">version</code>: Not semver format</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">enabled</code>: String instead of boolean
+```</li>
+</ul>
+
+<p><strong>Key principle</strong>: Context shows HOW to apply specs.</p>
+
+<h3 id="step-4-create-thin-prompt">Step 4: Create Thin Prompt</h3>
+
+<p>Create <code class="language-plaintext highlighter-rouge">prompts/load-context.md</code>:</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># Load Plugin Context</span>
+
+<span class="gs">**Purpose**</span>: Load plugin specifications and examples.
+<span class="p">
+---
+</span>
+<span class="gu">## Specifications (Normative)</span>
+
+@../my-plugin-spec/format-spec.md
+<span class="p">
+---
+</span>
+<span class="gu">## Examples (Applied)</span>
+
+@../context/examples.md
+<span class="p">
+---
+</span>
+<span class="gu">## Your Task</span>
+
+You now have complete plugin configuration knowledge:
+<span class="p">-</span> Format specifications
+<span class="p">-</span> Working examples
+<span class="p">-</span> Validation rules
+
+Guide users in creating valid configuration files.
+</code></pre></div></div>
+
+<p><strong>Key principle</strong>: Prompts orchestrate via references (&gt;50% should be <code class="language-plaintext highlighter-rouge">@</code>).</p>
+
+<h3 id="step-5-create-command-entry-point">Step 5: Create Command Entry Point</h3>
+
+<p>Create <code class="language-plaintext highlighter-rouge">commands/load-context.md</code>:</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Load my-plugin context.
+
+@../prompts/load-context.md
+</code></pre></div></div>
+
+<p><strong>Key principle</strong>: Commands are thin wrappers (≤5 lines).</p>
+
+<hr>
+
+<h2 id="validate-your-project">Validate Your Project</h2>
+
+<h3 id="check-references">Check References</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash ~/.claude/gradient/scripts/validate-references.sh my-plugin/
+</code></pre></div></div>
+
+<p><strong>Expected</strong>: “All references valid ✓”</p>
+
+<h3 id="calculate-metrics">Calculate Metrics</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash ~/.claude/gradient/scripts/calculate-metrics.sh my-plugin/
+</code></pre></div></div>
+
+<p><strong>Expected metrics</strong>:</p>
+<ul>
+  <li>Duplication ratio: ~1.0</li>
+  <li>Reference density: &gt;50%</li>
+  <li>All layers present: 3/3</li>
+</ul>
+
+<h3 id="detect-duplication">Detect Duplication</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash ~/.claude/gradient/scripts/detect-duplication.sh my-plugin/
+</code></pre></div></div>
+
+<p><strong>Expected</strong>: “No significant duplication detected ✓”</p>
+
+<hr>
+
+<h2 id="load-context-in-claude-code">Load Context in Claude Code</h2>
+
+<h3 id="use-your-command">Use Your Command</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/load-context
+</code></pre></div></div>
+
+<p>This loads your plugin specifications and examples.</p>
+
+<h3 id="test-it">Test It</h3>
+
+<p>Ask Claude Code:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Create a valid configuration for my plugin
+</code></pre></div></div>
+
+<p>Claude should use your specs and examples to generate correct configuration.</p>
+
+<hr>
+
+<h2 id="common-patterns">Common Patterns</h2>
+
+<h3 id="pattern-1-simple-spec--examples">Pattern 1: Simple Spec + Examples</h3>
+
+<p><strong>When</strong>: Basic plugin with straightforward rules</p>
+
+<p><strong>Structure</strong>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>my-plugin/
+├── my-plugin-spec/
+│   └── core-spec.md
+├── context/
+│   └── examples.md
+└── prompts/
+    └── load-context.md
+</code></pre></div></div>
+
+<h3 id="pattern-2-multi-spec-plugin">Pattern 2: Multi-Spec Plugin</h3>
+
+<p><strong>When</strong>: Complex plugin with multiple domains</p>
+
+<p><strong>Structure</strong>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>my-plugin/
+├── my-plugin-spec/
+│   ├── format-spec.md
+│   ├── validation-spec.md
+│   └── api-spec.md
+├── context/
+│   ├── format-examples.md
+│   ├── validation-examples.md
+│   └── implementation-guide.md
+└── prompts/
+    ├── load-format.md
+    ├── load-validation.md
+    └── load-complete.md
+</code></pre></div></div>
+
+<h3 id="pattern-3-with-agent">Pattern 3: With Agent</h3>
+
+<p><strong>When</strong>: Need specialized review/validation</p>
+
+<p><strong>Structure</strong>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>my-plugin/
+├── my-plugin-spec/
+│   └── core-spec.md
+├── context/
+│   └── examples.md
+├── prompts/
+│   └── load-context.md
+└── agents/
+    └── config-validator.md
+</code></pre></div></div>
+
+<p><strong>Agent example</strong> (<code class="language-plaintext highlighter-rouge">agents/config-validator.md</code>):</p>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># Configuration Validator Agent</span>
+
+You are a configuration validator for my-plugin.
+
+<span class="gu">## Context</span>
+
+@../my-plugin-spec/format-spec.md
+@../context/examples.md
+
+<span class="gu">## Your Task</span>
+
+Validate provided configuration files against specifications.
+
+Return:
+<span class="p">-</span> Validation status (pass/fail)
+<span class="p">-</span> List of errors (if any)
+<span class="p">-</span> Suggestions for fixes
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="next-steps">Next Steps</h2>
+
+<p>Now that you have a working Gradient project:</p>
+
+<ol>
+  <li>
+<strong>Add more specs</strong>: Create additional specification files</li>
+  <li>
+<strong>Enrich context</strong>: Add implementation guides, decision trees</li>
+  <li>
+<strong>Create workflows</strong>: Build multi-step prompts for complex tasks</li>
+  <li>
+<strong>Add agents</strong>: Create specialized validators or reviewers</li>
+  <li>
+<strong>Write scripts</strong>: Automate validation or generation tasks</li>
+</ol>
+
+<hr>
+
+<h2 id="troubleshooting">Troubleshooting</h2>
+
+<h3 id="reference-not-found">Reference Not Found</h3>
+
+<p><strong>Error</strong>: <code class="language-plaintext highlighter-rouge">ERROR: Broken reference in prompts/load-context.md</code></p>
+
+<p><strong>Fix</strong>: Check relative path from prompt to referenced file</p>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># If prompt is in prompts/</span>
+@../my-plugin-spec/format-spec.md  # Correct (up one level)
+@./my-plugin-spec/format-spec.md   # Wrong (same level)
+</code></pre></div></div>
+
+<h3 id="high-duplication-ratio">High Duplication Ratio</h3>
+
+<p><strong>Error</strong>: <code class="language-plaintext highlighter-rouge">Duplication ratio: 1.5</code> (target: ≤1.1)</p>
+
+<p><strong>Fix</strong>: Find duplicated content and consolidate</p>
+<ol>
+  <li>Identify what’s duplicated</li>
+  <li>Determine Single Source of Truth (SSOT)</li>
+  <li>Move content to SSOT</li>
+  <li>Replace duplicates with <code class="language-plaintext highlighter-rouge">@</code> references</li>
+</ol>
+
+<h3 id="prompt-too-verbose">Prompt Too Verbose</h3>
+
+<p><strong>Error</strong>: <code class="language-plaintext highlighter-rouge">Reference density: 0.2</code> (target: &gt;0.5)</p>
+
+<p><strong>Fix</strong>: Extract inline content to specs/context</p>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># Before (verbose)</span>
+<span class="gu">## Format Rules</span>
+Files must have settings with name, version, enabled.
+Name is string max 50 chars.
+[... 50 lines of spec content ...]
+
+<span class="gh"># After (thin)</span>
+<span class="gu">## Format Rules</span>
+@../my-plugin-spec/format-spec.md
+
+<span class="gu">## Examples</span>
+@../context/examples.md
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="resources">Resources</h2>
+
+<ul>
+  <li>
+<a href="/specifications/">Specifications</a> - Layer details</li>
+  <li>
+<a href="/architecture-guide/">Architecture Guide</a> - Deep dive</li>
+  <li>
+<a href="/examples/">Examples</a> - Real-world projects</li>
+  <li>
+<a href="/tools/">Tools</a> - Scripts and agents</li>
+</ul>
+
+<hr>
+
+<p><strong>Ready to build?</strong> Start with a simple spec, add examples, create a thin prompt, and validate!</p>
+
+  </div>
+
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Davi Guides</li>
+</ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+<ul class="social-media-list"></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>A proposal for a layered context architecture for Claude Code plugins.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+
+</html>

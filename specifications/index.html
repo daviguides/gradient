@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Specifications | Gradient</title>
+<meta name="generator" content="Jekyll v4.4.1">
+<meta property="og:title" content="Specifications">
+<meta name="author" content="Davi Guides">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="A proposal for a layered context architecture for Claude Code plugins.">
+<meta property="og:description" content="A proposal for a layered context architecture for Claude Code plugins.">
+<meta property="og:site_name" content="Gradient">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="Specifications">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Davi Guides"},"description":"A proposal for a layered context architecture for Claude Code plugins.","headline":"Specifications","url":"/specifications/"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
+<link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Gradient">
+</head>
+<body>
+<header class="site-header">
+
+  <div class="wrapper">
+<a class="site-title" rel="author" href="/">Gradient</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger">
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewbox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger">
+<a class="page-link" href="/">Home</a><a class="page-link" href="/quick-start/">Quick Start</a><a class="page-link" href="/why-gradient/">Why Gradient?</a><a class="page-link" href="/specifications/">Specifications</a><a class="page-link" href="/examples/">Examples</a><a class="page-link" href="/tools/">Tools</a>
+</div>
+      </nav>
+</div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <!-- <header class="post-header">
+    <h1 class="post-title">Specifications</h1>
+  </header> -->
+
+  <div class="post-content">
+    <h1 id="gradient-specifications">Gradient Specifications</h1>
+
+<p>Complete technical specifications for the Gradient layered architecture.</p>
+
+<hr>
+
+<h2 id="core-specifications">Core Specifications</h2>
+
+<p>Gradient is defined by three foundational specifications:</p>
+
+<h3 id="1-architecture-specification">1. Architecture Specification</h3>
+
+<p><strong>Purpose</strong>: Complete normative definition of Gradient architecture</p>
+
+<p><strong>Defines</strong>:</p>
+<ul>
+  <li>The 7 architectural layers</li>
+  <li>Layer responsibilities and boundaries</li>
+  <li>Composition rules and reference syntax</li>
+  <li>Validation rules and anti-patterns</li>
+  <li>Implementation guidelines for LLMs</li>
+</ul>
+
+<p><a href="https://github.com/daviguides/gradient/blob/main/gradient-spec/architecture-spec.md">Read: <code class="language-plaintext highlighter-rouge">gradient-spec/architecture-spec.md</code></a></p>
+
+<h3 id="2-anti-duplication-principles">2. Anti-Duplication Principles</h3>
+
+<p><strong>Purpose</strong>: Universal principles for preventing duplication</p>
+
+<p><strong>Defines</strong>:</p>
+<ul>
+  <li>Single Source of Truth (SSOT) philosophy</li>
+  <li>Detection symptoms (red flags)</li>
+  <li>Prevention strategies (reference vs duplicate)</li>
+  <li>Refactoring workflows</li>
+  <li>Validation checklists</li>
+</ul>
+
+<p><a href="https://github.com/daviguides/gradient/blob/main/gradient-spec/anti-duplication-principles.md">Read: <code class="language-plaintext highlighter-rouge">gradient-spec/anti-duplication-principles.md</code></a></p>
+
+<h3 id="3-layer-specification">3. Layer Specification</h3>
+
+<p><strong>Purpose</strong>: Technical specification of each layer</p>
+
+<p><strong>Defines</strong>:</p>
+<ul>
+  <li>Required file structure per layer</li>
+  <li>Content rules (MUST/MUST NOT)</li>
+  <li>Validation criteria</li>
+  <li>Quality metrics</li>
+  <li>Examples of valid structures</li>
+</ul>
+
+<p><a href="https://github.com/daviguides/gradient/blob/main/gradient-spec/layer-spec.md">Read: <code class="language-plaintext highlighter-rouge">gradient-spec/layer-spec.md</code></a></p>
+
+<hr>
+
+<h2 id="architecture-overview">Architecture Overview</h2>
+
+<h3 id="the-gradient-metaphor">The Gradient Metaphor</h3>
+
+<p><img class="mermaid" src="https://mermaid.ink/svg/eyJjb2RlIjoiZ3JhcGggTFJcbkFbXCLilojilojilojilojilojilojilojilojilpHilpHilpHilpHilpHilpHilpHilpE8YnIvPlNQRUNTPGJyLz4oTm9ybWF0aXZlKVwiXVxuQltcIiAgICDilojilojilojilojilojilojilojilojilpHilpHilpHilpE8YnIvPkNPTlRFWFQ8YnIvPihBcHBsaWVkKVwiXVxuQ1tcIiAgICAgICAg4paI4paI4paI4paI4paI4paI4paI4paIPGJyLz5QUk9NUFRTPGJyLz4oT3JjaGVzdHJhdGlvbilcIl1cbiUlLVxuQSAtLi0-fHNtb290aCB0cmFuc2l0aW9ufCBCXG5CIC0uLT58c21vb3RoIHRyYW5zaXRpb258IENcbiUlLVxuc3R5bGUgQSBmaWxsOiNlNzRjM2Msc3Ryb2tlOiNjMDM5MmIsc3Ryb2tlLXdpZHRoOjNweCxjb2xvcjojZmZmXG5zdHlsZSBCIGZpbGw6I2YzOWMxMixzdHJva2U6I2Q2ODkxMCxzdHJva2Utd2lkdGg6M3B4LGNvbG9yOiNmZmZcbnN0eWxlIEMgZmlsbDojMjdhZTYwLHN0cm9rZTojMjI5OTU0LHN0cm9rZS13aWR0aDozcHgsY29sb3I6I2ZmZiIsIm1lcm1haWQiOm51bGx9"></p>
+
+<p>Like a visual gradient, each layer <strong>dissolves into</strong> the next:</p>
+<ul>
+  <li>SPECS → CONTEXT: From rules to application</li>
+  <li>CONTEXT → PROMPTS: From patterns to action</li>
+</ul>
+
+<p><strong>Not</strong> rigid boundaries, but <strong>smooth, intentional transitions</strong>.</p>
+
+<hr>
+
+<h2 id="layer-1-specs-normative">Layer 1: SPECS (Normative)</h2>
+
+<h3 id="purpose">Purpose</h3>
+<p>Authoritative source of truth for definitions, rules, and standards.</p>
+
+<h3 id="contains">Contains</h3>
+<ul>
+  <li>Format definitions</li>
+  <li>Syntax rules</li>
+  <li>Validation criteria</li>
+  <li>Semantic specifications</li>
+  <li>Standards and conventions</li>
+</ul>
+
+<h3 id="does-not-contain">Does NOT Contain</h3>
+<ul>
+  <li>Working examples (→ CONTEXT)</li>
+  <li>Implementation guides (→ CONTEXT)</li>
+  <li>Orchestration logic (→ PROMPTS)</li>
+  <li>Meta-instructions for LLMs (→ PROMPTS)</li>
+</ul>
+
+<h3 id="file-patterns">File Patterns</h3>
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">*-spec.md</code> - Format specifications</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">*-principles.md</code> - Foundational principles</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">*-rules.md</code> - Normative rules</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">*-standards.md</code> - Standards definitions</li>
+</ul>
+
+<h3 id="quality-metrics">Quality Metrics</h3>
+<ul>
+  <li>
+<strong>Completeness</strong>: 100% (all concepts defined)</li>
+  <li>
+<strong>Normative ratio</strong>: &gt;80% (normative vs descriptive text)</li>
+  <li>
+<strong>Independence</strong>: High (minimal external dependencies)</li>
+</ul>
+
+<h3 id="example">Example</h3>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># Format Specification</span>
+
+<span class="gs">**Purpose**</span>: Define complete structure of XYZ format.
+
+<span class="gu">## Core Concept</span>
+
+XYZ files MUST contain:
+<span class="p">1.</span> Metadata section (required)
+<span class="p">2.</span> Content section (required)
+<span class="p">3.</span> Footer section (optional)
+
+<span class="gu">### Metadata Section</span>
+
+Required fields:
+<span class="p">-</span> <span class="sb">`id`</span>: Unique identifier (snake_case)
+<span class="p">-</span> <span class="sb">`version`</span>: Semantic version (MAJOR.MINOR.PATCH)
+
+<span class="gu">## Validation Rules</span>
+
+Valid XYZ file if:
+<span class="p">-</span> All required sections present
+<span class="p">-</span> Metadata fields valid
+<span class="p">-</span> Syntax follows specification
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="layer-2-context-applied">Layer 2: CONTEXT (Applied)</h2>
+
+<h3 id="purpose-1">Purpose</h3>
+<p>Practical application of specifications through examples and guides.</p>
+
+<h3 id="contains-1">Contains</h3>
+<ul>
+  <li>Working examples</li>
+  <li>Implementation patterns</li>
+  <li>Decision trees</li>
+  <li>Practical guides</li>
+  <li>Best practices in action</li>
+</ul>
+
+<h3 id="does-not-contain-1">Does NOT Contain</h3>
+<ul>
+  <li>Syntax definitions (→ SPECS)</li>
+  <li>Format rules (→ SPECS)</li>
+  <li>Normative statements (→ SPECS)</li>
+  <li>Orchestration logic (→ PROMPTS)</li>
+</ul>
+
+<h3 id="file-patterns-1">File Patterns</h3>
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">examples.md</code> - Complete working examples</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">*-guide.md</code> - Implementation/decision guides</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">patterns.md</code> - Architectural patterns</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">faq.md</code> - Common questions with applied answers</li>
+</ul>
+
+<h3 id="quality-metrics-1">Quality Metrics</h3>
+<ul>
+  <li>
+<strong>Reference ratio</strong>: &gt;30% (references to SPECS)</li>
+  <li>
+<strong>Unique value</strong>: High (not duplicating specs)</li>
+  <li>
+<strong>Completeness</strong>: 100% (examples work)</li>
+  <li>
+<strong>Practical utility</strong>: High (solves real problems)</li>
+</ul>
+
+<h3 id="example-1">Example</h3>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># Implementation Guide</span>
+
+For format rules: @../project-spec/format-spec.md
+
+<span class="gu">## Getting Started</span>
+
+To create your first file:
+<span class="p">1.</span> Define metadata (see format spec for requirements)
+<span class="p">2.</span> Add content sections
+<span class="p">3.</span> Validate structure
+
+<span class="gu">### Example Setup</span>
+
+<span class="p">```</span><span class="nl">yaml
+</span><span class="na">meta</span><span class="pi">:</span>
+  <span class="na">id</span><span class="pi">:</span> <span class="s">my_first_file</span>
+  <span class="na">version</span><span class="pi">:</span> <span class="s">1.0.0</span>
+</code></pre></div></div>
+
+<h2 id="common-patterns">Common Patterns</h2>
+
+<h3 id="pattern-1-simple-structure">Pattern 1: Simple Structure</h3>
+<p>[Applied example with explanation]</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+---
+
+## Layer 3: PROMPTS (Orchestration)
+
+### Purpose
+Dynamic orchestration that loads specs/context and provides meta-instructions.
+
+### Contains
+- `@` references to SPECS and CONTEXT
+- Meta-instructions for LLMs
+- Orchestration logic
+- Context loading sequences
+
+### Does NOT Contain
+- Inline spec content (&gt;5 lines per section)
+- Inline examples (→ CONTEXT)
+- Any duplicated material from SPECS or CONTEXT
+
+### File Patterns
+- `load-*.md` - Context loaders
+- `*-workflow.md` - Multi-step orchestrations
+- `validate-*.md` - Validation prompts
+
+### Quality Metrics
+- **Reference ratio**: &gt;50% (@ references / total lines)
+- **Inline content**: &lt;5 lines per section
+- **Duplication**: 0% (no repeated content)
+- **Clarity**: High (task definition clear)
+
+### Example
+
+```markdown
+# Load Context Prompt
+
+**Purpose**: Load format specifications and implementation knowledge.
+
+## Format Specifications (Normative)
+
+@../project-spec/format-spec.md
+@../project-spec/syntax-spec.md
+
+## Applied Knowledge (Practical)
+
+@../context/implementation-guide.md
+@../context/examples.md
+
+## Your Task
+
+With these specifications and guides loaded, you can now:
+1. Create new files following format spec
+2. Validate existing files
+3. Guide users on implementation
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="layer-4-commands-api-entry-points">Layer 4: COMMANDS (API Entry Points)</h2>
+
+<h3 id="purpose-2">Purpose</h3>
+<p>Thin API layer mapping one-to-one with PROMPTS.</p>
+
+<h3 id="structure">Structure</h3>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- commands/load-context.md --&gt;</span>
+Load project context for development.
+
+@../prompts/load-context.md
+</code></pre></div></div>
+
+<h3 id="characteristics">Characteristics</h3>
+<ul>
+  <li>Maximum 5 lines total</li>
+  <li>Single <code class="language-plaintext highlighter-rouge">@</code> reference to corresponding PROMPT</li>
+  <li>No business logic</li>
+  <li>One-to-one mapping with prompts</li>
+</ul>
+
+<h3 id="quality-metrics-2">Quality Metrics</h3>
+<ul>
+  <li>
+<strong>File size</strong>: ≤5 lines</li>
+  <li>
+<strong>Reference count</strong>: Exactly 1</li>
+  <li>
+<strong>Logic</strong>: 0 (no business logic)</li>
+</ul>
+
+<h3 id="analogy">Analogy</h3>
+<p>Like <strong>REST API routes</strong> - define the interface, delegate the logic.</p>
+
+<hr>
+
+<h2 id="layer-5-agents-specialized-contexts">Layer 5: AGENTS (Specialized Contexts)</h2>
+
+<h3 id="purpose-3">Purpose</h3>
+<p>Spin-off processes with isolated contexts and separate permissions.</p>
+
+<h3 id="structure-1">Structure</h3>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># Architecture Reviewer Agent</span>
+
+You are an architecture reviewer specialized in Gradient compliance.
+
+<span class="gu">## Context</span>
+
+@../gradient-spec/architecture-spec.md
+@../gradient-spec/anti-duplication-principles.md
+
+<span class="gu">## Your Task</span>
+
+Review provided project structure for compliance.
+
+<span class="gu">## Return Format</span>
+
+Return summary containing:
+<span class="p">-</span> Compliance status (pass/fail)
+<span class="p">-</span> Issues found (list)
+<span class="p">-</span> Recommendations (list)
+</code></pre></div></div>
+
+<h3 id="characteristics-1">Characteristics</h3>
+<ul>
+  <li>Run independently from main context</li>
+  <li>Have separate tool access</li>
+  <li>Return summarized results</li>
+  <li>Don’t contaminate main context</li>
+</ul>
+
+<h3 id="quality-metrics-3">Quality Metrics</h3>
+<ul>
+  <li>
+<strong>Role clarity</strong>: High</li>
+  <li>
+<strong>Task specificity</strong>: High</li>
+  <li>
+<strong>Return format</strong>: Explicit</li>
+  <li>
+<strong>Context loading</strong>: Via references</li>
+</ul>
+
+<hr>
+
+<h2 id="layer-6-scripts-efficiency-layer">Layer 6: SCRIPTS (Efficiency Layer)</h2>
+
+<h3 id="purpose-4">Purpose</h3>
+<p>Code execution when more efficient than LLM tokens.</p>
+
+<h3 id="when-to-use">When to Use</h3>
+<ul>
+  <li>Repetitive tasks (file system scans)</li>
+  <li>Performance-critical operations (large file processing)</li>
+  <li>Validation logic (format checking)</li>
+  <li>Automation (bulk operations)</li>
+</ul>
+
+<h3 id="structure-2">Structure</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+<span class="c"># Script: validate-structure.sh</span>
+<span class="c"># Purpose: Validate Gradient project structure compliance</span>
+<span class="c"># Usage: validate-structure.sh &lt;project-path&gt;</span>
+
+<span class="nb">set</span> <span class="nt">-e</span>
+
+<span class="nv">PROJECT_PATH</span><span class="o">=</span><span class="s2">"</span><span class="nv">$1</span><span class="s2">"</span>
+
+<span class="c"># Validation logic</span>
+<span class="nv">required_dirs</span><span class="o">=(</span><span class="s2">"gradient-spec"</span> <span class="s2">"context"</span> <span class="s2">"prompts"</span><span class="o">)</span>
+
+<span class="k">for </span><span class="nb">dir </span><span class="k">in</span> <span class="s2">"</span><span class="k">${</span><span class="nv">required_dirs</span><span class="p">[@]</span><span class="k">}</span><span class="s2">"</span><span class="p">;</span> <span class="k">do
+    if</span> <span class="o">[</span> <span class="o">!</span> <span class="nt">-d</span> <span class="s2">"</span><span class="nv">$PROJECT_PATH</span><span class="s2">/</span><span class="nv">$dir</span><span class="s2">"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then
+        </span><span class="nb">echo</span> <span class="s2">"ERROR: Missing required directory: </span><span class="nv">$dir</span><span class="s2">"</span>
+        <span class="nb">exit </span>1
+    <span class="k">fi
+done
+
+</span><span class="nb">echo</span> <span class="s2">"Structure validation passed"</span>
+</code></pre></div></div>
+
+<h3 id="quality-metrics-4">Quality Metrics</h3>
+<ul>
+  <li>
+<strong>Single responsibility</strong>: Yes</li>
+  <li>
+<strong>Error handling</strong>: Present</li>
+  <li>
+<strong>Documentation</strong>: Complete</li>
+  <li>
+<strong>Testability</strong>: High</li>
+</ul>
+
+<hr>
+
+<h2 id="layer-7-hooks-event-driven">Layer 7: HOOKS (Event-Driven)</h2>
+
+<h3 id="purpose-5">Purpose</h3>
+<p>Lifecycle event handlers for automated workflows.</p>
+
+<h3 id="structure-3">Structure</h3>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># Pre-Command Validation Hook</span>
+
+<span class="gs">**Triggered on**</span>: Before command execution
+
+<span class="gs">**Purpose**</span>: Validate architecture compliance before running commands.
+
+<span class="gu">## Action</span>
+
+@../prompts/validate-architecture.md
+
+<span class="gu">## Configuration</span>
+
+Skip validation for commands:
+<span class="p">-</span> help
+<span class="p">-</span> version
+</code></pre></div></div>
+
+<h3 id="events">Events</h3>
+<ul>
+  <li>Pre-command execution</li>
+  <li>Post-command execution</li>
+  <li>File changes</li>
+  <li>Context switches</li>
+</ul>
+
+<h3 id="characteristics-2">Characteristics</h3>
+<ul>
+  <li>Lightweight (avoid heavy processing)</li>
+  <li>Clear trigger event</li>
+  <li>References PROMPTS for logic</li>
+</ul>
+
+<hr>
+
+<h2 id="layer-interactions">Layer Interactions</h2>
+
+<h3 id="reference-flow">Reference Flow</h3>
+
+<p><img class="mermaid" src="https://mermaid.ink/svg/eyJjb2RlIjoiZ3JhcGggVERcbkNNRFtjb21tYW5kcy88YnIvPmNvbW1hbmQubWRdXG5QUk9NUFRbcHJvbXB0cy88YnIvPnByb21wdC5tZF1cblNQRUNbc3BlY3MvPGJyLz5zcGVjLm1kXVxuQ1RYW2NvbnRleHQvPGJyLz5ndWlkZS5tZF1cbiUlLVxuQ01EIC0tPnxcIkByZWZlcmVuY2VcInwgUFJPTVBUXG5QUk9NUFQgLS0-fFwiQHJlZmVyZW5jZVwifCBTUEVDXG5QUk9NUFQgLS0-fFwiQHJlZmVyZW5jZVwifCBDVFhcbkNUWCAtLi0-fFwiQHJlZmVyZW5jZVwifCBTUEVDXG4lJS1cbnN0eWxlIENNRCBmaWxsOiMzNDk4ZGIsc3Ryb2tlOiMyOTgwYjksY29sb3I6I2ZmZlxuc3R5bGUgUFJPTVBUIGZpbGw6IzI3YWU2MCxzdHJva2U6IzIyOTk1NCxjb2xvcjojZmZmXG5zdHlsZSBTUEVDIGZpbGw6I2U3NGMzYyxzdHJva2U6I2MwMzkyYixjb2xvcjojZmZmXG5zdHlsZSBDVFggZmlsbDojZjM5YzEyLHN0cm9rZTojZDY4OTEwLGNvbG9yOiNmZmYiLCJtZXJtYWlkIjpudWxsfQ"></p>
+
+<h3 id="information-flow">Information Flow</h3>
+
+<p><img class="mermaid" src="https://mermaid.ink/svg/eyJjb2RlIjoiZmxvd2NoYXJ0IExSXG5BW1VzZXIgTmVlZF0gLS0-IEJbQ09NTUFORF1cbkIgLS0-IENbUFJPTVBUXVxuQyAtLT4gRFtMb2FkIFNQRUNTXVxuQyAtLT4gRVtMb2FkIENPTlRFWFRdXG5EIC0tPiBGW0V4ZWN1dGlvbl1cbkUgLS0-IEZcbkYgLS0-IEdbUmVzdWx0XVxuJSUtXG5zdHlsZSBBIGZpbGw6I2VjZjBmMSxzdHJva2U6Izk1YTVhNlxuc3R5bGUgQiBmaWxsOiMzNDk4ZGIsc3Ryb2tlOiMyOTgwYjksY29sb3I6I2ZmZlxuc3R5bGUgQyBmaWxsOiMyN2FlNjAsc3Ryb2tlOiMyMjk5NTQsY29sb3I6I2ZmZlxuc3R5bGUgRCBmaWxsOiNlNzRjM2Msc3Ryb2tlOiNjMDM5MmIsY29sb3I6I2ZmZlxuc3R5bGUgRSBmaWxsOiNmMzljMTIsc3Ryb2tlOiNkNjg5MTAsY29sb3I6I2ZmZlxuc3R5bGUgRiBmaWxsOiM5YjU5YjYsc3Ryb2tlOiM4ZTQ0YWQsY29sb3I6I2ZmZlxuc3R5bGUgRyBmaWxsOiNlY2YwZjEsc3Ryb2tlOiM5NWE1YTYiLCJtZXJtYWlkIjpudWxsfQ"></p>
+
+<hr>
+
+<h2 id="validation-targets">Validation Targets</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Layer</th>
+      <th>Duplication</th>
+      <th>Reference Density</th>
+      <th>File Size</th>
+      <th>Completeness</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>SPECS</strong></td>
+      <td>0%</td>
+      <td>N/A</td>
+      <td>Variable</td>
+      <td>100%</td>
+    </tr>
+    <tr>
+      <td><strong>CONTEXT</strong></td>
+      <td>0%</td>
+      <td>
+<blockquote>
+  <p>30%</p>
+</blockquote>
+</td>
+      <td>&lt;500 lines</td>
+      <td>100%</td>
+    </tr>
+    <tr>
+      <td><strong>PROMPTS</strong></td>
+      <td>0%</td>
+      <td>
+<blockquote>
+  <p>50%</p>
+</blockquote>
+</td>
+      <td>&lt;200 lines</td>
+      <td>N/A</td>
+    </tr>
+    <tr>
+      <td><strong>COMMANDS</strong></td>
+      <td>0%</td>
+      <td>100%</td>
+      <td>≤5 lines</td>
+      <td>N/A</td>
+    </tr>
+    <tr>
+      <td><strong>AGENTS</strong></td>
+      <td>0%</td>
+      <td>Variable</td>
+      <td>Variable</td>
+      <td>N/A</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Project-wide target</strong>: Duplication ratio ≤ 1.1</p>
+
+<hr>
+
+<h2 id="reference-syntax">Reference Syntax</h2>
+
+<h3 id="absolute-references">Absolute References</h3>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@~/.claude/gradient/gradient-spec/architecture-spec.md
+</code></pre></div></div>
+
+<h3 id="relative-references">Relative References</h3>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@../gradient-spec/architecture-spec.md  # Up one level
+@./examples.md                          # Same directory
+</code></pre></div></div>
+
+<h3 id="resolution-rules">Resolution Rules</h3>
+<ol>
+  <li>Paths are relative to current file</li>
+  <li>Use <code class="language-plaintext highlighter-rouge">../</code> to go up directories</li>
+  <li>Use <code class="language-plaintext highlighter-rouge">./</code> for same directory</li>
+  <li>Never use system-absolute paths</li>
+</ol>
+
+<hr>
+
+<h2 id="next-steps">Next Steps</h2>
+
+<ul>
+  <li>
+<a href="/quick-start/">Quick Start</a> - Build your first project</li>
+  <li>
+<a href="/architecture-guide/">Architecture Guide</a> - Deep dive with diagrams</li>
+  <li>
+<a href="/examples/">Examples</a> - Real-world implementations</li>
+  <li>
+<a href="/tools/">Tools</a> - Validation and metrics</li>
+</ul>
+
+<hr>
+
+<p><strong>Questions?</strong> Check the <a href="/architecture-guide/">Architecture Guide</a> for detailed explanations and Mermaid diagrams.</p>
+
+  </div>
+
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Davi Guides</li>
+</ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+<ul class="social-media-list"></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>A proposal for a layered context architecture for Claude Code plugins.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+
+</html>

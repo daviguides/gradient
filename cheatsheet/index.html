@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Cheatsheet | Gradient</title>
+<meta name="generator" content="Jekyll v4.4.1">
+<meta property="og:title" content="Cheatsheet">
+<meta name="author" content="Davi Guides">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="A proposal for a layered context architecture for Claude Code plugins.">
+<meta property="og:description" content="A proposal for a layered context architecture for Claude Code plugins.">
+<meta property="og:site_name" content="Gradient">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="Cheatsheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Davi Guides"},"description":"A proposal for a layered context architecture for Claude Code plugins.","headline":"Cheatsheet","url":"/cheatsheet/"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
+<link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Gradient">
+</head>
+<body>
+<header class="site-header">
+
+  <div class="wrapper">
+<a class="site-title" rel="author" href="/">Gradient</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger">
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewbox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger">
+<a class="page-link" href="/">Home</a><a class="page-link" href="/quick-start/">Quick Start</a><a class="page-link" href="/why-gradient/">Why Gradient?</a><a class="page-link" href="/specifications/">Specifications</a><a class="page-link" href="/examples/">Examples</a><a class="page-link" href="/tools/">Tools</a>
+</div>
+      </nav>
+</div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <!-- <header class="post-header">
+    <h1 class="post-title">Cheatsheet</h1>
+  </header> -->
+
+  <div class="post-content">
+    <h1 id="gradient-cheatsheet">Gradient Cheatsheet</h1>
+
+<p>Quick reference for Gradient architecture patterns, syntax, and quality targets.</p>
+
+<hr>
+
+<h2 id="layer-quick-reference">Layer Quick Reference</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Layer</th>
+      <th>Purpose</th>
+      <th>Contains</th>
+      <th>References</th>
+      <th>File Patterns</th>
+      <th>Size Limit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>SPECS</strong></td>
+      <td>Normative (WHAT)</td>
+      <td>Definitions, rules, standards</td>
+      <td>None</td>
+      <td>
+<code class="language-plaintext highlighter-rouge">*-spec.md</code>, <code class="language-plaintext highlighter-rouge">*-principles.md</code>
+</td>
+      <td>N/A</td>
+    </tr>
+    <tr>
+      <td><strong>CONTEXT</strong></td>
+      <td>Applied (HOW)</td>
+      <td>Examples, guides, patterns</td>
+      <td>SPECS</td>
+      <td>
+<code class="language-plaintext highlighter-rouge">examples.md</code>, <code class="language-plaintext highlighter-rouge">*-guide.md</code>
+</td>
+      <td>&lt;500 lines/file</td>
+    </tr>
+    <tr>
+      <td><strong>PROMPTS</strong></td>
+      <td>Orchestration (ACTION)</td>
+      <td>@refs + meta-instructions</td>
+      <td>SPECS, CONTEXT</td>
+      <td>
+<code class="language-plaintext highlighter-rouge">load-*.md</code>, <code class="language-plaintext highlighter-rouge">*-workflow.md</code>
+</td>
+      <td>&lt;200 lines/file</td>
+    </tr>
+    <tr>
+      <td><strong>COMMANDS</strong></td>
+      <td>API entry</td>
+      <td>Description + 1 @ref</td>
+      <td>PROMPTS</td>
+      <td><code class="language-plaintext highlighter-rouge">command-name.md</code></td>
+      <td>≤5 lines</td>
+    </tr>
+    <tr>
+      <td><strong>AGENTS</strong></td>
+      <td>Specialized</td>
+      <td>Role + @refs + task</td>
+      <td>SPECS, CONTEXT</td>
+      <td><code class="language-plaintext highlighter-rouge">agent-name.md</code></td>
+      <td>Variable</td>
+    </tr>
+    <tr>
+      <td><strong>SCRIPTS</strong></td>
+      <td>Automation</td>
+      <td>Bash/Python code</td>
+      <td>None</td>
+      <td>
+<code class="language-plaintext highlighter-rouge">*.sh</code>, <code class="language-plaintext highlighter-rouge">*.py</code>
+</td>
+      <td>N/A</td>
+    </tr>
+    <tr>
+      <td><strong>HOOKS</strong></td>
+      <td>Events</td>
+      <td>Trigger + @ref</td>
+      <td>PROMPTS</td>
+      <td><code class="language-plaintext highlighter-rouge">event-name.md</code></td>
+      <td>&lt;50 lines</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
+<h2 id="quality-metrics-targets">Quality Metrics Targets</h2>
+
+<h3 id="project-wide">Project-Wide</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Metric</th>
+      <th>Target</th>
+      <th>Warning</th>
+      <th>Critical</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Duplication Ratio</strong></td>
+      <td>≤1.1</td>
+      <td>1.2</td>
+      <td>
+<blockquote>
+  <p>1.3</p>
+</blockquote>
+</td>
+    </tr>
+    <tr>
+      <td><strong>Maintenance Points</strong></td>
+      <td>1 per concept</td>
+      <td>N/A</td>
+      <td>N/A</td>
+    </tr>
+    <tr>
+      <td><strong>Broken References</strong></td>
+      <td>0</td>
+      <td>1-2</td>
+      <td>
+<blockquote>
+  <p>2</p>
+</blockquote>
+</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="layer-specific">Layer-Specific</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Layer</th>
+      <th>Reference Density</th>
+      <th>Inline Content</th>
+      <th>Normative Ratio</th>
+      <th>Completeness</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>SPECS</strong></td>
+      <td>0%</td>
+      <td>Unlimited</td>
+      <td>
+<blockquote>
+  <p>80%</p>
+</blockquote>
+</td>
+      <td>100%</td>
+    </tr>
+    <tr>
+      <td><strong>CONTEXT</strong></td>
+      <td>
+<blockquote>
+  <p>30%</p>
+</blockquote>
+</td>
+      <td>&lt;500 lines</td>
+      <td>N/A</td>
+      <td>100%</td>
+    </tr>
+    <tr>
+      <td><strong>PROMPTS</strong></td>
+      <td>
+<blockquote>
+  <p>50%</p>
+</blockquote>
+</td>
+      <td>&lt;5 lines/section</td>
+      <td>N/A</td>
+      <td>N/A</td>
+    </tr>
+    <tr>
+      <td><strong>COMMANDS</strong></td>
+      <td>100% (1 ref)</td>
+      <td>0 lines</td>
+      <td>N/A</td>
+      <td>N/A</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
+<h2 id="reference-syntax">Reference Syntax</h2>
+
+<h3 id="relative-references">Relative References</h3>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># From prompts/load-context.md</span>
+
+@../project-spec/format-spec.md       # Up one, into project-spec/
+@../context/examples.md               # Up one, into context/
+@./helper-prompt.md                   # Same directory
+</code></pre></div></div>
+
+<h3 id="absolute-references">Absolute References</h3>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># From installed location</span>
+
+@~/.claude/gradient/gradient-spec/architecture-spec.md
+@~/.claude/ymd-spec/ymd_format_spec.md
+</code></pre></div></div>
+
+<h3 id="resolution-rules">Resolution Rules</h3>
+
+<ol>
+  <li>Paths are relative to <strong>current file location</strong>
+</li>
+  <li>Use <code class="language-plaintext highlighter-rouge">../</code> to go up one directory level</li>
+  <li>Use <code class="language-plaintext highlighter-rouge">./</code> for same directory (optional, implicit)</li>
+  <li>Never use system-absolute paths (like <code class="language-plaintext highlighter-rouge">/Users/...</code>)</li>
+</ol>
+
+<hr>
+
+<h2 id="directory-structure-template">Directory Structure Template</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>project-name/
+├── project-name-spec/          # SPECS layer
+│   ├── core-spec.md
+│   ├── principles.md
+│   └── standards.md
+│
+├── context/                    # CONTEXT layer
+│   ├── examples.md
+│   ├── implementation-guide.md
+│   ├── decision-guide.md
+│   └── patterns.md
+│
+├── prompts/                    # PROMPTS layer
+│   ├── load-context.md
+│   ├── create-workflow.md
+│   └── validate-workflow.md
+│
+├── commands/                   # COMMANDS layer
+│   ├── load-context.md
+│   ├── create-item.md
+│   └── validate-item.md
+│
+├── agents/                     # AGENTS layer
+│   ├── specialist.md
+│   └── reviewer.md
+│
+├── scripts/                    # SCRIPTS layer
+│   ├── validate.sh
+│   └── generate.sh
+│
+└── docs/                       # Documentation (for humans)
+    └── README.md
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="file-templates">File Templates</h2>
+
+<h3 id="specs-template">SPECS Template</h3>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># {Concept} Specification</span>
+
+<span class="gs">**Purpose**</span>: Define complete {concept} structure and rules.
+<span class="p">
+---
+</span>
+<span class="gu">## Core Concepts</span>
+
+<span class="gu">### {Concept Name}</span>
+
+<span class="gs">**Definition**</span>: {Normative definition}
+
+{Concept} MUST/MUST NOT/SHALL:
+<span class="p">-</span> {Requirement 1}
+<span class="p">-</span> {Requirement 2}
+<span class="p">-</span> {Requirement 3}
+
+<span class="gu">### {Sub-Concept}</span>
+
+<span class="gs">**Definition**</span>: {Normative definition}
+
+<span class="gs">**Constraints**</span>:
+<span class="p">-</span> {Constraint 1}
+<span class="p">-</span> {Constraint 2}
+<span class="p">
+---
+</span>
+<span class="gu">## Validation Rules</span>
+
+Valid {concept} if:
+<span class="p">-</span> {Validation criterion 1}
+<span class="p">-</span> {Validation criterion 2}
+<span class="p">-</span> {Validation criterion 3}
+<span class="p">
+---
+</span>
+For examples: @../context/examples.md
+For implementation: @../context/implementation-guide.md
+</code></pre></div></div>
+
+<h3 id="context-template">CONTEXT Template</h3>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># {Concept} Examples</span>
+
+For specifications: @../project-spec/{concept}-spec.md
+<span class="p">
+---
+</span>
+<span class="gu">## Example 1: {Scenario}</span>
+
+<span class="gs">**Purpose**</span>: {What this example demonstrates}
+
+<span class="p">```</span><span class="nl">{language}
+</span><span class="sb">{Complete working example}
+</span></code></pre></div></div>
+
+<p><strong>Validates</strong>: {Why this is valid according to spec}</p>
+
+<hr>
+
+<h2 id="example-2-scenario">Example 2: {Scenario}</h2>
+
+<p><strong>Purpose</strong>: {What this example demonstrates}</p>
+
+<pre><code class="language-{language}">{Complete working example}
+</code></pre>
+
+<p><strong>Validates</strong>: {Why this is valid according to spec}</p>
+
+<hr>
+
+<h2 id="example-3-invalid-concept">Example 3: Invalid {Concept}</h2>
+
+<p><strong>Purpose</strong>: {What this demonstrates - anti-pattern}</p>
+
+<pre><code class="language-{language}">{Example that violates spec}
+</code></pre>
+
+<p><strong>Fails validation</strong>:</p>
+<ul>
+  <li>{Violation 1}</li>
+  <li>{Violation 2}
+```</li>
+</ul>
+
+<h3 id="prompts-template">PROMPTS Template</h3>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># {Action} Prompt</span>
+
+<span class="gs">**Purpose**</span>: {Brief description of orchestration}
+<span class="p">
+---
+</span>
+<span class="gu">## Specifications (Normative)</span>
+
+@../project-spec/{spec1}.md
+@../project-spec/{spec2}.md
+<span class="p">
+---
+</span>
+<span class="gu">## Applied Knowledge (Practical)</span>
+
+@../context/examples.md
+@../context/{guide}.md
+<span class="p">
+---
+</span>
+<span class="gu">## Your Task</span>
+
+With specifications and examples loaded, you can now:
+<span class="p">1.</span> {Task step 1}
+<span class="p">2.</span> {Task step 2}
+<span class="p">3.</span> {Task step 3}
+
+{Brief meta-instructions for LLM - keep &lt;5 lines}
+</code></pre></div></div>
+
+<h3 id="commands-template">COMMANDS Template</h3>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{Brief one-line description of command}
+
+@../prompts/{corresponding-prompt}.md
+</code></pre></div></div>
+
+<h3 id="agents-template">AGENTS Template</h3>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># {Agent Name}</span>
+
+You are {role description} specialized in {domain}.
+<span class="p">
+---
+</span>
+<span class="gu">## Context</span>
+
+@../project-spec/{spec}.md
+@../context/{guide}.md
+<span class="p">
+---
+</span>
+<span class="gu">## Your Task</span>
+
+{Specific task description}
+
+{What the agent should do}
+<span class="p">
+---
+</span>
+<span class="gu">## Return Format</span>
+
+Return {output type} containing:
+<span class="p">-</span> {Output element 1}
+<span class="p">-</span> {Output element 2}
+<span class="p">-</span> {Output element 3}
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="common-patterns">Common Patterns</h2>
+
+<h3 id="pattern-1-simple-project">Pattern 1: Simple Project</h3>
+
+<p><strong>When</strong>: Basic plugin with straightforward rules</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>my-plugin/
+├── my-plugin-spec/
+│   └── core-spec.md
+├── context/
+│   └── examples.md
+└── prompts/
+    └── load-context.md
+</code></pre></div></div>
+
+<h3 id="pattern-2-multi-spec-project">Pattern 2: Multi-Spec Project</h3>
+
+<p><strong>When</strong>: Complex plugin with multiple domains</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>my-plugin/
+├── my-plugin-spec/
+│   ├── format-spec.md
+│   ├── validation-spec.md
+│   └── api-spec.md
+├── context/
+│   ├── format-examples.md
+│   ├── validation-examples.md
+│   └── implementation-guide.md
+└── prompts/
+    ├── load-format.md
+    ├── load-validation.md
+    └── load-complete.md
+</code></pre></div></div>
+
+<h3 id="pattern-3-with-agents">Pattern 3: With Agents</h3>
+
+<p><strong>When</strong>: Need specialized review/validation</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>my-plugin/
+├── my-plugin-spec/
+│   └── core-spec.md
+├── context/
+│   └── examples.md
+├── prompts/
+│   └── load-context.md
+└── agents/
+    ├── validator.md
+    └── reviewer.md
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="decision-trees">Decision Trees</h2>
+
+<h3 id="where-does-content-belong">Where Does Content Belong?</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Content Type → Layer
+
+Normative definition      → SPECS
+Validation rule           → SPECS
+Format specification      → SPECS
+Standard/convention       → SPECS
+
+Working example           → CONTEXT
+Implementation guide      → CONTEXT
+Decision guide            → CONTEXT
+Pattern catalog           → CONTEXT
+Best practices (applied)  → CONTEXT
+
+Orchestration logic       → PROMPTS
+Meta-instructions         → PROMPTS
+Context loading           → PROMPTS
+Workflow definition       → PROMPTS
+
+API entry point           → COMMANDS
+Command description       → COMMANDS
+
+Specialized context       → AGENTS
+Validation task           → AGENTS
+Review task               → AGENTS
+
+Automation script         → SCRIPTS
+Validation logic          → SCRIPTS
+Generation logic          → SCRIPTS
+
+Lifecycle handler         → HOOKS
+Event trigger             → HOOKS
+</code></pre></div></div>
+
+<h3 id="should-i-reference-or-inline">Should I Reference or Inline?</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Content Length → Action
+
+&lt; 3 lines        → Inline acceptable
+3-5 lines        → Consider extracting
+&gt; 5 lines        → Must extract + reference
+
+Already exists  → Always reference
+Normative       → Extract to SPECS
+Example         → Extract to CONTEXT
+</code></pre></div></div>
+
+<h3 id="should-i-split-this-spec">Should I Split This Spec?</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Criteria → Decision
+
+&gt; 500 lines                        → Consider split
+Multiple distinct domains          → Split
+Multiple independent concepts      → Split
+Team works on sections in parallel → Split
+
+Tightly coupled concepts           → Keep together
+&lt; 300 lines                        → Keep together
+Would create circular deps         → Keep together
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="validation-commands">Validation Commands</h2>
+
+<h3 id="quick-validation">Quick Validation</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># After editing files</span>
+bash ~/.claude/gradient/scripts/validate-references.sh <span class="nb">.</span>
+</code></pre></div></div>
+
+<h3 id="full-validation">Full Validation</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Before committing</span>
+bash ~/.claude/gradient/scripts/validate-references.sh <span class="nb">.</span>
+bash ~/.claude/gradient/scripts/detect-duplication.sh <span class="nb">.</span>
+bash ~/.claude/gradient/scripts/calculate-metrics.sh <span class="nb">.</span>
+</code></pre></div></div>
+
+<h3 id="complete-review">Complete Review</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Before releasing</span>
+bash ~/.claude/gradient/scripts/calculate-metrics.sh <span class="nb">.</span>
+
+<span class="c"># Then in Claude Code:</span>
+<span class="c"># "Use architecture-reviewer agent to validate my project"</span>
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="common-anti-patterns">Common Anti-Patterns</h2>
+
+<h3 id="anti-pattern-quick-reference-files">Anti-Pattern: Quick Reference Files</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>✗ DON'T:
+project/
+├── spec.md
+└── quickref.md  ← Duplication
+
+✓ DO:
+project/
+├── spec.md
+└── prompts/
+    └── load.md  → @../spec.md
+</code></pre></div></div>
+
+<h3 id="anti-pattern-mixed-layer-files">Anti-Pattern: Mixed Layer Files</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>✗ DON'T:
+spec.md:
+  - Specs (normative)
+  - Examples (context)    ← Mixed layers
+  - Usage (prompts)
+
+✓ DO:
+project-spec/spec.md:     ← SPECS only
+  - Normative definitions
+
+context/examples.md:      ← CONTEXT only
+  - Working examples
+
+prompts/load.md:          ← PROMPTS only
+  - Orchestration
+</code></pre></div></div>
+
+<h3 id="anti-pattern-bloated-commands">Anti-Pattern: Bloated Commands</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>✗ DON'T:
+commands/create.md (50 lines):
+  - Explanations
+  - Logic           ← Business logic
+  - Steps
+
+✓ DO:
+commands/create.md (3 lines):
+  - Description
+  - @reference      ← Delegate to prompt
+</code></pre></div></div>
+
+<h3 id="anti-pattern-inline-duplication">Anti-Pattern: Inline Duplication</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>✗ DON'T:
+prompts/create.md:
+  ## Rules
+  Files must have...
+  [50 lines of spec]    ← Duplicated
+
+✓ DO:
+prompts/create.md:
+  ## Rules
+  @../spec.md           ← Referenced
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="gradient-commands">Gradient Commands</h2>
+
+<h3 id="installation">Installation</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># One-line install</span>
+bash <span class="nt">-c</span> <span class="s2">"</span><span class="si">$(</span>curl <span class="nt">-fsSL</span> https://raw.githubusercontent.com/daviguides/gradient/main/install.sh<span class="si">)</span><span class="s2">"</span>
+
+<span class="c"># Manual install</span>
+git clone https://github.com/daviguides/gradient.git
+<span class="nb">cd </span>gradient
+./install.sh
+</code></pre></div></div>
+
+<h3 id="claude-code-usage">Claude Code Usage</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Load Gradient context
+/load-gradient-context
+
+# Then ask:
+"Create a Gradient project structure for {purpose}"
+"Validate this file against Gradient specs"
+"Where should this content live?"
+"How do I eliminate duplication?"
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="key-metrics-at-a-glance">Key Metrics at a Glance</h2>
+
+<h3 id="healthy-project">Healthy Project</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Duplication Ratio:     1.0-1.1  ✓
+Reference Density:     &gt;50%     ✓
+Command Avg Size:      ≤5 lines ✓
+Broken References:     0        ✓
+</code></pre></div></div>
+
+<h3 id="warning-signs">Warning Signs</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Duplication Ratio:     1.2-1.3  ⚠
+Reference Density:     30-50%   ⚠
+Command Avg Size:      6-10 lines ⚠
+Broken References:     1-2      ⚠
+</code></pre></div></div>
+
+<h3 id="critical-issues">Critical Issues</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Duplication Ratio:     &gt;1.3     ✗
+Reference Density:     &lt;30%     ✗
+Command Avg Size:      &gt;10 lines ✗
+Broken References:     &gt;2       ✗
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="bootstrap-sequence">Bootstrap Sequence</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. Create directory structure
+   └─→ mkdir -p {project-spec,context,prompts,commands}
+
+2. Write SPECS first
+   └─→ {project}-spec/core-spec.md
+
+3. Add CONTEXT (references SPECS)
+   └─→ context/examples.md → @../{project}-spec/core-spec.md
+
+4. Create PROMPTS (references SPECS + CONTEXT)
+   └─→ prompts/load-context.md → @../{project}-spec/*.md + @../context/*.md
+
+5. Add COMMANDS (references PROMPTS)
+   └─→ commands/load-context.md → @../prompts/load-context.md
+
+6. Validate
+   └─→ bash validate-references.sh . &amp;&amp; bash calculate-metrics.sh .
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="quick-links">Quick Links</h2>
+
+<ul>
+  <li>
+<strong><a href="/quick-start/">Quick Start</a></strong> - 10-minute tutorial</li>
+  <li>
+<strong><a href="/specifications/">Specifications</a></strong> - Complete technical specs</li>
+  <li>
+<strong><a href="/best-practices/">Best Practices</a></strong> - Detailed guidelines</li>
+  <li>
+<strong><a href="/tools/">Tools</a></strong> - Validation scripts</li>
+  <li>
+<strong><a href="/examples/">Examples</a></strong> - Real-world projects</li>
+</ul>
+
+<hr>
+
+<p><strong>Print this page</strong>: Use your browser’s print function to create a physical quick reference.</p>
+
+  </div>
+
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Davi Guides</li>
+</ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+<ul class="social-media-list"></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>A proposal for a layered context architecture for Claude Code plugins.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+
+</html>

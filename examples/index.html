@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Examples | Gradient</title>
+<meta name="generator" content="Jekyll v4.4.1">
+<meta property="og:title" content="Examples">
+<meta name="author" content="Davi Guides">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="A proposal for a layered context architecture for Claude Code plugins.">
+<meta property="og:description" content="A proposal for a layered context architecture for Claude Code plugins.">
+<meta property="og:site_name" content="Gradient">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="Examples">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Davi Guides"},"description":"A proposal for a layered context architecture for Claude Code plugins.","headline":"Examples","url":"/examples/"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
+<link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Gradient">
+</head>
+<body>
+<header class="site-header">
+
+  <div class="wrapper">
+<a class="site-title" rel="author" href="/">Gradient</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger">
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewbox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger">
+<a class="page-link" href="/">Home</a><a class="page-link" href="/quick-start/">Quick Start</a><a class="page-link" href="/why-gradient/">Why Gradient?</a><a class="page-link" href="/specifications/">Specifications</a><a class="page-link" href="/examples/">Examples</a><a class="page-link" href="/tools/">Tools</a>
+</div>
+      </nav>
+</div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <!-- <header class="post-header">
+    <h1 class="post-title">Examples</h1>
+  </header> -->
+
+  <div class="post-content">
+    <h1 id="real-world-examples">Real-World Examples</h1>
+
+<p>Gradient emerged from patterns discovered while building Claude Code plugins. These real-world examples demonstrate the architecture in practice.</p>
+
+<hr>
+
+<h2 id="example-1-ymd-spec-plugin">Example 1: YMD-Spec Plugin</h2>
+
+<p><strong>Purpose</strong>: Format specification and authoring tools for YMD/PMD structured prompts.</p>
+
+<p><strong>Repository</strong>: <a href="https://github.com/daviguides/ymd-spec">daviguides/ymd-spec</a></p>
+
+<h3 id="architecture">Architecture</h3>
+
+<p><img class="mermaid" src="https://mermaid.ink/svg/eyJjb2RlIjoiZ3JhcGggVERcbnN1YmdyYXBoIFwiQ29yZSBTcGVjaWZpY2F0aW9ucyAoU1BFQ1MpXCJcbllTW3ltZF9mb3JtYXRfc3BlYy5tZDxici8-WU1EIG5vcm1hdGl2ZSBkZWZpbml0aW9uXVxuUFNbcG1kX2Zvcm1hdF9zcGVjLm1kPGJyLz5QTUQgbm9ybWF0aXZlIGRlZmluaXRpb25dXG5DU1tjb21wb3NpdGlvbl9zcGVjLm1kPGJyLz5Db21wb3NpdGlvbiBydWxlc11cbmVuZFxuJSUtXG5zdWJncmFwaCBcIkFwcGxpZWQgS25vd2xlZGdlIChDT05URVhUKVwiXG5FWFtleGFtcGxlcy5tZDxici8-V29ya2luZyBZTUQvUE1EIGV4YW1wbGVzXVxuSUdbaW1wbGVtZW50YXRpb24tZ3VpZGUubWQ8YnIvPlN0ZXAtYnktc3RlcCBjcmVhdGlvbl1cbkRHW2RlY2lzaW9uLWd1aWRlLm1kPGJyLz5XaGVuIHRvIHVzZSBZTUQgdnMgUE1EXVxuZW5kXG4lJS1cbnN1YmdyYXBoIFwiT3JjaGVzdHJhdGlvbiAoUFJPTVBUUylcIlxuTENbbG9hZC1jb250ZXh0Lm1kPGJyLz5Mb2FkIGFsbCBzcGVjcyArIGNvbnRleHRdXG5DWVtjcmVhdGUteW1kLm1kPGJyLz5ZTUQgY3JlYXRpb24gd29ya2Zsb3ddXG5DUFtjcmVhdGUtcG1kLm1kPGJyLz5QTUQgY3JlYXRpb24gd29ya2Zsb3ddXG5lbmRcbiUlLVxuc3ViZ3JhcGggXCJBUEkgTGF5ZXIgKENPTU1BTkRTKVwiXG5DTUQxW2xvYWQteW1kLWNvbnRleHQubWRdXG5DTUQyW2NyZWF0ZS15bWQtbWFuaWZlc3QubWRdXG5DTUQzW2NyZWF0ZS1wbWQtcGFydGlhbC5tZF1cbmVuZFxuJSUtXG5zdWJncmFwaCBcIlNwZWNpYWxpemVkIChBR0VOVFMpXCJcbkFHMVt5bWQtYXV0aG9yLm1kPGJyLz5BdXRob3Jpbmcgc3BlY2lhbGlzdF1cbkFHMltjb21wb3NpdGlvbi1leHBlcnQubWQ8YnIvPkNvbXBvc2l0aW9uIHBhdHRlcm5zXVxuQUczW3ltZC12YWxpZGF0b3IubWQ8YnIvPkZvcm1hdCB2YWxpZGF0aW9uXVxuZW5kXG4lJS1cbkVYIC0tPnxcIkByZWZlcmVuY2VzXCJ8IFlTXG5FWCAtLT58XCJAcmVmZXJlbmNlc1wifCBQU1xuSUcgLS0-fFwiQHJlZmVyZW5jZXNcInwgWVNcbklHIC0tPnxcIkByZWZlcmVuY2VzXCJ8IENTXG4lJS1cbkxDIC0tPnxcIkByZWZlcmVuY2VzXCJ8IFlTXG5MQyAtLT58XCJAcmVmZXJlbmNlc1wifCBQU1xuTEMgLS0-fFwiQHJlZmVyZW5jZXNcInwgQ1NcbkxDIC0tPnxcIkByZWZlcmVuY2VzXCJ8IEVYXG5MQyAtLT58XCJAcmVmZXJlbmNlc1wifCBJR1xuJSUtXG5DWSAtLT58XCJAcmVmZXJlbmNlc1wifCBZU1xuQ1kgLS0-fFwiQHJlZmVyZW5jZXNcInwgRVhcbiUlLVxuQ01EMSAtLT58XCJAcmVmZXJlbmNlc1wifCBMQ1xuQ01EMiAtLT58XCJAcmVmZXJlbmNlc1wifCBDWVxuQ01EMyAtLT58XCJAcmVmZXJlbmNlc1wifCBDUFxuJSUtXG5BRzEgLS0-fFwiQHJlZmVyZW5jZXNcInwgWVNcbkFHMSAtLT58XCJAcmVmZXJlbmNlc1wifCBQU1xuQUcxIC0tPnxcIkByZWZlcmVuY2VzXCJ8IEVYXG4lJS1cbnN0eWxlIFlTIGZpbGw6I2U3NGMzYyxzdHJva2U6I2MwMzkyYixzdHJva2Utd2lkdGg6MnB4LGNvbG9yOiNmZmZcbnN0eWxlIFBTIGZpbGw6I2U3NGMzYyxzdHJva2U6I2MwMzkyYixzdHJva2Utd2lkdGg6MnB4LGNvbG9yOiNmZmZcbnN0eWxlIENTIGZpbGw6I2U3NGMzYyxzdHJva2U6I2MwMzkyYixzdHJva2Utd2lkdGg6MnB4LGNvbG9yOiNmZmZcbnN0eWxlIEVYIGZpbGw6I2YzOWMxMixzdHJva2U6I2Q2ODkxMCxzdHJva2Utd2lkdGg6MnB4LGNvbG9yOiNmZmZcbnN0eWxlIElHIGZpbGw6I2YzOWMxMixzdHJva2U6I2Q2ODkxMCxzdHJva2Utd2lkdGg6MnB4LGNvbG9yOiNmZmZcbnN0eWxlIERHIGZpbGw6I2YzOWMxMixzdHJva2U6I2Q2ODkxMCxzdHJva2Utd2lkdGg6MnB4LGNvbG9yOiNmZmZcbnN0eWxlIExDIGZpbGw6IzI3YWU2MCxzdHJva2U6IzIyOTk1NCxzdHJva2Utd2lkdGg6MnB4LGNvbG9yOiNmZmZcbnN0eWxlIENZIGZpbGw6IzI3YWU2MCxzdHJva2U6IzIyOTk1NCxzdHJva2Utd2lkdGg6MnB4LGNvbG9yOiNmZmZcbnN0eWxlIENQIGZpbGw6IzI3YWU2MCxzdHJva2U6IzIyOTk1NCxzdHJva2Utd2lkdGg6MnB4LGNvbG9yOiNmZmZcbnN0eWxlIENNRDEgZmlsbDojMzQ5OGRiLHN0cm9rZTojMjk4MGI5LHN0cm9rZS13aWR0aDoycHgsY29sb3I6I2ZmZlxuc3R5bGUgQ01EMiBmaWxsOiMzNDk4ZGIsc3Ryb2tlOiMyOTgwYjksc3Ryb2tlLXdpZHRoOjJweCxjb2xvcjojZmZmXG5zdHlsZSBDTUQzIGZpbGw6IzM0OThkYixzdHJva2U6IzI5ODBiOSxzdHJva2Utd2lkdGg6MnB4LGNvbG9yOiNmZmZcbnN0eWxlIEFHMSBmaWxsOiM5YjU5YjYsc3Ryb2tlOiM4ZTQ0YWQsc3Ryb2tlLXdpZHRoOjJweCxjb2xvcjojZmZmXG5zdHlsZSBBRzIgZmlsbDojOWI1OWI2LHN0cm9rZTojOGU0NGFkLHN0cm9rZS13aWR0aDoycHgsY29sb3I6I2ZmZlxuc3R5bGUgQUczIGZpbGw6IzliNTliNixzdHJva2U6IzhlNDRhZCxzdHJva2Utd2lkdGg6MnB4LGNvbG9yOiNmZmYiLCJtZXJtYWlkIjpudWxsfQ"></p>
+
+<h3 id="directory-structure">Directory Structure</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ymd-spec/
+├── ymd_format_spec.md          # SPECS: YMD normative definition
+├── pmd_format_spec.md          # SPECS: PMD normative definition
+├── composition_spec.md         # SPECS: Composition rules
+│
+├── context/                    # CONTEXT: Applied knowledge
+│   ├── examples.md            # Working YMD/PMD examples
+│   ├── implementation-guide.md # Creation step-by-step
+│   ├── decision-guide.md      # When to use what
+│   └── quick-reference.md     # Fast lookup patterns
+│
+├── prompts/                    # PROMPTS: Orchestration
+│   ├── load-context.md        # Main context loader
+│   ├── create-ymd.md          # YMD creation workflow
+│   ├── create-pmd.md          # PMD creation workflow
+│   └── validate-composition.md # Validation workflow
+│
+├── commands/                   # COMMANDS: API entry points
+│   ├── load-ymd-context.md
+│   ├── create-ymd-manifest.md
+│   ├── create-pmd-partial.md
+│   └── validate-composition.md
+│
+├── agents/                     # AGENTS: Specialized contexts
+│   ├── ymd-author.md          # Authoring specialist
+│   ├── composition-expert.md  # Composition patterns expert
+│   └── ymd-validator.md       # Format validator
+│
+└── cheatsheet/                 # Quick lookup tables
+    ├── ymd-sections.md
+    └── jinja2-syntax.md
+</code></pre></div></div>
+
+<h3 id="reference-chain-example">Reference Chain Example</h3>
+
+<p><strong>User invokes command</strong>:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/create-ymd-manifest
+</code></pre></div></div>
+
+<p><strong>Command delegates to prompt</strong>:</p>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- commands/create-ymd-manifest.md --&gt;</span>
+Create new YMD manifest file.
+
+@~/.claude/ymd-spec/prompts/create-ymd.md
+</code></pre></div></div>
+
+<p><strong>Prompt loads specs and context</strong>:</p>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- prompts/create-ymd.md --&gt;</span>
+<span class="gh"># Create YMD Manifest</span>
+
+<span class="gu">## Format Specifications (Normative)</span>
+
+@../ymd_format_spec.md
+
+<span class="gu">## Applied Knowledge (Practical)</span>
+
+@../context/examples.md
+@../context/implementation-guide.md
+
+<span class="gu">## Your Task</span>
+
+Guide the user in creating a YMD manifest file:
+<span class="p">1.</span> Gather requirements (purpose, sections needed)
+<span class="p">2.</span> Use examples for structure inspiration
+<span class="p">3.</span> Validate against format specification
+</code></pre></div></div>
+
+<p><strong>Result</strong>: Zero duplication, clear separation of concerns.</p>
+
+<h3 id="metrics">Metrics</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Metric</th>
+      <th>Value</th>
+      <th>Target</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Duplication Ratio</td>
+      <td>1.0</td>
+      <td>≤1.1</td>
+      <td>✓ Pass</td>
+    </tr>
+    <tr>
+      <td>Reference Density (prompts)</td>
+      <td>75%</td>
+      <td>
+<blockquote>
+  <p>50%</p>
+</blockquote>
+</td>
+      <td>✓ Pass</td>
+    </tr>
+    <tr>
+      <td>Command File Sizes</td>
+      <td>3 lines avg</td>
+      <td>≤5 lines</td>
+      <td>✓ Pass</td>
+    </tr>
+    <tr>
+      <td>Total Maintenance Points</td>
+      <td>3 specs</td>
+      <td>N/A</td>
+      <td>Clean SSOT</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
+<h2 id="example-2-semantic-docstrings-plugin">Example 2: Semantic Docstrings Plugin</h2>
+
+<p><strong>Purpose</strong>: Python docstring standards following semantic documentation principles.</p>
+
+<p><strong>Repository</strong>: <a href="https://github.com/daviguides/semantic-docstrings">daviguides/semantic-docstrings</a></p>
+
+<h3 id="architecture-1">Architecture</h3>
+
+<p><img class="mermaid" src="https://mermaid.ink/svg/eyJjb2RlIjoiZ3JhcGggVERcbnN1YmdyYXBoIFwiQ29yZSBTcGVjaWZpY2F0aW9ucyAoU1BFQ1MpXCJcbkRTW2RvY3N0cmluZy1zdGFuZGFyZHMubWQ8YnIvPlNlbWFudGljIHByaW5jaXBsZXNdXG5QWVtweXRob24tY29udmVudGlvbnMubWQ8YnIvPlB5dGhvbi1zcGVjaWZpYyBydWxlc11cbmVuZFxuJSUtXG5zdWJncmFwaCBcIkFwcGxpZWQgS25vd2xlZGdlIChDT05URVhUKVwiXG5QRVtweXRob24tZXhhbXBsZXMubWQ8YnIvPkFubm90YXRlZCBleGFtcGxlc11cbklQW2ltcGxlbWVudGF0aW9uLXBhdHRlcm5zLm1kPGJyLz5Db21tb24gcGF0dGVybnNdXG5BUFthbnRpLXBhdHRlcm5zLm1kPGJyLz5XaGF0IHRvIGF2b2lkXVxuZW5kXG4lJS1cbnN1YmdyYXBoIFwiT3JjaGVzdHJhdGlvbiAoUFJPTVBUUylcIlxuTFNbbG9hZC1zZW1hbnRpYy1jb250ZXh0Lm1kPGJyLz5Mb2FkIHN0YW5kYXJkc11cbkFEW2FkZC1kb2NzdHJpbmcubWQ8YnIvPkFkZGl0aW9uIHdvcmtmbG93XVxuVkRbdmFsaWRhdGUtZG9jc3RyaW5ncy5tZDxici8-VmFsaWRhdGlvbiB3b3JrZmxvd11cbmVuZFxuJSUtXG5zdWJncmFwaCBcIkFQSSBMYXllciAoQ09NTUFORFMpXCJcbkNNRDFbbG9hZC1zZW1hbnRpYy1jb250ZXh0Lm1kXVxuQ01EMlthZGQtY2xhc3MtZG9jc3RyaW5nLm1kXVxuQ01EM1thZGQtZnVuY3Rpb24tZG9jc3RyaW5nLm1kXVxuQ01ENFt2YWxpZGF0ZS1kb2NzdHJpbmdzLm1kXVxuZW5kXG4lJS1cbnN1YmdyYXBoIFwiU3BlY2lhbGl6ZWQgKEFHRU5UUylcIlxuRFJbZG9jc3RyaW5nLXJldmlld2VyLm1kPGJyLz5RdWFsaXR5IHJldmlld2VyXVxuRFMyW2RvY3VtZW50YXRpb24tc3BlY2lhbGlzdC5tZDxici8-U2VtYW50aWMgZXhwZXJ0XVxuZW5kXG4lJS1cblBFIC0tPnxcIkByZWZlcmVuY2VzXCJ8IERTXG5QRSAtLT58XCJAcmVmZXJlbmNlc1wifCBQWVxuSVAgLS0-fFwiQHJlZmVyZW5jZXNcInwgRFNcbkFQIC0tPnxcIkByZWZlcmVuY2VzXCJ8IERTXG4lJS1cbkxTIC0tPnxcIkByZWZlcmVuY2VzXCJ8IERTXG5MUyAtLT58XCJAcmVmZXJlbmNlc1wifCBQWVxuTFMgLS0-fFwiQHJlZmVyZW5jZXNcInwgUEVcbiUlLVxuQUQgLS0-fFwiQHJlZmVyZW5jZXNcInwgRFNcbkFEIC0tPnxcIkByZWZlcmVuY2VzXCJ8IFBFXG4lJS1cbkNNRDEgLS0-fFwiQHJlZmVyZW5jZXNcInwgTFNcbkNNRDIgLS0-fFwiQHJlZmVyZW5jZXNcInwgQURcbkNNRDMgLS0-fFwiQHJlZmVyZW5jZXNcInwgQURcbkNNRDQgLS0-fFwiQHJlZmVyZW5jZXNcInwgVkRcbiUlLVxuRFIgLS0-fFwiQHJlZmVyZW5jZXNcInwgRFNcbkRSIC0tPnxcIkByZWZlcmVuY2VzXCJ8IEFQXG4lJS1cbnN0eWxlIERTIGZpbGw6I2U3NGMzYyxzdHJva2U6I2MwMzkyYixzdHJva2Utd2lkdGg6MnB4LGNvbG9yOiNmZmZcbnN0eWxlIFBZIGZpbGw6I2U3NGMzYyxzdHJva2U6I2MwMzkyYixzdHJva2Utd2lkdGg6MnB4LGNvbG9yOiNmZmZcbnN0eWxlIFBFIGZpbGw6I2YzOWMxMixzdHJva2U6I2Q2ODkxMCxzdHJva2Utd2lkdGg6MnB4LGNvbG9yOiNmZmZcbnN0eWxlIElQIGZpbGw6I2YzOWMxMixzdHJva2U6I2Q2ODkxMCxzdHJva2Utd2lkdGg6MnB4LGNvbG9yOiNmZmZcbnN0eWxlIEFQIGZpbGw6I2YzOWMxMixzdHJva2U6I2Q2ODkxMCxzdHJva2Utd2lkdGg6MnB4LGNvbG9yOiNmZmZcbnN0eWxlIExTIGZpbGw6IzI3YWU2MCxzdHJva2U6IzIyOTk1NCxzdHJva2Utd2lkdGg6MnB4LGNvbG9yOiNmZmZcbnN0eWxlIEFEIGZpbGw6IzI3YWU2MCxzdHJva2U6IzIyOTk1NCxzdHJva2Utd2lkdGg6MnB4LGNvbG9yOiNmZmZcbnN0eWxlIFZEIGZpbGw6IzI3YWU2MCxzdHJva2U6IzIyOTk1NCxzdHJva2Utd2lkdGg6MnB4LGNvbG9yOiNmZmZcbnN0eWxlIENNRDEgZmlsbDojMzQ5OGRiLHN0cm9rZTojMjk4MGI5LHN0cm9rZS13aWR0aDoycHgsY29sb3I6I2ZmZlxuc3R5bGUgQ01EMiBmaWxsOiMzNDk4ZGIsc3Ryb2tlOiMyOTgwYjksc3Ryb2tlLXdpZHRoOjJweCxjb2xvcjojZmZmXG5zdHlsZSBDTUQzIGZpbGw6IzM0OThkYixzdHJva2U6IzI5ODBiOSxzdHJva2Utd2lkdGg6MnB4LGNvbG9yOiNmZmZcbnN0eWxlIENNRDQgZmlsbDojMzQ5OGRiLHN0cm9rZTojMjk4MGI5LHN0cm9rZS13aWR0aDoycHgsY29sb3I6I2ZmZlxuc3R5bGUgRFIgZmlsbDojOWI1OWI2LHN0cm9rZTojOGU0NGFkLHN0cm9rZS13aWR0aDoycHgsY29sb3I6I2ZmZlxuc3R5bGUgRFMyIGZpbGw6IzliNTliNixzdHJva2U6IzhlNDRhZCxzdHJva2Utd2lkdGg6MnB4LGNvbG9yOiNmZmYiLCJtZXJtYWlkIjpudWxsfQ"></p>
+
+<h3 id="directory-structure-1">Directory Structure</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>semantic-docstrings/
+├── semantic-docstrings-spec/   # SPECS: Normative layer
+│   ├── docstring-standards.md  # Semantic principles
+│   └── python-conventions.md   # Python-specific rules
+│
+├── context/                    # CONTEXT: Applied layer
+│   ├── python-examples.md     # Annotated code examples
+│   ├── implementation-patterns.md # Common patterns
+│   └── anti-patterns.md       # What to avoid
+│
+├── prompts/                    # PROMPTS: Orchestration
+│   ├── load-semantic-context.md
+│   ├── add-docstring.md
+│   └── validate-docstrings.md
+│
+├── commands/                   # COMMANDS: API layer
+│   ├── load-semantic-context.md
+│   ├── add-class-docstring.md
+│   ├── add-function-docstring.md
+│   ├── add-module-docstring.md
+│   └── validate-docstrings.md
+│
+└── agents/                     # AGENTS: Specialized
+    ├── docstring-reviewer.md
+    └── documentation-specialist.md
+</code></pre></div></div>
+
+<h3 id="key-insight-standards-vs-application">Key Insight: Standards vs Application</h3>
+
+<p><strong>SPECS layer</strong> (docstring-standards.md):</p>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># Semantic Docstring Standards</span>
+
+<span class="gu">## Purpose Statement</span>
+
+Every docstring MUST include a purpose statement explaining:
+<span class="p">-</span> What the component does
+<span class="p">-</span> Why it exists
+<span class="p">-</span> What responsibility it fulfills
+
+<span class="gu">## Responsibility Section</span>
+
+Functions/classes MUST document:
+<span class="p">-</span> Single overarching responsibility
+<span class="p">-</span> Boundaries (what it does NOT handle)
+<span class="p">-</span> Role in the system architecture
+</code></pre></div></div>
+
+<p><strong>CONTEXT layer</strong> (python-examples.md):</p>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># Python Docstring Examples</span>
+
+For standards reference: @../semantic-docstrings-spec/docstring-standards.md
+
+<span class="gu">## Example: Function with Clear Purpose</span>
+
+<span class="se">\`</span><span class="sb">``python
+def calculate_user_discount(
+    user: User,
+    purchase_amount: Decimal,
+) -&gt; Decimal:
+    """Calculate discount based on user loyalty and purchase volume.
+
+    Responsibility:
+        Compute final discount amount considering multiple factors.
+
+    Boundaries:
+        - Does NOT validate user state (handled by caller)
+        - Does NOT apply discount to purchase (returns amount only)
+
+    Args:
+        user: User account for loyalty tier determination
+        amount: Purchase amount for volume-based calculation
+
+    Returns:
+        Final discount amount, capped at maximum allowed discount
+    """
+\```</span>
+</code></pre></div></div>
+
+<p><strong>Benefit</strong>: Standards evolve independently from examples. Update principle → Examples remain valid because they reference standards.</p>
+
+<hr>
+
+<h2 id="example-3-code-zen-plugin">Example 3: Code-Zen Plugin</h2>
+
+<p><strong>Purpose</strong>: Zen of Python implementation guide for code generation.</p>
+
+<p><strong>Repository</strong>: <a href="https://github.com/daviguides/code-zen">daviguides/code-zen</a></p>
+
+<h3 id="architecture-2">Architecture</h3>
+
+<p><img class="mermaid" src="https://mermaid.ink/svg/eyJjb2RlIjoiZ3JhcGggVERcbnN1YmdyYXBoIFwiQ29yZSBTcGVjaWZpY2F0aW9ucyAoU1BFQ1MpXCJcblpQW3plbi1wcmluY2lwbGVzLm1kPGJyLz5UaGUgMTkgcHJpbmNpcGxlc11cblBTMltweXRob24tc3RhbmRhcmRzLm1kPGJyLz5QeXRob24gY29udmVudGlvbnNdXG5lbmRcbiUlLVxuc3ViZ3JhcGggXCJBcHBsaWVkIEtub3dsZWRnZSAoQ09OVEVYVClcIlxuWkFbemVuLWFwcGxpZWQubWQ8YnIvPlByaW5jaXBsZXMgaW4gcHJhY3RpY2VdXG5DRVtjb2RlLWV4YW1wbGVzLm1kPGJyLz5CZWZvcmUvYWZ0ZXIgZXhhbXBsZXNdXG5BUDJbYW50aS1wYXR0ZXJucy5tZDxici8-Q29tbW9uIHZpb2xhdGlvbnNdXG5lbmRcbiUlLVxuc3ViZ3JhcGggXCJPcmNoZXN0cmF0aW9uIChQUk9NUFRTKVwiXG5MWltsb2FkLXplbi1jb250ZXh0Lm1kPGJyLz5Mb2FkIHByaW5jaXBsZXNdXG5aQ1t6ZW4tY2hlY2subWQ8YnIvPkNvbXBsaWFuY2UgY2hlY2tdXG5aUlt6ZW4tcmVmYWN0b3IubWQ8YnIvPkd1aWRlZCByZWZhY3Rvcl1cbmVuZFxuJSUtXG5zdWJncmFwaCBcIkFQSSBMYXllciAoQ09NTUFORFMpXCJcbkNNRDFbbG9hZC16ZW4tY29udGV4dC5tZF1cbkNNRDJbemVuLWNoZWNrLm1kXVxuQ01EM1t6ZW4tcmVmYWN0b3IubWRdXG5lbmRcbiUlLVxuc3ViZ3JhcGggXCJTcGVjaWFsaXplZCAoQUdFTlRTKVwiXG5aRVt6ZW4tZXhwZXJ0Lm1kPGJyLz5aZW4gc3BlY2lhbGlzdF1cblpSVlt6ZW4tcmV2aWV3ZXIubWQ8YnIvPkNvZGUgcmV2aWV3ZXJdXG5lbmRcbiUlLVxuWkEgLS0-fFwiQHJlZmVyZW5jZXNcInwgWlBcbkNFIC0tPnxcIkByZWZlcmVuY2VzXCJ8IFpQXG5BUDIgLS0-fFwiQHJlZmVyZW5jZXNcInwgWlBcbiUlLVxuTFogLS0-fFwiQHJlZmVyZW5jZXNcInwgWlBcbkxaIC0tPnxcIkByZWZlcmVuY2VzXCJ8IFBTMlxuTFogLS0-fFwiQHJlZmVyZW5jZXNcInwgWkFcbiUlLVxuWkMgLS0-fFwiQHJlZmVyZW5jZXNcInwgWlBcblpDIC0tPnxcIkByZWZlcmVuY2VzXCJ8IEFQMlxuJSUtXG5DTUQxIC0tPnxcIkByZWZlcmVuY2VzXCJ8IExaXG5DTUQyIC0tPnxcIkByZWZlcmVuY2VzXCJ8IFpDXG5DTUQzIC0tPnxcIkByZWZlcmVuY2VzXCJ8IFpSXG4lJS1cblpFIC0tPnxcIkByZWZlcmVuY2VzXCJ8IFpQXG5aRSAtLT58XCJAcmVmZXJlbmNlc1wifCBaQVxuWlJWIC0tPnxcIkByZWZlcmVuY2VzXCJ8IFpQXG5aUlYgLS0-fFwiQHJlZmVyZW5jZXNcInwgQVAyXG4lJS1cbnN0eWxlIFpQIGZpbGw6I2U3NGMzYyxzdHJva2U6I2MwMzkyYixzdHJva2Utd2lkdGg6MnB4LGNvbG9yOiNmZmZcbnN0eWxlIFBTMiBmaWxsOiNlNzRjM2Msc3Ryb2tlOiNjMDM5MmIsc3Ryb2tlLXdpZHRoOjJweCxjb2xvcjojZmZmXG5zdHlsZSBaQSBmaWxsOiNmMzljMTIsc3Ryb2tlOiNkNjg5MTAsc3Ryb2tlLXdpZHRoOjJweCxjb2xvcjojZmZmXG5zdHlsZSBDRSBmaWxsOiNmMzljMTIsc3Ryb2tlOiNkNjg5MTAsc3Ryb2tlLXdpZHRoOjJweCxjb2xvcjojZmZmXG5zdHlsZSBBUDIgZmlsbDojZjM5YzEyLHN0cm9rZTojZDY4OTEwLHN0cm9rZS13aWR0aDoycHgsY29sb3I6I2ZmZlxuc3R5bGUgTFogZmlsbDojMjdhZTYwLHN0cm9rZTojMjI5OTU0LHN0cm9rZS13aWR0aDoycHgsY29sb3I6I2ZmZlxuc3R5bGUgWkMgZmlsbDojMjdhZTYwLHN0cm9rZTojMjI5OTU0LHN0cm9rZS13aWR0aDoycHgsY29sb3I6I2ZmZlxuc3R5bGUgWlIgZmlsbDojMjdhZTYwLHN0cm9rZTojMjI5OTU0LHN0cm9rZS13aWR0aDoycHgsY29sb3I6I2ZmZlxuc3R5bGUgQ01EMSBmaWxsOiMzNDk4ZGIsc3Ryb2tlOiMyOTgwYjksc3Ryb2tlLXdpZHRoOjJweCxjb2xvcjojZmZmXG5zdHlsZSBDTUQyIGZpbGw6IzM0OThkYixzdHJva2U6IzI5ODBiOSxzdHJva2Utd2lkdGg6MnB4LGNvbG9yOiNmZmZcbnN0eWxlIENNRDMgZmlsbDojMzQ5OGRiLHN0cm9rZTojMjk4MGI5LHN0cm9rZS13aWR0aDoycHgsY29sb3I6I2ZmZlxuc3R5bGUgWkUgZmlsbDojOWI1OWI2LHN0cm9rZTojOGU0NGFkLHN0cm9rZS13aWR0aDoycHgsY29sb3I6I2ZmZlxuc3R5bGUgWlJWIGZpbGw6IzliNTliNixzdHJva2U6IzhlNDRhZCxzdHJva2Utd2lkdGg6MnB4LGNvbG9yOiNmZmYiLCJtZXJtYWlkIjpudWxsfQ"></p>
+
+<h3 id="directory-structure-2">Directory Structure</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>code-zen/
+├── zen-spec/                   # SPECS: Normative layer
+│   ├── zen-principles.md      # The 19 principles
+│   └── python-standards.md    # Python conventions
+│
+├── context/                    # CONTEXT: Applied layer
+│   ├── zen-applied.md         # Principles in practice
+│   ├── code-examples.md       # Before/after examples
+│   └── anti-patterns.md       # Common violations
+│
+├── prompts/                    # PROMPTS: Orchestration
+│   ├── load-zen-context.md    # Load all context
+│   ├── zen-check.md           # Compliance validation
+│   └── zen-refactor.md        # Guided refactoring
+│
+├── commands/                   # COMMANDS: API layer
+│   ├── load-zen-context.md
+│   ├── zen-check.md
+│   └── zen-refactor.md
+│
+└── agents/                     # AGENTS: Specialized
+    ├── python-zen-expert.md   # Zen specialist
+    └── zen-reviewer.md        # Code reviewer
+</code></pre></div></div>
+
+<h3 id="key-insight-principles-vs-application">Key Insight: Principles vs Application</h3>
+
+<p><strong>SPECS layer</strong> (zen-principles.md):</p>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># Zen of Python Principles</span>
+
+<span class="gu">## Principle 2: Explicit is better than implicit</span>
+
+<span class="gs">**Definition**</span>: Code behavior should be obvious from reading it.
+Avoid hidden side effects, implicit type conversions, or magic behavior.
+
+<span class="gs">**Applies to**</span>:
+<span class="p">-</span> Function signatures (explicit parameters)
+<span class="p">-</span> Type hints (explicit types)
+<span class="p">-</span> Error handling (explicit raises)
+<span class="p">-</span> State changes (explicit mutations)
+</code></pre></div></div>
+
+<p><strong>CONTEXT layer</strong> (zen-applied.md):</p>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># Zen Applied: Explicit Over Implicit</span>
+
+For principle definitions: @../zen-spec/zen-principles.md
+
+<span class="gu">## Application: Function Signatures</span>
+
+<span class="gs">**Implicit (avoid)**</span>:
+<span class="se">\`</span><span class="sb">``python
+def save_user(user, db=None):
+    db = db or get_default_db()  # Implicit behavior
+    # ...
+\```</span>
+
+<span class="gs">**Explicit (preferred)**</span>:
+<span class="se">\`</span><span class="sb">``python
+def save_user(
+    user: User,
+    database: Database,
+) -&gt; None:
+    """Save user to specified database."""
+    # All dependencies explicit
+\```</span>
+</code></pre></div></div>
+
+<p><strong>Benefit</strong>: Principles remain stable, application examples evolve with community best practices.</p>
+
+<hr>
+
+<h2 id="common-patterns-across-examples">Common Patterns Across Examples</h2>
+
+<h3 id="pattern-1-spec-first-architecture">Pattern 1: Spec-First Architecture</h3>
+
+<p>All three examples follow the same bootstrap approach:</p>
+
+<p><img class="mermaid" src="https://mermaid.ink/svg/eyJjb2RlIjoiZmxvd2NoYXJ0IExSXG5BWzEuIERlZmluZSBTUEVDU10gLS0-IEJbMi4gQ3JlYXRlIENPTlRFWFRdXG5CIC0tPiBDWzMuIEJ1aWxkIFBST01QVFNdXG5DIC0tPiBEWzQuIEFkZCBDT01NQU5EU11cbkMgLS0-IEVbNS4gQWRkIEFHRU5UU11cbiUlLVxuc3R5bGUgQSBmaWxsOiNlNzRjM2Msc3Ryb2tlOiNjMDM5MmIsc3Ryb2tlLXdpZHRoOjJweCxjb2xvcjojZmZmXG5zdHlsZSBCIGZpbGw6I2YzOWMxMixzdHJva2U6I2Q2ODkxMCxzdHJva2Utd2lkdGg6MnB4LGNvbG9yOiNmZmZcbnN0eWxlIEMgZmlsbDojMjdhZTYwLHN0cm9rZTojMjI5OTU0LHN0cm9rZS13aWR0aDoycHgsY29sb3I6I2ZmZlxuc3R5bGUgRCBmaWxsOiMzNDk4ZGIsc3Ryb2tlOiMyOTgwYjksc3Ryb2tlLXdpZHRoOjJweCxjb2xvcjojZmZmXG5zdHlsZSBFIGZpbGw6IzliNTliNixzdHJva2U6IzhlNDRhZCxzdHJva2Utd2lkdGg6MnB4LGNvbG9yOiNmZmYiLCJtZXJtYWlkIjpudWxsfQ"></p>
+
+<p><strong>Why this order?</strong></p>
+<ul>
+  <li>SPECS define rules for everything else</li>
+  <li>CONTEXT references SPECS (can’t exist without specs)</li>
+  <li>PROMPTS load both SPECS and CONTEXT</li>
+  <li>COMMANDS/AGENTS delegate to PROMPTS</li>
+</ul>
+
+<h3 id="pattern-2-thin-commands">Pattern 2: Thin Commands</h3>
+
+<p>All three examples use identical command pattern:</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- commands/{command-name}.md --&gt;</span>
+Brief description of command purpose.
+
+@../prompts/{corresponding-prompt}.md
+</code></pre></div></div>
+
+<p><strong>Characteristics</strong>:</p>
+<ul>
+  <li>≤5 lines total</li>
+  <li>Single <code class="language-plaintext highlighter-rouge">@</code> reference</li>
+  <li>Zero business logic</li>
+  <li>One-to-one mapping with prompts</li>
+</ul>
+
+<h3 id="pattern-3-context-references-specs">Pattern 3: Context References Specs</h3>
+
+<p>All CONTEXT files reference SPECS for authoritative definitions:</p>
+
+<p><strong>YMD-Spec</strong>:</p>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>For format rules: @../ymd_format_spec.md
+</code></pre></div></div>
+
+<p><strong>Semantic Docstrings</strong>:</p>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>For standards reference: @../semantic-docstrings-spec/docstring-standards.md
+</code></pre></div></div>
+
+<p><strong>Code-Zen</strong>:</p>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>For principle definitions: @../zen-spec/zen-principles.md
+</code></pre></div></div>
+
+<p><strong>Benefit</strong>: Context stays synchronized with specs automatically.</p>
+
+<h3 id="pattern-4-prompts-as-orchestrators">Pattern 4: Prompts as Orchestrators</h3>
+
+<p>All PROMPTS follow similar structure:</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># {Purpose}</span>
+
+<span class="gu">## Specifications (Normative)</span>
+
+@../spec1.md
+@../spec2.md
+
+<span class="gu">## Applied Knowledge (Practical)</span>
+
+@../context/examples.md
+@../context/guide.md
+
+<span class="gu">## Your Task</span>
+
+[Brief meta-instructions for LLM]
+</code></pre></div></div>
+
+<p><strong>Metrics achieved</strong>:</p>
+<ul>
+  <li>Reference density: 60-80%</li>
+  <li>Inline content: &lt;5 lines per section</li>
+  <li>Zero duplication</li>
+</ul>
+
+<hr>
+
+<h2 id="comparative-analysis">Comparative Analysis</h2>
+
+<h3 id="metrics-across-examples">Metrics Across Examples</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Metric</th>
+      <th>YMD-Spec</th>
+      <th>Semantic-Docstrings</th>
+      <th>Code-Zen</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Duplication Ratio</strong></td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <td><strong>Reference Density (prompts)</strong></td>
+      <td>75%</td>
+      <td>68%</td>
+      <td>80%</td>
+    </tr>
+    <tr>
+      <td><strong>Command Avg Size</strong></td>
+      <td>3 lines</td>
+      <td>3 lines</td>
+      <td>3 lines</td>
+    </tr>
+    <tr>
+      <td><strong>SPECS Count</strong></td>
+      <td>3</td>
+      <td>2</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td><strong>CONTEXT Count</strong></td>
+      <td>4</td>
+      <td>3</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td><strong>PROMPTS Count</strong></td>
+      <td>4</td>
+      <td>3</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td><strong>COMMANDS Count</strong></td>
+      <td>4</td>
+      <td>5</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td><strong>AGENTS Count</strong></td>
+      <td>3</td>
+      <td>2</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="consistency-across-projects">Consistency Across Projects</h3>
+
+<p>All three examples demonstrate:</p>
+<ul>
+  <li>
+<strong>Zero duplication</strong> (duplication ratio = 1.0)</li>
+  <li>
+<strong>Thin orchestrators</strong> (reference density &gt;50%)</li>
+  <li>
+<strong>Command simplicity</strong> (≤5 lines)</li>
+  <li>
+<strong>Clear SSOT</strong> (each concept in one place)</li>
+  <li>
+<strong>Maintainable architecture</strong> (update once, propagate everywhere)</li>
+</ul>
+
+<hr>
+
+<h2 id="learning-path">Learning Path</h2>
+
+<h3 id="for-new-projects">For New Projects</h3>
+
+<p><strong>Start with</strong>:</p>
+<ol>
+  <li>
+<strong>YMD-Spec</strong> - If building format specifications</li>
+  <li>
+<strong>Semantic-Docstrings</strong> - If creating code standards</li>
+  <li>
+<strong>Code-Zen</strong> - If documenting principles/guidelines</li>
+</ol>
+
+<p><strong>Adapt patterns</strong>:</p>
+<ul>
+  <li>Same directory structure</li>
+  <li>Same reference patterns</li>
+  <li>Same layer responsibilities</li>
+  <li>Same validation metrics</li>
+</ul>
+
+<h3 id="for-existing-projects">For Existing Projects</h3>
+
+<p><strong>Migration approach</strong>:</p>
+<ol>
+  <li>Study one example similar to your domain</li>
+  <li>Map your content to Gradient layers</li>
+  <li>Identify duplications</li>
+  <li>Consolidate to SSOT</li>
+  <li>Replace with references</li>
+  <li>Validate metrics</li>
+</ol>
+
+<hr>
+
+<h2 id="try-it-yourself">Try It Yourself</h2>
+
+<h3 id="clone-and-explore">Clone and Explore</h3>
+
+<p><strong>YMD-Spec</strong>:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/daviguides/ymd-spec.git
+<span class="nb">cd </span>ymd-spec
+./install.sh
+</code></pre></div></div>
+
+<p><strong>Semantic-Docstrings</strong>:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/daviguides/semantic-docstrings.git
+<span class="nb">cd </span>semantic-docstrings
+./install.sh
+</code></pre></div></div>
+
+<p><strong>Code-Zen</strong>:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/daviguides/code-zen.git
+<span class="nb">cd </span>code-zen
+./install.sh
+</code></pre></div></div>
+
+<h3 id="validate-metrics">Validate Metrics</h3>
+
+<p>Run Gradient validation tools on these examples:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Validate references</span>
+bash ~/.claude/gradient/scripts/validate-references.sh ymd-spec/
+
+<span class="c"># Detect duplication</span>
+bash ~/.claude/gradient/scripts/detect-duplication.sh ymd-spec/
+
+<span class="c"># Calculate metrics</span>
+bash ~/.claude/gradient/scripts/calculate-metrics.sh ymd-spec/
+</code></pre></div></div>
+
+<p><strong>Expected results</strong>: All pass with zero duplication.</p>
+
+<hr>
+
+<h2 id="next-steps">Next Steps</h2>
+
+<ul>
+  <li>
+<strong><a href="/quick-start/">Quick Start</a></strong> - Create your own Gradient project</li>
+  <li>
+<strong><a href="/tools/">Tools</a></strong> - Validation scripts and agents</li>
+  <li>
+<strong><a href="/best-practices/">Best Practices</a></strong> - Guidelines for implementation</li>
+</ul>
+
+<hr>
+
+<p><strong>Key Takeaway</strong>: These real-world examples demonstrate that Gradient is not theoretical—it’s a proven architecture used in production Claude Code plugins, achieving zero duplication and maintainable structures.</p>
+
+  </div>
+
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Davi Guides</li>
+</ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+<ul class="social-media-list"></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>A proposal for a layered context architecture for Claude Code plugins.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+
+</html>

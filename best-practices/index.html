@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Best Practices | Gradient</title>
+<meta name="generator" content="Jekyll v4.4.1">
+<meta property="og:title" content="Best Practices">
+<meta name="author" content="Davi Guides">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="A proposal for a layered context architecture for Claude Code plugins.">
+<meta property="og:description" content="A proposal for a layered context architecture for Claude Code plugins.">
+<meta property="og:site_name" content="Gradient">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="Best Practices">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Davi Guides"},"description":"A proposal for a layered context architecture for Claude Code plugins.","headline":"Best Practices","url":"/best-practices/"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
+<link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Gradient">
+</head>
+<body>
+<header class="site-header">
+
+  <div class="wrapper">
+<a class="site-title" rel="author" href="/">Gradient</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger">
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewbox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger">
+<a class="page-link" href="/">Home</a><a class="page-link" href="/quick-start/">Quick Start</a><a class="page-link" href="/why-gradient/">Why Gradient?</a><a class="page-link" href="/specifications/">Specifications</a><a class="page-link" href="/examples/">Examples</a><a class="page-link" href="/tools/">Tools</a>
+</div>
+      </nav>
+</div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <!-- <header class="post-header">
+    <h1 class="post-title">Best Practices</h1>
+  </header> -->
+
+  <div class="post-content">
+    <h1 id="best-practices">Best Practices</h1>
+
+<p>Guidelines, anti-patterns, and decision-making frameworks for building maintainable Gradient architectures.</p>
+
+<hr>
+
+<h2 id="core-principles">Core Principles</h2>
+
+<h3 id="principle-1-single-source-of-truth-ssot">Principle 1: Single Source of Truth (SSOT)</h3>
+
+<p><strong>Every concept exists in exactly one authoritative location.</strong></p>
+
+<p><img class="mermaid" src="https://mermaid.ink/svg/eyJjb2RlIjoiZmxvd2NoYXJ0IFREXG5RW0NvbnRlbnQgdG8gQWRkXSAtLT4gRVhJU1R7QWxyZWFkeTxici8-ZXhpc3RzP31cbiUlLVxuRVhJU1QgLS0-fFllc3wgUkVGW1JlZmVyZW5jZSBleGlzdGluZzxici8-RG9uJ3QgZHVwbGljYXRlXVxuRVhJU1QgLS0-fE5vfCBDUkVBVEVbQ3JlYXRlIGluPGJyLz5hcHByb3ByaWF0ZSBsYXllcl1cbiUlLVxuQ1JFQVRFIC0tPiBXSElDSHtXaGljaCBsYXllcj99XG4lJS1cbldISUNIIC0tPnxOb3JtYXRpdmV8IFNQRUNbQWRkIHRvIFNQRUNTXVxuV0hJQ0ggLS0-fEFwcGxpZWR8IENUWFtBZGQgdG8gQ09OVEVYVF1cbldISUNIIC0tPnxPcmNoZXN0cmF0aW9ufCBQUk9NUFRbQWRkIHRvIFBST01QVFNdXG4lJS1cbnN0eWxlIFEgZmlsbDojZWNmMGYxLHN0cm9rZTojOTVhNWE2XG5zdHlsZSBFWElTVCBmaWxsOiNmMzljMTIsc3Ryb2tlOiNkNjg5MTAsc3Ryb2tlLXdpZHRoOjJweFxuc3R5bGUgUkVGIGZpbGw6IzI3YWU2MCxzdHJva2U6IzIyOTk1NCxzdHJva2Utd2lkdGg6MnB4LGNvbG9yOiNmZmZcbnN0eWxlIENSRUFURSBmaWxsOiMzNDk4ZGIsc3Ryb2tlOiMyOTgwYjksc3Ryb2tlLXdpZHRoOjJweCxjb2xvcjojZmZmXG5zdHlsZSBXSElDSCBmaWxsOiNmMzljMTIsc3Ryb2tlOiNkNjg5MTAsc3Ryb2tlLXdpZHRoOjJweFxuc3R5bGUgU1BFQyBmaWxsOiNlNzRjM2Msc3Ryb2tlOiNjMDM5MmIsc3Ryb2tlLXdpZHRoOjJweCxjb2xvcjojZmZmXG5zdHlsZSBDVFggZmlsbDojZjM5YzEyLHN0cm9rZTojZDY4OTEwLHN0cm9rZS13aWR0aDoycHgsY29sb3I6I2ZmZlxuc3R5bGUgUFJPTVBUIGZpbGw6IzI3YWU2MCxzdHJva2U6IzIyOTk1NCxzdHJva2Utd2lkdGg6MnB4LGNvbG9yOiNmZmYiLCJtZXJtYWlkIjpudWxsfQ"></p>
+
+<p><strong>Best practice</strong>:</p>
+<ul>
+  <li>Before adding content, search for existing definitions</li>
+  <li>If found, reference it with <code class="language-plaintext highlighter-rouge">@</code> syntax</li>
+  <li>If not found, create it in the appropriate layer</li>
+  <li>Never duplicate “for convenience”</li>
+</ul>
+
+<h3 id="principle-2-reference-over-duplication">Principle 2: Reference Over Duplication</h3>
+
+<p><strong>Default to referencing. Only inline when absolutely necessary.</strong></p>
+
+<p><strong>Decision tree</strong>:
+<img class="mermaid" src="https://mermaid.ink/svg/eyJjb2RlIjoiZmxvd2NoYXJ0IFREXG5TVEFSVFtOZWVkIENvbnRlbnRdIC0tPiBRMXtDYW4gSTxici8-cmVmZXJlbmNlP31cbiUlLVxuUTEgLS0-fFllc3wgUkVGW1VzZSBAcmVmZXJlbmNlXVxuUTEgLS0-fE5vfCBRMntJcyBpdDxici8-PCAzIGxpbmVzP31cbiUlLVxuUTIgLS0-fFllc3wgSU5MSU5FW0lubGluZSBhY2NlcHRhYmxlXVxuUTIgLS0-fE5vfCBFWFRSQUNUW0V4dHJhY3QgdG8gbGF5ZXI8YnIvPnRoZW4gcmVmZXJlbmNlXVxuJSUtXG5SRUYgLS0-IERPTkVb4pyTIEJlc3QgUHJhY3RpY2VdXG5JTkxJTkUgLS0-IENIRUNLW-KckyBBY2NlcHRhYmxlXVxuRVhUUkFDVCAtLT4gUkVGXG4lJS1cbnN0eWxlIFNUQVJUIGZpbGw6I2VjZjBmMSxzdHJva2U6Izk1YTVhNlxuc3R5bGUgUTEgZmlsbDojZjM5YzEyLHN0cm9rZTojZDY4OTEwLHN0cm9rZS13aWR0aDoycHhcbnN0eWxlIFEyIGZpbGw6I2YzOWMxMixzdHJva2U6I2Q2ODkxMCxzdHJva2Utd2lkdGg6MnB4XG5zdHlsZSBSRUYgZmlsbDojMjdhZTYwLHN0cm9rZTojMjI5OTU0LHN0cm9rZS13aWR0aDoycHgsY29sb3I6I2ZmZlxuc3R5bGUgSU5MSU5FIGZpbGw6I2YzOWMxMixzdHJva2U6I2Q2ODkxMCxzdHJva2Utd2lkdGg6MnB4LGNvbG9yOiNmZmZcbnN0eWxlIEVYVFJBQ1QgZmlsbDojMzQ5OGRiLHN0cm9rZTojMjk4MGI5LHN0cm9rZS13aWR0aDoycHgsY29sb3I6I2ZmZlxuc3R5bGUgRE9ORSBmaWxsOiMyN2FlNjAsc3Ryb2tlOiMyMjk5NTQsc3Ryb2tlLXdpZHRoOjJweCxjb2xvcjojZmZmXG5zdHlsZSBDSEVDSyBmaWxsOiNmMzljMTIsc3Ryb2tlOiNkNjg5MTAsc3Ryb2tlLXdpZHRoOjJweCxjb2xvcjojZmZmIiwibWVybWFpZCI6bnVsbH0"></p>
+
+<p><strong>Guidelines</strong>:</p>
+<ul>
+  <li>
+<strong>&lt;3 lines</strong>: Inline acceptable (brief context)</li>
+  <li>
+<strong>3-5 lines</strong>: Consider extracting</li>
+  <li>
+<strong>&gt;5 lines</strong>: Must extract and reference</li>
+</ul>
+
+<h3 id="principle-3-specs-first">Principle 3: Specs First</h3>
+
+<p><strong>Create SPECS before other layers.</strong></p>
+
+<p><strong>Bootstrap sequence</strong>:
+<img class="mermaid" src="https://mermaid.ink/svg/eyJjb2RlIjoiZmxvd2NoYXJ0IExSXG5BWzEuIFNQRUNTPGJyLz5EZWZpbmUgcnVsZXNdIC0tPiBCWzIuIENPTlRFWFQ8YnIvPkFwcGx5IHJ1bGVzXVxuQiAtLT4gQ1szLiBQUk9NUFRTPGJyLz5PcmNoZXN0cmF0ZV1cbkMgLS0-IERbNC4gQ09NTUFORFM8YnIvPkVudHJ5IHBvaW50c11cbkMgLS0-IEVbNS4gQUdFTlRTPGJyLz5TcGVjaWFsaXN0c11cbiUlLVxuc3R5bGUgQSBmaWxsOiNlNzRjM2Msc3Ryb2tlOiNjMDM5MmIsc3Ryb2tlLXdpZHRoOjJweCxjb2xvcjojZmZmXG5zdHlsZSBCIGZpbGw6I2YzOWMxMixzdHJva2U6I2Q2ODkxMCxzdHJva2Utd2lkdGg6MnB4LGNvbG9yOiNmZmZcbnN0eWxlIEMgZmlsbDojMjdhZTYwLHN0cm9rZTojMjI5OTU0LHN0cm9rZS13aWR0aDoycHgsY29sb3I6I2ZmZlxuc3R5bGUgRCBmaWxsOiMzNDk4ZGIsc3Ryb2tlOiMyOTgwYjksc3Ryb2tlLXdpZHRoOjJweCxjb2xvcjojZmZmXG5zdHlsZSBFIGZpbGw6IzliNTliNixzdHJva2U6IzhlNDRhZCxzdHJva2Utd2lkdGg6MnB4LGNvbG9yOiNmZmYiLCJtZXJtYWlkIjpudWxsfQ"></p>
+
+<p><strong>Rationale</strong>:</p>
+<ul>
+  <li>CONTEXT references SPECS (can’t exist without specs)</li>
+  <li>PROMPTS load both SPECS and CONTEXT</li>
+  <li>COMMANDS delegate to PROMPTS</li>
+  <li>AGENTS load SPECS and CONTEXT</li>
+</ul>
+
+<hr>
+
+<h2 id="dos-and-donts">Do’s and Don’ts</h2>
+
+<h3 id="dos">Do’s</h3>
+
+<p><strong>Create specs first</strong></p>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>✓ Start with normative definitions
+✓ Define validation rules
+✓ Document constraints
+✓ Then create examples that follow specs
+</code></pre></div></div>
+
+<p><strong>Reference liberally</strong></p>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>✓ Default to @references
+✓ Load specifications dynamically
+✓ Keep prompts thin (&gt;50% references)
+✓ Reduce duplication to zero
+</code></pre></div></div>
+
+<p><strong>Keep prompts thin</strong></p>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>✓ Majority should be references
+✓ &lt;5 lines inline content per section
+✓ Brief meta-instructions only
+✓ Orchestrate, don't duplicate
+</code></pre></div></div>
+
+<p><strong>Validate frequently</strong></p>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>✓ Run validate-references.sh after changes
+✓ Check duplication ratio regularly
+✓ Use architecture-reviewer agent
+✓ Catch issues early
+</code></pre></div></div>
+
+<p><strong>Document the “why”</strong></p>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>✓ Explain architectural decisions
+✓ Document SSOT choices
+✓ Note layer assignments
+✓ Clarify responsibilities
+</code></pre></div></div>
+
+<h3 id="donts">Don’ts</h3>
+
+<p><strong>Don’t create quick reference files</strong></p>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>✗ LLMs don't need summaries
+✗ Creates duplication burden
+✗ Use @references instead
+✗ Load full specs dynamically
+</code></pre></div></div>
+
+<p><strong>Don’t duplicate for convenience</strong></p>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>✗ "Copy-paste is faster" → Technical debt
+✗ "Just this once" → Precedent for chaos
+✗ "Too small to matter" → Death by 1000 cuts
+✗ Always reference SSOT
+</code></pre></div></div>
+
+<p><strong>Don’t put business logic in commands</strong></p>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>✗ Commands are thin wrappers
+✗ Keep them ≤5 lines
+✗ Delegate to prompts
+✗ One-to-one mapping only
+</code></pre></div></div>
+
+<p><strong>Don’t skip validation</strong></p>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>✗ "Looks good" ≠ is good
+✗ Broken references cause runtime issues
+✗ Duplication accumulates silently
+✗ Validate before committing
+</code></pre></div></div>
+
+<p><strong>Don’t mix layer responsibilities</strong></p>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>✗ Specs with inline examples
+✗ Context with normative rules
+✗ Prompts with spec definitions
+✗ Maintain clear boundaries
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="layer-specific-best-practices">Layer-Specific Best Practices</h2>
+
+<h3 id="specs-layer">SPECS Layer</h3>
+
+<p><strong>What belongs here</strong>:</p>
+<ul>
+  <li>Normative definitions (MUST/MUST NOT/SHALL)</li>
+  <li>Validation rules</li>
+  <li>Format specifications</li>
+  <li>Standards and conventions</li>
+  <li>Principles and constraints</li>
+</ul>
+
+<p><strong>What doesn’t belong</strong>:</p>
+<ul>
+  <li>Working examples (→ CONTEXT)</li>
+  <li>Implementation guides (→ CONTEXT)</li>
+  <li>Orchestration logic (→ PROMPTS)</li>
+  <li>Meta-instructions for LLMs (→ PROMPTS)</li>
+</ul>
+
+<p><strong>Best practices</strong>:</p>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>✓ Use normative language (MUST, SHALL)
+✓ Be complete and unambiguous
+✓ Minimize external dependencies
+✓ Validate other layers against specs
+✓ Keep specs independent
+</code></pre></div></div>
+
+<p><strong>Anti-pattern example</strong>:</p>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- ✗ BAD: Mixing spec with example --&gt;</span>
+<span class="gh"># Format Specification</span>
+
+Files MUST have a meta section with:
+<span class="p">-</span> id (required)
+<span class="p">-</span> version (required)
+
+Here's an example:
+<span class="p">```</span><span class="nl">yaml
+</span><span class="na">meta</span><span class="pi">:</span>
+  <span class="na">id</span><span class="pi">:</span> <span class="s">example</span>
+  <span class="na">version</span><span class="pi">:</span> <span class="s">1.0.0</span>
+</code></pre></div></div>
+<p>[… 30 more lines of examples …]</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+**Best practice example**:
+```markdown
+&lt;!-- ✓ GOOD: Pure specification --&gt;
+# Format Specification
+
+Files MUST have a meta section with:
+- id (required): Unique identifier in snake_case
+- version (required): Semantic version (MAJOR.MINOR.PATCH)
+
+Validation: File is valid if all required fields present and conform to constraints.
+
+For examples: @../context/examples.md
+</code></pre></div></div>
+
+<h3 id="context-layer">CONTEXT Layer</h3>
+
+<p><strong>What belongs here</strong>:</p>
+<ul>
+  <li>Working examples</li>
+  <li>Implementation patterns</li>
+  <li>Decision guides</li>
+  <li>Best practices in action</li>
+  <li>Annotated code samples</li>
+</ul>
+
+<p><strong>What doesn’t belong</strong>:</p>
+<ul>
+  <li>Normative definitions (→ SPECS)</li>
+  <li>Format rules (→ SPECS)</li>
+  <li>Orchestration logic (→ PROMPTS)</li>
+</ul>
+
+<p><strong>Best practices</strong>:</p>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>✓ Reference specs for rules
+✓ Provide complete working examples
+✓ Annotate examples with explanations
+✓ Show multiple patterns
+✓ Keep synchronized with specs (via references)
+</code></pre></div></div>
+
+<p><strong>Anti-pattern example</strong>:</p>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- ✗ BAD: Duplicating spec rules --&gt;</span>
+<span class="gh"># Implementation Guide</span>
+
+<span class="gu">## Format Rules</span>
+
+Files must have:
+<span class="p">-</span> meta section with id and version
+<span class="p">-</span> At least one content section
+[... repeating spec content ...]
+
+<span class="gu">## Examples</span>
+
+[... examples ...]
+</code></pre></div></div>
+
+<p><strong>Best practice example</strong>:</p>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- ✓ GOOD: Referencing specs, adding unique value --&gt;</span>
+<span class="gh"># Implementation Guide</span>
+
+For format rules: @../project-spec/format-spec.md
+
+<span class="gu">## Getting Started</span>
+
+To create your first file:
+<span class="p">1.</span> Start with metadata (see format spec for requirements)
+<span class="p">2.</span> Add content sections
+<span class="p">3.</span> Validate against spec
+
+<span class="gu">### Example: Minimal Valid File</span>
+
+<span class="p">```</span><span class="nl">yaml
+</span><span class="na">meta</span><span class="pi">:</span>
+  <span class="na">id</span><span class="pi">:</span> <span class="s">my_first_file</span>
+  <span class="na">version</span><span class="pi">:</span> <span class="s">1.0.0</span>
+
+<span class="na">content</span><span class="pi">:</span> <span class="pi">|</span>
+  <span class="s">Your content here</span>
+</code></pre></div></div>
+
+<p><strong>Why this works</strong>: Meets all requirements from format spec.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+### PROMPTS Layer
+
+**What belongs here**:
+- `@` references to SPECS and CONTEXT
+- Meta-instructions for LLMs
+- Orchestration logic
+- Context loading sequences
+
+**What doesn't belong**:
+- Inline spec content (&gt;5 lines)
+- Duplicated examples (→ CONTEXT)
+- Normative definitions (→ SPECS)
+
+**Best practices**:
+```markdown
+✓ Keep reference density &gt;50%
+✓ &lt;5 lines inline content per section
+✓ Brief meta-instructions only
+✓ Clear task definitions
+✓ Load, don't duplicate
+</code></pre></div></div>
+
+<p><strong>Anti-pattern example</strong>:</p>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- ✗ BAD: Too much inline content --&gt;</span>
+<span class="gh"># Load Context</span>
+
+<span class="gu">## Format Rules</span>
+
+Files must have these sections:
+<span class="p">-</span> meta (required)
+<span class="p">  -</span> id: snake_case identifier
+<span class="p">  -</span> version: semver format
+<span class="p">-</span> content (required)
+<span class="p">  -</span> markdown format
+<span class="p">  -</span> can use variables
+[... 50 more lines ...]
+
+<span class="gu">## Examples</span>
+
+Here's a complete example:
+[... 30 more lines ...]
+
+<span class="gu">## Your Task</span>
+
+Guide users...
+</code></pre></div></div>
+
+<p><strong>Best practice example</strong>:</p>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- ✓ GOOD: Thin orchestrator --&gt;</span>
+<span class="gh"># Load Context</span>
+
+<span class="gu">## Format Specifications (Normative)</span>
+
+@../project-spec/format-spec.md
+@../project-spec/validation-spec.md
+
+<span class="gu">## Applied Knowledge (Practical)</span>
+
+@../context/examples.md
+@../context/implementation-guide.md
+
+<span class="gu">## Your Task</span>
+
+With specifications and examples loaded, guide users in:
+<span class="p">1.</span> Creating valid files
+<span class="p">2.</span> Validating structure
+<span class="p">3.</span> Applying best practices
+</code></pre></div></div>
+
+<h3 id="commands-layer">COMMANDS Layer</h3>
+
+<p><strong>What belongs here</strong>:</p>
+<ul>
+  <li>Brief description (1 line)</li>
+  <li>Single <code class="language-plaintext highlighter-rouge">@</code> reference to PROMPT</li>
+  <li>Nothing else</li>
+</ul>
+
+<p><strong>Best practices</strong>:</p>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>✓ Keep ≤5 lines total
+✓ Single reference only
+✓ No business logic
+✓ One-to-one mapping with prompts
+</code></pre></div></div>
+
+<p><strong>Anti-pattern example</strong>:</p>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- ✗ BAD: Business logic in command --&gt;</span>
+<span class="gh"># Create File Command</span>
+
+This command helps create a new file.
+First we need to understand what kind of file...
+[... explanation ...]
+
+Then we load:
+@../prompts/load-context.md
+
+And also load:
+@../context/examples.md
+
+And then we...
+[... more content ...]
+</code></pre></div></div>
+
+<p><strong>Best practice example</strong>:</p>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- ✓ GOOD: Thin wrapper --&gt;</span>
+<span class="gh"># Create File Command</span>
+
+Create new file following project specifications.
+
+@../prompts/create-file.md
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="validation-best-practices">Validation Best Practices</h2>
+
+<h3 id="when-to-validate">When to Validate</h3>
+
+<p><strong>After every change</strong>:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Quick validation after editing</span>
+bash ~/.claude/gradient/scripts/validate-references.sh <span class="nb">.</span>
+</code></pre></div></div>
+
+<p><strong>Before committing</strong>:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Full validation suite</span>
+bash ~/.claude/gradient/scripts/validate-references.sh <span class="nb">.</span>
+bash ~/.claude/gradient/scripts/detect-duplication.sh <span class="nb">.</span>
+bash ~/.claude/gradient/scripts/calculate-metrics.sh <span class="nb">.</span>
+</code></pre></div></div>
+
+<p><strong>Before releasing</strong>:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Complete validation including agent review</span>
+bash ~/.claude/gradient/scripts/calculate-metrics.sh <span class="nb">.</span>
+
+<span class="c"># Then in Claude Code:</span>
+<span class="c"># "Use architecture-reviewer agent to validate my project"</span>
+</code></pre></div></div>
+
+<h3 id="interpreting-metrics">Interpreting Metrics</h3>
+
+<p><strong>Duplication Ratio</strong>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1.0-1.1:  ✓ Excellent (0-10% overlap)
+1.1-1.2:  ⚠ Warning (10-20% duplication)
+1.2-1.3:  ⚠ Concern (20-30% duplication)
+&gt;1.3:     ✗ Critical (&gt;30% duplication - refactor required)
+</code></pre></div></div>
+
+<p><strong>Reference Density (PROMPTS)</strong>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;70%:     ✓ Excellent (very thin orchestrator)
+50-70%:   ✓ Good (meets target)
+30-50%:   ⚠ Acceptable (but consider extracting)
+&lt;30%:     ✗ Poor (too much inline content)
+</code></pre></div></div>
+
+<p><strong>Command File Size</strong>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>≤3 lines: ✓ Excellent
+4-5 lines: ✓ Good
+6-10 lines: ⚠ Warning (approaching bloat)
+&gt;10 lines: ✗ Critical (contains business logic)
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="architecture-decisions">Architecture Decisions</h2>
+
+<h3 id="when-to-create-new-spec">When to Create New SPEC</h3>
+
+<p><strong>Create new spec when</strong>:</p>
+<ul>
+  <li>Defining a new format</li>
+  <li>Documenting new rules/standards</li>
+  <li>Specifying validation criteria</li>
+  <li>Establishing conventions</li>
+</ul>
+
+<p><strong>Don’t create spec when</strong>:</p>
+<ul>
+  <li>Showing examples (use CONTEXT)</li>
+  <li>Documenting implementation steps (use CONTEXT)</li>
+  <li>Creating workflows (use PROMPTS)</li>
+</ul>
+
+<p><strong>Decision tree</strong>:
+<img class="mermaid" src="https://mermaid.ink/svg/eyJjb2RlIjoiZmxvd2NoYXJ0IFREXG5RW05lZWQgdG8gRG9jdW1lbnRdIC0tPiBOT1JNe0lzIGl0PGJyLz5ub3JtYXRpdmU_fVxuJSUtXG5OT1JNIC0tPnxZZXN8IE5FV1NQRUNbQ3JlYXRlIG5ldyBTUEVDXVxuTk9STSAtLT58Tm98IEVYQU1QTEV7SXMgaXQgYW48YnIvPmV4YW1wbGU_fVxuJSUtXG5FWEFNUExFIC0tPnxZZXN8IENUWFtBZGQgdG8gQ09OVEVYVF1cbkVYQU1QTEUgLS0-fE5vfCBPUkNIe0lzIGl0PGJyLz5vcmNoZXN0cmF0aW9uP31cbiUlLVxuT1JDSCAtLT58WWVzfCBQUk9NUFRbQWRkIHRvIFBST01QVFNdXG5PUkNIIC0tPnxOb3wgV0hFUkVbRGV0ZXJtaW5lIGxheWVyPGJyLz5iYXNlZCBvbiBwdXJwb3NlXVxuJSUtXG5zdHlsZSBRIGZpbGw6I2VjZjBmMSxzdHJva2U6Izk1YTVhNlxuc3R5bGUgTk9STSBmaWxsOiNmMzljMTIsc3Ryb2tlOiNkNjg5MTAsc3Ryb2tlLXdpZHRoOjJweFxuc3R5bGUgRVhBTVBMRSBmaWxsOiNmMzljMTIsc3Ryb2tlOiNkNjg5MTAsc3Ryb2tlLXdpZHRoOjJweFxuc3R5bGUgT1JDSCBmaWxsOiNmMzljMTIsc3Ryb2tlOiNkNjg5MTAsc3Ryb2tlLXdpZHRoOjJweFxuc3R5bGUgTkVXU1BFQyBmaWxsOiNlNzRjM2Msc3Ryb2tlOiNjMDM5MmIsc3Ryb2tlLXdpZHRoOjJweCxjb2xvcjojZmZmXG5zdHlsZSBDVFggZmlsbDojZjM5YzEyLHN0cm9rZTojZDY4OTEwLHN0cm9rZS13aWR0aDoycHgsY29sb3I6I2ZmZlxuc3R5bGUgUFJPTVBUIGZpbGw6IzI3YWU2MCxzdHJva2U6IzIyOTk1NCxzdHJva2Utd2lkdGg6MnB4LGNvbG9yOiNmZmZcbnN0eWxlIFdIRVJFIGZpbGw6IzM0OThkYixzdHJva2U6IzI5ODBiOSxzdHJva2Utd2lkdGg6MnB4LGNvbG9yOiNmZmYiLCJtZXJtYWlkIjpudWxsfQ"></p>
+
+<h3 id="when-to-split-spec">When to Split SPEC</h3>
+
+<p><strong>Split when</strong>:</p>
+<ul>
+  <li>Single spec grows &gt;500 lines</li>
+  <li>Covers multiple distinct domains</li>
+  <li>Has multiple independent concepts</li>
+  <li>Team members work on different sections simultaneously</li>
+</ul>
+
+<p><strong>Don’t split when</strong>:</p>
+<ul>
+  <li>Concepts are tightly coupled</li>
+  <li>Splitting would create circular dependencies</li>
+  <li>Total size &lt;300 lines</li>
+</ul>
+
+<p><strong>Example split</strong>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;!-- Before: Single large spec --&gt;
+format-spec.md (800 lines)
+  - Section 1: Metadata rules (200 lines)
+  - Section 2: Content rules (300 lines)
+  - Section 3: Validation rules (300 lines)
+
+&lt;!-- After: Split by domain --&gt;
+metadata-spec.md (250 lines)
+content-spec.md (350 lines)
+validation-spec.md (350 lines)
+</code></pre></div></div>
+
+<h3 id="when-to-create-agent">When to Create Agent</h3>
+
+<p><strong>Create agent when</strong>:</p>
+<ul>
+  <li>Task requires isolated context</li>
+  <li>Need specialized validation</li>
+  <li>Want to prevent context contamination</li>
+  <li>Task returns structured summary</li>
+</ul>
+
+<p><strong>Don’t create agent when</strong>:</p>
+<ul>
+  <li>Task is part of main workflow</li>
+  <li>Need interactive back-and-forth</li>
+  <li>Simple reference loading suffices</li>
+</ul>
+
+<hr>
+
+<h2 id="common-anti-patterns">Common Anti-Patterns</h2>
+
+<h3 id="anti-pattern-1-quick-reference-files">Anti-Pattern 1: Quick Reference Files</h3>
+
+<p><strong>Problem</strong>: Creating summary files for “easy lookup”</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>project/
+├── spec.md           # Full specification
+└── quickref.md       # Summary of spec  ✗ Duplication
+</code></pre></div></div>
+
+<p><strong>Why it’s bad</strong>:</p>
+<ul>
+  <li>Duplication burden (update in 2 places)</li>
+  <li>Inconsistencies (summary drifts from spec)</li>
+  <li>LLMs don’t need summaries (can load full spec)</li>
+  <li>Violates SSOT principle</li>
+</ul>
+
+<p><strong>Solution</strong>: Delete quick reference, use <code class="language-plaintext highlighter-rouge">@</code> references</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>project/
+├── spec.md           # Full specification (SSOT)
+└── prompts/
+    └── load.md       # @../spec.md  ✓ Reference
+</code></pre></div></div>
+
+<h3 id="anti-pattern-2-mixed-layer-files">Anti-Pattern 2: Mixed Layer Files</h3>
+
+<p><strong>Problem</strong>: Files that mix SPECS + CONTEXT + PROMPTS</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- ✗ format-spec.md - Everything mixed --&gt;</span>
+
+<span class="gh"># Format Specification</span>
+
+<span class="gu">## Rules (SPECS content)</span>
+Files MUST have...
+[normative definitions]
+
+<span class="gu">## Examples (CONTEXT content)</span>
+Here's how to create...
+[working examples]
+
+<span class="gu">## Usage (PROMPTS content)</span>
+To use this in Claude Code...
+[meta-instructions]
+</code></pre></div></div>
+
+<p><strong>Why it’s bad</strong>:</p>
+<ul>
+  <li>Unclear responsibilities</li>
+  <li>Hard to reference specific parts</li>
+  <li>Changes to one aspect affect others</li>
+  <li>Violates layer boundaries</li>
+</ul>
+
+<p><strong>Solution</strong>: Separate into layers</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- ✓ project-spec/format-spec.md (SPECS only) --&gt;</span>
+<span class="gh"># Format Specification</span>
+Files MUST have...
+[normative definitions only]
+
+<span class="c">&lt;!-- ✓ context/examples.md (CONTEXT only) --&gt;</span>
+<span class="gh"># Format Examples</span>
+For rules: @../project-spec/format-spec.md
+[working examples only]
+
+<span class="c">&lt;!-- ✓ prompts/load-context.md (PROMPTS only) --&gt;</span>
+<span class="gh"># Load Context</span>
+@../project-spec/format-spec.md
+@../context/examples.md
+[brief meta-instructions only]
+</code></pre></div></div>
+
+<h3 id="anti-pattern-3-bloated-commands">Anti-Pattern 3: Bloated Commands</h3>
+
+<p><strong>Problem</strong>: Commands containing business logic</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- ✗ commands/create-file.md --&gt;</span>
+
+Create new file following specifications.
+
+<span class="gu">## Steps</span>
+<span class="p">
+1.</span> First, gather requirements...
+<span class="p">2.</span> Then, validate inputs...
+<span class="p">3.</span> Next, create structure...
+[... 50 lines of orchestration logic ...]
+
+@../prompts/create-file.md
+</code></pre></div></div>
+
+<p><strong>Why it’s bad</strong>:</p>
+<ul>
+  <li>Exceeds 5-line limit</li>
+  <li>Contains business logic</li>
+  <li>Should be in PROMPTS, not COMMANDS</li>
+  <li>Not a thin wrapper</li>
+</ul>
+
+<p><strong>Solution</strong>: Move logic to PROMPTS</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- ✓ commands/create-file.md --&gt;</span>
+Create new file following specifications.
+
+@../prompts/create-file.md
+
+<span class="c">&lt;!-- ✓ prompts/create-file.md --&gt;</span>
+<span class="gh"># Create File Workflow</span>
+
+@../project-spec/format-spec.md
+@../context/examples.md
+
+<span class="gu">## Your Task</span>
+
+Guide user through file creation:
+<span class="p">1.</span> Gather requirements
+<span class="p">2.</span> Validate inputs
+<span class="p">3.</span> Create structure
+[orchestration logic here, with references]
+</code></pre></div></div>
+
+<h3 id="anti-pattern-4-circular-references">Anti-Pattern 4: Circular References</h3>
+
+<p><strong>Problem</strong>: Files referencing each other in a loop</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- ✗ spec.md --&gt;</span>
+@./context/examples.md
+
+<span class="c">&lt;!-- ✗ context/examples.md --&gt;</span>
+@../spec.md
+@./guide.md
+
+<span class="c">&lt;!-- ✗ context/guide.md --&gt;</span>
+@./examples.md
+@../spec.md
+</code></pre></div></div>
+
+<p><strong>Why it’s bad</strong>:</p>
+<ul>
+  <li>Infinite loop</li>
+  <li>Unclear dependency order</li>
+  <li>Hard to understand flow</li>
+</ul>
+
+<p><strong>Solution</strong>: Establish clear hierarchy</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- ✓ spec.md (SPECS - no references to other layers) --&gt;</span>
+<span class="gh"># Specification</span>
+[normative definitions]
+
+<span class="c">&lt;!-- ✓ context/examples.md (CONTEXT - references SPECS only) --&gt;</span>
+For rules: @../spec.md
+[examples]
+
+<span class="c">&lt;!-- ✓ prompts/load.md (PROMPTS - references both) --&gt;</span>
+@../spec.md
+@../context/examples.md
+[meta-instructions]
+</code></pre></div></div>
+
+<p><strong>Rule</strong>: References flow PROMPTS → CONTEXT → SPECS (never backwards)</p>
+
+<hr>
+
+<h2 id="workflow-best-practices">Workflow Best Practices</h2>
+
+<h3 id="development-workflow">Development Workflow</h3>
+
+<p><img class="mermaid" src="https://mermaid.ink/svg/eyJjb2RlIjoiZmxvd2NoYXJ0IFREXG5TVEFSVChbRmVhdHVyZSBSZXF1ZXN0XSkgLS0-IFNQRUNbXCIxLiBVcGRhdGUvQ3JlYXRlIFNQRUM8YnIvPihub3JtYXRpdmUgZGVmaW5pdGlvbilcIl1cblNQRUMgLS0-IFZBTDFbXCIyLiBWYWxpZGF0ZSByZWZlcmVuY2VzXCJdXG5WQUwxIC0tPiBDVFhbXCIzLiBBZGQgQ09OVEVYVDxici8-KGV4YW1wbGVzL2d1aWRlcylcIl1cbkNUWCAtLT4gVkFMMltcIjQuIFZhbGlkYXRlIHJlZmVyZW5jZXNcIl1cblZBTDIgLS0-IFBST01QVFtcIjUuIFVwZGF0ZSBQUk9NUFRTPGJyLz4ob3JjaGVzdHJhdGlvbilcIl1cblBST01QVCAtLT4gVkFMM1tcIjYuIENhbGN1bGF0ZSBtZXRyaWNzXCJdXG5WQUwzIC0tPiBDTURbXCI3LiBBZGQvVXBkYXRlIENPTU1BTkRTPGJyLz4oaWYgbmVlZGVkKVwiXVxuQ01EIC0tPiBSRVZJRVdbXCI4LiBBZ2VudCByZXZpZXdcIl1cblJFVklFVyAtLT4gREVDSVNJT057UGFzcz99XG4lJS1cbkRFQ0lTSU9OIC0tPnxZZXN8IENPTU1JVFtcIjkuIENvbW1pdCBjaGFuZ2VzXCJdXG5ERUNJU0lPTiAtLT58Tm98IEZJWFtcIkZpeCBpc3N1ZXNcIl1cbkZJWCAtLT4gVkFMM1xuJSUtXG5DT01NSVQgLS0-IERPTkUoW0NvbXBsZXRlXSlcbiUlLVxuc3R5bGUgU1RBUlQgZmlsbDojZWNmMGYxLHN0cm9rZTojOTVhNWE2XG5zdHlsZSBTUEVDIGZpbGw6I2U3NGMzYyxzdHJva2U6I2MwMzkyYixzdHJva2Utd2lkdGg6MnB4LGNvbG9yOiNmZmZcbnN0eWxlIENUWCBmaWxsOiNmMzljMTIsc3Ryb2tlOiNkNjg5MTAsc3Ryb2tlLXdpZHRoOjJweCxjb2xvcjojZmZmXG5zdHlsZSBQUk9NUFQgZmlsbDojMjdhZTYwLHN0cm9rZTojMjI5OTU0LHN0cm9rZS13aWR0aDoycHgsY29sb3I6I2ZmZlxuc3R5bGUgQ01EIGZpbGw6IzM0OThkYixzdHJva2U6IzI5ODBiOSxzdHJva2Utd2lkdGg6MnB4LGNvbG9yOiNmZmZcbnN0eWxlIFZBTDEgZmlsbDojOTVhNWE2LHN0cm9rZTojN2Y4YzhkLGNvbG9yOiNmZmZcbnN0eWxlIFZBTDIgZmlsbDojOTVhNWE2LHN0cm9rZTojN2Y4YzhkLGNvbG9yOiNmZmZcbnN0eWxlIFZBTDMgZmlsbDojOTVhNWE2LHN0cm9rZTojN2Y4YzhkLGNvbG9yOiNmZmZcbnN0eWxlIFJFVklFVyBmaWxsOiM5YjU5YjYsc3Ryb2tlOiM4ZTQ0YWQsY29sb3I6I2ZmZlxuc3R5bGUgREVDSVNJT04gZmlsbDojZjM5YzEyLHN0cm9rZTojZDY4OTEwXG5zdHlsZSBGSVggZmlsbDojZTc0YzNjLHN0cm9rZTojYzAzOTJiLGNvbG9yOiNmZmZcbnN0eWxlIENPTU1JVCBmaWxsOiMyN2FlNjAsc3Ryb2tlOiMyMjk5NTQsY29sb3I6I2ZmZlxuc3R5bGUgRE9ORSBmaWxsOiMyN2FlNjAsc3Ryb2tlOiMyMjk5NTQsc3Ryb2tlLXdpZHRoOjJweCxjb2xvcjojZmZmIiwibWVybWFpZCI6bnVsbH0"></p>
+
+<h3 id="refactoring-workflow">Refactoring Workflow</h3>
+
+<p><strong>Detect → Identify → Consolidate → Replace → Validate</strong></p>
+
+<ol>
+  <li>
+<strong>Detect</strong>: Run duplication detection
+    <div class="language-bash highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>bash detect-duplication.sh my-plugin/
+</code></pre></div>    </div>
+  </li>
+  <li>
+<strong>Identify</strong>: Determine SSOT for duplicated content
+    <ul>
+      <li>Normative? → SPECS</li>
+      <li>Applied? → CONTEXT</li>
+      <li>Orchestration? → PROMPTS</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Consolidate</strong>: Move all instances to SSOT</p>
+  </li>
+  <li>
+    <p><strong>Replace</strong>: Replace duplicates with <code class="language-plaintext highlighter-rouge">@</code> references</p>
+  </li>
+  <li>
+<strong>Validate</strong>: Ensure references resolve and metrics pass
+    <div class="language-bash highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>bash validate-references.sh my-plugin/
+bash calculate-metrics.sh my-plugin/
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<hr>
+
+<h2 id="next-steps">Next Steps</h2>
+
+<ul>
+  <li>
+<strong><a href="/cheatsheet/">Cheatsheet</a></strong> - Quick reference for common patterns</li>
+  <li>
+<strong><a href="/migration-guide/">Migration Guide</a></strong> - Refactoring existing projects</li>
+  <li>
+<strong><a href="/tools/">Tools</a></strong> - Validation scripts and agents</li>
+</ul>
+
+<hr>
+
+<p><strong>Key Takeaway</strong>: Follow SSOT rigorously, reference over duplication, validate frequently, and maintain clear layer boundaries. These practices ensure maintainable, scalable Gradient architectures.</p>
+
+  </div>
+
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Davi Guides</li>
+</ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+<ul class="social-media-list"></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>A proposal for a layered context architecture for Claude Code plugins.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+
+</html>

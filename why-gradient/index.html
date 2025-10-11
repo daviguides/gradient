@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Why Gradient? | Gradient</title>
+<meta name="generator" content="Jekyll v4.4.1">
+<meta property="og:title" content="Why Gradient?">
+<meta name="author" content="Davi Guides">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="A proposal for a layered context architecture for Claude Code plugins.">
+<meta property="og:description" content="A proposal for a layered context architecture for Claude Code plugins.">
+<meta property="og:site_name" content="Gradient">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="Why Gradient?">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Davi Guides"},"description":"A proposal for a layered context architecture for Claude Code plugins.","headline":"Why Gradient?","url":"/why-gradient/"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
+<link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Gradient">
+</head>
+<body>
+<header class="site-header">
+
+  <div class="wrapper">
+<a class="site-title" rel="author" href="/">Gradient</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger">
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewbox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger">
+<a class="page-link" href="/">Home</a><a class="page-link" href="/quick-start/">Quick Start</a><a class="page-link" href="/why-gradient/">Why Gradient?</a><a class="page-link" href="/specifications/">Specifications</a><a class="page-link" href="/examples/">Examples</a><a class="page-link" href="/tools/">Tools</a>
+</div>
+      </nav>
+</div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <!-- <header class="post-header">
+    <h1 class="post-title">Why Gradient?</h1>
+  </header> -->
+
+  <div class="post-content">
+    <h1 id="why-gradient">Why Gradient?</h1>
+
+<p>Understanding the problems that Gradient solves and the philosophy behind its design.</p>
+
+<hr>
+
+<h2 id="the-problem-documentation-duplication">The Problem: Documentation Duplication</h2>
+
+<h3 id="symptom-maintenance-burden">Symptom: Maintenance Burden</h3>
+
+<p>Traditional documentation structures repeat the same information across multiple files:</p>
+
+<p><img class="mermaid" src="https://mermaid.ink/svg/eyJjb2RlIjoiZ3JhcGggVERcbkRFRltcIkNvbmNlcHQ6IFlNRCBGb3JtYXQgUnVsZXNcIl0gLS0-IEZJTEUxW3ltZF9zcGVjLm1kXVxuREVGIC0tPiBGSUxFMltxdWlja19yZWZlcmVuY2UubWRdXG5ERUYgLS0-IEZJTEUzW3Byb21wdHMvZ3VpZGUubWRdXG5ERUYgLS0-IEZJTEU0W1JFQURNRS5tZF1cbiUlLVxuc3R5bGUgREVGIGZpbGw6I2U3NGMzYyxzdHJva2U6I2MwMzkyYixzdHJva2Utd2lkdGg6M3B4LGNvbG9yOiNmZmZcbnN0eWxlIEZJTEUxIGZpbGw6I2VjZjBmMSxzdHJva2U6Izk1YTVhNlxuc3R5bGUgRklMRTIgZmlsbDojZWNmMGYxLHN0cm9rZTojOTVhNWE2XG5zdHlsZSBGSUxFMyBmaWxsOiNlY2YwZjEsc3Ryb2tlOiM5NWE1YTZcbnN0eWxlIEZJTEU0IGZpbGw6I2VjZjBmMSxzdHJva2U6Izk1YTVhNlxuJSUtXG5GSUxFMSAtLi0-fFwiZHVwbGljYXRpb25cInwgRklMRTJcbkZJTEUyIC0uLT58XCJkdXBsaWNhdGlvblwifCBGSUxFM1xuRklMRTMgLS4tPnxcImR1cGxpY2F0aW9uXCJ8IEZJTEU0IiwibWVybWFpZCI6bnVsbH0"></p>
+
+<p><strong>Real-world impact</strong>:</p>
+<ul>
+  <li>Update format rule → Must update 4 files</li>
+  <li>Miss one file → Inconsistency introduced</li>
+  <li>New team member → Which file is authoritative?</li>
+  <li>LLM context → Wastes tokens on repeated content</li>
+</ul>
+
+<h3 id="symptom-unclear-boundaries">Symptom: Unclear Boundaries</h3>
+
+<p>Files mix normative rules, practical examples, and orchestration logic:</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- common-file.md - Everything mixed together --&gt;</span>
+
+<span class="gu">## YMD Format Rules</span>
+YMD files MUST contain meta section with id, version...
+[50 lines of specification]
+
+<span class="gu">## Examples</span>
+Here's how to create a YMD:
+[30 lines of examples]
+
+<span class="gu">## Usage Instructions</span>
+To use this in Claude Code, load the context and...
+[40 lines of meta-instructions]
+</code></pre></div></div>
+
+<p><strong>Problems</strong>:</p>
+<ul>
+  <li>
+<strong>Change specification</strong> → Must review examples and instructions</li>
+  <li>
+<strong>Update examples</strong> → Risk breaking specifications</li>
+  <li>
+<strong>Hard to reference</strong> → “Load lines 1-50? Or entire file?”</li>
+  <li>
+<strong>Cognitive load</strong> → What’s normative vs applied vs orchestration?</li>
+</ul>
+
+<h3 id="symptom-token-waste">Symptom: Token Waste</h3>
+
+<p>For LLM contexts, duplication means unnecessary token consumption:</p>
+
+<p><img class="mermaid" src="https://mermaid.ink/svg/eyJjb2RlIjoiZ3JhcGggTFJcbkFbTG9hZCBDb250ZXh0XSAtLT4gQltGaWxlIDE6IEZ1bGwgU3BlYzxici8-NTAwIHRva2Vuc11cbkEgLS0-IENbRmlsZSAyOiBTcGVjIFN1bW1hcnk8YnIvPjMwMCB0b2tlbnNdXG5BIC0tPiBEW0ZpbGUgMzogU3BlYyBJbmxpbmU8YnIvPjQwMCB0b2tlbnNdXG4lJS1cbkIgLS4tPnxcIjcwJSBvdmVybGFwXCJ8IENcbkMgLS4tPnxcIjYwJSBvdmVybGFwXCJ8IERcbiUlLVxuc3R5bGUgQSBmaWxsOiNlY2YwZjEsc3Ryb2tlOiM5NWE1YTZcbnN0eWxlIEIgZmlsbDojZTc0YzNjLHN0cm9rZTojYzAzOTJiLGNvbG9yOiNmZmZcbnN0eWxlIEMgZmlsbDojZTc0YzNjLHN0cm9rZTojYzAzOTJiLGNvbG9yOiNmZmZcbnN0eWxlIEQgZmlsbDojZTc0YzNjLHN0cm9rZTojYzAzOTJiLGNvbG9yOiNmZmYiLCJtZXJtYWlkIjpudWxsfQ"></p>
+
+<p><strong>Calculation</strong>:</p>
+<ul>
+  <li>Total tokens: 1,200</li>
+  <li>Unique information: ~600 tokens</li>
+  <li><strong>Wasted tokens: 600 (50% duplication)</strong></li>
+</ul>
+
+<h3 id="symptom-fragile-architecture">Symptom: Fragile Architecture</h3>
+
+<p>Changes propagate unpredictably:</p>
+
+<p><img class="mermaid" src="https://mermaid.ink/svg/eyJjb2RlIjoiZmxvd2NoYXJ0IFREXG5DSEFOR0VbVXBkYXRlIFZhbGlkYXRpb24gUnVsZV0gLS0-IFExe1JlbWVtYmVyIGFsbDxici8-ZHVwbGljYXRlcz99XG4lJS1cblExIC0tPnxZZXN8IFVQREFURTFbVXBkYXRlIHNwZWMubWRdXG5RMSAtLT58Tm98IE1JU1NbTWlzcyBkdXBsaWNhdGVzXVxuJSUtXG5VUERBVEUxIC0tPiBVUERBVEUyW1VwZGF0ZSBxdWlja3JlZi5tZF1cblVQREFURTIgLS0-IFVQREFURTNbVXBkYXRlIHByb21wdHMubWRdXG5VUERBVEUzIC0tPiBVUERBVEU0W1VwZGF0ZSBSRUFETUUubWRdXG4lJS1cbk1JU1MgLS0-IElOQ09OU0lTVEVOVFtJbmNvbnNpc3RlbnQgU3RhdGVdXG5VUERBVEU0IC0tPiBDT05TSVNURU5UW0NvbnNpc3RlbnQgU3RhdGVdXG4lJS1cbklOQ09OU0lTVEVOVCAtLT4gQlVHW0J1Z3MvPGJyLz5Db25mdXNpb25dXG5DT05TSVNURU5UIC0tPiBTVUNDRVNTW1N1Y2Nlc3NdXG4lJS1cbnN0eWxlIENIQU5HRSBmaWxsOiNmMzljMTIsc3Ryb2tlOiNkNjg5MTAsc3Ryb2tlLXdpZHRoOjJweFxuc3R5bGUgUTEgZmlsbDojZjM5YzEyLHN0cm9rZTojZDY4OTEwLHN0cm9rZS13aWR0aDoycHhcbnN0eWxlIE1JU1MgZmlsbDojZTc0YzNjLHN0cm9rZTojYzAzOTJiLHN0cm9rZS13aWR0aDoycHgsY29sb3I6I2ZmZlxuc3R5bGUgSU5DT05TSVNURU5UIGZpbGw6I2U3NGMzYyxzdHJva2U6I2MwMzkyYixzdHJva2Utd2lkdGg6MnB4LGNvbG9yOiNmZmZcbnN0eWxlIEJVRyBmaWxsOiNlNzRjM2Msc3Ryb2tlOiNjMDM5MmIsc3Ryb2tlLXdpZHRoOjNweCxjb2xvcjojZmZmXG5zdHlsZSBTVUNDRVNTIGZpbGw6IzI3YWU2MCxzdHJva2U6IzIyOTk1NCxzdHJva2Utd2lkdGg6M3B4LGNvbG9yOiNmZmYiLCJtZXJtYWlkIjpudWxsfQ"></p>
+
+<hr>
+
+<h2 id="the-gradient-solution">The Gradient Solution</h2>
+
+<h3 id="single-source-of-truth-ssot">Single Source of Truth (SSOT)</h3>
+
+<p>Every concept exists in exactly one authoritative location:</p>
+
+<p><img class="mermaid" src="https://mermaid.ink/svg/eyJjb2RlIjoiZ3JhcGggVERcbkRFRltcIkNvbmNlcHQ6IFlNRCBGb3JtYXQgUnVsZXNcIl0gLS0-IFNTT1RbeW1kX3NwZWMubWQ8YnIvPlNJTkdMRSBTT1VSQ0VdXG4lJS1cblNTT1QgLS0-fFwibG9hZGVkIHZpYSBAcmVmZXJlbmNlXCJ8IEZJTEUyW3F1aWNrX3JlZmVyZW5jZS5tZF1cblNTT1QgLS0-fFwibG9hZGVkIHZpYSBAcmVmZXJlbmNlXCJ8IEZJTEUzW3Byb21wdHMvZ3VpZGUubWRdXG5TU09UIC0tPnxcImxvYWRlZCB2aWEgQHJlZmVyZW5jZVwifCBGSUxFNFtSRUFETUUubWRdXG4lJS1cbnN0eWxlIERFRiBmaWxsOiMyN2FlNjAsc3Ryb2tlOiMyMjk5NTQsc3Ryb2tlLXdpZHRoOjNweCxjb2xvcjojZmZmXG5zdHlsZSBTU09UIGZpbGw6I2U3NGMzYyxzdHJva2U6I2MwMzkyYixzdHJva2Utd2lkdGg6NHB4LGNvbG9yOiNmZmZcbnN0eWxlIEZJTEUyIGZpbGw6I2VjZjBmMSxzdHJva2U6Izk1YTVhNlxuc3R5bGUgRklMRTMgZmlsbDojZWNmMGYxLHN0cm9rZTojOTVhNWE2XG5zdHlsZSBGSUxFNCBmaWxsOiNlY2YwZjEsc3Ryb2tlOiM5NWE1YTZcbiUlLVxuU1NPVCAtLi0-fFwiMCUgZHVwbGljYXRpb25cInwgRklMRTJcblNTT1QgLS4tPnxcIjAlIGR1cGxpY2F0aW9uXCJ8IEZJTEUzXG5TU09UIC0uLT58XCIwJSBkdXBsaWNhdGlvblwifCBGSUxFNCIsIm1lcm1haWQiOm51bGx9"></p>
+
+<p><strong>Benefits</strong>:</p>
+<ul>
+  <li>
+<strong>Update once</strong> → Change propagates to all consumers</li>
+  <li>
+<strong>Zero inconsistency</strong> → Single source means single truth</li>
+  <li>
+<strong>Clear authority</strong> → Obvious where definitions live</li>
+  <li>
+<strong>Efficient tokens</strong> → Load specification once, reference everywhere</li>
+</ul>
+
+<h3 id="clear-layer-boundaries">Clear Layer Boundaries</h3>
+
+<p>Separate normative rules, applied knowledge, and orchestration:</p>
+
+<p><img class="mermaid" src="https://mermaid.ink/svg/eyJjb2RlIjoiZ3JhcGggTFJcbnN1YmdyYXBoIFwiTGF5ZXIgMTogU1BFQ1NcIlxuU1tGb3JtYXQgUnVsZXM8YnIvPk5vcm1hdGl2ZSBEZWZpbml0aW9uc11cbmVuZFxuJSUtXG5zdWJncmFwaCBcIkxheWVyIDI6IENPTlRFWFRcIlxuQ1tFeGFtcGxlczxici8-QXBwbGllZCBLbm93bGVkZ2VdXG5lbmRcbiUlLVxuc3ViZ3JhcGggXCJMYXllciAzOiBQUk9NUFRTXCJcblBbTG9hZCBDb250ZXh0PGJyLz5PcmNoZXN0cmF0aW9uXVxuZW5kXG4lJS1cblMgLS4tPnxcInNtb290aCB0cmFuc2l0aW9uXCJ8IENcbkMgLS4tPnxcInNtb290aCB0cmFuc2l0aW9uXCJ8IFBcbiUlLVxuUCAtLT58XCJAcmVmZXJlbmNlXCJ8IFNcblAgLS0-fFwiQHJlZmVyZW5jZVwifCBDXG4lJS1cbnN0eWxlIFMgZmlsbDojZTc0YzNjLHN0cm9rZTojYzAzOTJiLHN0cm9rZS13aWR0aDozcHgsY29sb3I6I2ZmZlxuc3R5bGUgQyBmaWxsOiNmMzljMTIsc3Ryb2tlOiNkNjg5MTAsc3Ryb2tlLXdpZHRoOjNweCxjb2xvcjojZmZmXG5zdHlsZSBQIGZpbGw6IzI3YWU2MCxzdHJva2U6IzIyOTk1NCxzdHJva2Utd2lkdGg6M3B4LGNvbG9yOiNmZmYiLCJtZXJtYWlkIjpudWxsfQ"></p>
+
+<p><strong>Benefits</strong>:</p>
+<ul>
+  <li>
+<strong>Specs evolve independently</strong> → Change rules without touching examples</li>
+  <li>
+<strong>Examples stay synchronized</strong> → Reference specs, always up-to-date</li>
+  <li>
+<strong>Prompts stay thin</strong> → Orchestrate via references, not duplication</li>
+</ul>
+
+<h3 id="reference-based-composition">Reference-Based Composition</h3>
+
+<p>Use <code class="language-plaintext highlighter-rouge">@</code> syntax to compose content without duplication:</p>
+
+<p><strong>Before (duplication)</strong>:</p>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- prompts/guide.md --&gt;</span>
+
+<span class="gu">## YMD Format Rules</span>
+YMD files MUST contain:
+<span class="p">-</span> meta section with id, version, title
+<span class="p">-</span> At least one content section
+<span class="p">-</span> Valid YAML syntax
+[... 50 lines repeated from spec ...]
+
+<span class="gu">## Examples</span>
+Here's a valid YMD file:
+[... 30 lines repeated from examples ...]
+</code></pre></div></div>
+
+<p><strong>After (references)</strong>:</p>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- prompts/guide.md --&gt;</span>
+
+<span class="gu">## YMD Format Specifications</span>
+
+@../ymd-spec/ymd_format_spec.md
+
+<span class="gu">## Practical Examples</span>
+
+@../context/examples.md
+
+<span class="gu">## Your Task</span>
+
+Guide the user in creating YMD files using the loaded specifications and examples.
+</code></pre></div></div>
+
+<p><strong>Metrics</strong>:</p>
+<ul>
+  <li>Before: 80 lines (50 duplicated)</li>
+  <li>After: 10 lines (0 duplicated)</li>
+  <li><strong>Reduction: 87.5% fewer lines, 100% less duplication</strong></li>
+</ul>
+
+<hr>
+
+<h2 id="before-and-after-real-world-impact">Before and After: Real-World Impact</h2>
+
+<h3 id="case-study-ymd-spec-plugin">Case Study: YMD-Spec Plugin</h3>
+
+<p><strong>Before Gradient</strong>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ymd-spec/
+├── ymd_format_spec.md           # 500 lines (spec + examples + usage)
+├── quick_reference.md           # 300 lines (spec summary + examples)
+└── prompts/
+    └── load_context.md          # 400 lines (spec repeated + meta-instructions)
+</code></pre></div></div>
+
+<p><strong>Issues</strong>:</p>
+<ul>
+  <li>1,200 total lines</li>
+  <li>~600 lines of duplicated content (50% duplication)</li>
+  <li>Update validation rule → Change 3 files</li>
+  <li>Add example → Update 2 files</li>
+  <li>Inconsistencies crept in over time</li>
+</ul>
+
+<p><strong>After Gradient</strong>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ymd-spec/
+├── ymd_format_spec.md           # 400 lines (pure spec, normative only)
+├── context/
+│   └── examples.md              # 300 lines (unique examples, no spec)
+└── prompts/
+    └── load_context.md          # 50 lines (mostly @references)
+</code></pre></div></div>
+
+<p><strong>Results</strong>:</p>
+<ul>
+  <li>750 total lines (37% reduction)</li>
+  <li>0 lines of duplication (0% duplication ratio)</li>
+  <li>Update validation rule → Change 1 file (spec)</li>
+  <li>Add example → Change 1 file (examples)</li>
+  <li>Impossible to have inconsistencies (single source)</li>
+</ul>
+
+<p><strong>Metrics Comparison</strong>:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Metric</th>
+      <th>Before</th>
+      <th>After</th>
+      <th>Improvement</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Total Lines</td>
+      <td>1,200</td>
+      <td>750</td>
+      <td><strong>37% reduction</strong></td>
+    </tr>
+    <tr>
+      <td>Duplication Ratio</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td><strong>50% improvement</strong></td>
+    </tr>
+    <tr>
+      <td>Maintenance Points</td>
+      <td>3</td>
+      <td>1</td>
+      <td><strong>66% reduction</strong></td>
+    </tr>
+    <tr>
+      <td>Files to Update (spec change)</td>
+      <td>3</td>
+      <td>1</td>
+      <td><strong>66% less work</strong></td>
+    </tr>
+    <tr>
+      <td>Reference Density (prompts)</td>
+      <td>0%</td>
+      <td>80%</td>
+      <td><strong>Thin orchestrators</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
+<h2 id="the-philosophy-smooth-transitions">The Philosophy: Smooth Transitions</h2>
+
+<h3 id="not-rigid-layers">Not Rigid Layers</h3>
+
+<p>Gradient is <strong>not</strong> about strict separation:</p>
+
+<p><img class="mermaid" src="https://mermaid.ink/svg/eyJjb2RlIjoiZ3JhcGggTFJcbkFbXCLinYwgUmlnaWQgQm91bmRhcmllc1wiXSAtLT4gQltTUEVDUzxici8-Tm8gT3ZlcmxhcF1cbkIgLS0-IENbQ09OVEVYVDxici8-Tm8gT3ZlcmxhcF1cbkMgLS0-IERbUFJPTVBUUzxici8-Tm8gT3ZlcmxhcF1cbiUlLVxuc3R5bGUgQSBmaWxsOiNlNzRjM2Msc3Ryb2tlOiNjMDM5MmIsc3Ryb2tlLXdpZHRoOjJweCxjb2xvcjojZmZmXG5zdHlsZSBCIGZpbGw6I2VjZjBmMSxzdHJva2U6Izk1YTVhNlxuc3R5bGUgQyBmaWxsOiNlY2YwZjEsc3Ryb2tlOiM5NWE1YTZcbnN0eWxlIEQgZmlsbDojZWNmMGYxLHN0cm9rZTojOTVhNWE2IiwibWVybWFpZCI6bnVsbH0"></p>
+
+<p><strong>Problem</strong>: Mechanical, arbitrary divisions lead to:</p>
+<ul>
+  <li>Unclear where concepts belong</li>
+  <li>Forced categorization</li>
+  <li>Cognitive overhead</li>
+</ul>
+
+<h3 id="smooth-transitions">Smooth Transitions</h3>
+
+<p>Gradient is about <strong>intentional flow</strong> between concerns:</p>
+
+<p><img class="mermaid" src="https://mermaid.ink/svg/eyJjb2RlIjoiZ3JhcGggTFJcbkFbXCLinIUgR3JhZGllbnQgRmxvd1wiXSAtLT4gQltcIuKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWiOKWkeKWkeKWkeKWkeKWkeKWkTxici8-U1BFQ1NcIl1cbkIgLS4tPnxzbW9vdGh8IENbXCIgICAg4paI4paI4paI4paI4paI4paI4paI4paI4paR4paRPGJyLz5DT05URVhUXCJdXG5DIC0uLT58c21vb3RofCBEW1wiICAgICAgICDilojilojilojilojilojilojilojilog8YnIvPlBST01QVFNcIl1cbiUlLVxuc3R5bGUgQSBmaWxsOiMyN2FlNjAsc3Ryb2tlOiMyMjk5NTQsc3Ryb2tlLXdpZHRoOjJweCxjb2xvcjojZmZmXG5zdHlsZSBCIGZpbGw6I2U3NGMzYyxzdHJva2U6I2MwMzkyYixzdHJva2Utd2lkdGg6M3B4LGNvbG9yOiNmZmZcbnN0eWxlIEMgZmlsbDojZjM5YzEyLHN0cm9rZTojZDY4OTEwLHN0cm9rZS13aWR0aDozcHgsY29sb3I6I2ZmZlxuc3R5bGUgRCBmaWxsOiMyN2FlNjAsc3Ryb2tlOiMyMjk5NTQsc3Ryb2tlLXdpZHRoOjNweCxjb2xvcjojZmZmIiwibWVybWFpZCI6bnVsbH0"></p>
+
+<p><strong>Benefits</strong>:</p>
+<ul>
+  <li>Natural transitions (rules → application → action)</li>
+  <li>Clear responsibilities with fluid boundaries</li>
+  <li>Each layer has distinct purpose while blending naturally</li>
+</ul>
+
+<hr>
+
+<h2 id="key-benefits-summary">Key Benefits Summary</h2>
+
+<h3 id="for-maintainers">For Maintainers</h3>
+
+<p><strong>Reduced Burden</strong>:
+<img class="mermaid" src="https://mermaid.ink/svg/eyJjb2RlIjoiZ3JhcGggTFJcbnN1YmdyYXBoIFwiVHJhZGl0aW9uYWwgQXBwcm9hY2hcIlxuVDFbVXBkYXRlPGJyLz5TcGVjXSAtLT4gVDJbVXBkYXRlPGJyLz5RdWljayBSZWZdXG5UMiAtLT4gVDNbVXBkYXRlPGJyLz5Qcm9tcHRzXVxuVDMgLS0-IFQ0W1VwZGF0ZTxici8-UkVBRE1FXVxuVDQgLS0-IFQ1W1ZlcmlmeTxici8-Q29uc2lzdGVuY3ldXG5lbmRcbiUlLVxuc3ViZ3JhcGggXCJHcmFkaWVudCBBcHByb2FjaFwiXG5HMVtVcGRhdGU8YnIvPlNwZWMgT25jZV0gLS0-IEcyW0RvbmU8YnIvPuKck11cbmVuZFxuJSUtXG5zdHlsZSBUMSBmaWxsOiNlNzRjM2Msc3Ryb2tlOiNjMDM5MmIsY29sb3I6I2ZmZlxuc3R5bGUgVDIgZmlsbDojZTc0YzNjLHN0cm9rZTojYzAzOTJiLGNvbG9yOiNmZmZcbnN0eWxlIFQzIGZpbGw6I2U3NGMzYyxzdHJva2U6I2MwMzkyYixjb2xvcjojZmZmXG5zdHlsZSBUNCBmaWxsOiNlNzRjM2Msc3Ryb2tlOiNjMDM5MmIsY29sb3I6I2ZmZlxuc3R5bGUgVDUgZmlsbDojZTc0YzNjLHN0cm9rZTojYzAzOTJiLGNvbG9yOiNmZmZcbnN0eWxlIEcxIGZpbGw6IzI3YWU2MCxzdHJva2U6IzIyOTk1NCxjb2xvcjojZmZmXG5zdHlsZSBHMiBmaWxsOiMyN2FlNjAsc3Ryb2tlOiMyMjk5NTQsY29sb3I6I2ZmZiIsIm1lcm1haWQiOm51bGx9"></p>
+
+<ul>
+  <li>
+<strong>Update once</strong> → Changes propagate everywhere</li>
+  <li>
+<strong>Impossible to introduce inconsistencies</strong> → Single source of truth</li>
+  <li>
+<strong>Clear ownership</strong> → Obvious where each concept lives</li>
+</ul>
+
+<h3 id="for-teams">For Teams</h3>
+
+<p><strong>Reduced Cognitive Load</strong>:</p>
+<ul>
+  <li>
+<strong>New members</strong> → Clear where to find authoritative information</li>
+  <li>
+<strong>Code reviews</strong> → Validate against single source</li>
+  <li>
+<strong>Collaboration</strong> → No conflicts from duplicated content</li>
+</ul>
+
+<h3 id="for-llms">For LLMs</h3>
+
+<p><strong>Efficient Context Loading</strong>:</p>
+<ul>
+  <li>
+<strong>Reduced tokens</strong> → Load specifications once, reference everywhere</li>
+  <li>
+<strong>Clear structure</strong> → Easier to understand architectural boundaries</li>
+  <li>
+<strong>Better performance</strong> → Less redundant context to process</li>
+</ul>
+
+<h3 id="for-projects">For Projects</h3>
+
+<p><strong>Scalability</strong>:
+<img class="mermaid" src="https://mermaid.ink/svg/eyJjb2RlIjoiZ3JhcGggVERcbkFbU21hbGwgUHJvamVjdDxici8-MS0yIHNwZWNzXSAtLT4gQltNZWRpdW0gUHJvamVjdDxici8-NS0xMCBzcGVjc11cbkIgLS0-IENbTGFyZ2UgUHJvamVjdDxici8-MjArIHNwZWNzXVxuJSUtXG5BIC0tPiBEW1wiU3RpbGwgbWFpbnRhaW5hYmxlPGJyLz4ocmVmZXJlbmNlcyBzY2FsZSlcIl1cbkIgLS0-IERcbkMgLS0-IERcbiUlLVxuc3R5bGUgQSBmaWxsOiMzNDk4ZGIsc3Ryb2tlOiMyOTgwYjksY29sb3I6I2ZmZlxuc3R5bGUgQiBmaWxsOiMzNDk4ZGIsc3Ryb2tlOiMyOTgwYjksY29sb3I6I2ZmZlxuc3R5bGUgQyBmaWxsOiMzNDk4ZGIsc3Ryb2tlOiMyOTgwYjksY29sb3I6I2ZmZlxuc3R5bGUgRCBmaWxsOiMyN2FlNjAsc3Ryb2tlOiMyMjk5NTQsc3Ryb2tlLXdpZHRoOjNweCxjb2xvcjojZmZmIiwibWVybWFpZCI6bnVsbH0"></p>
+
+<ul>
+  <li>
+<strong>Scales with complexity</strong> → Reference system handles growth</li>
+  <li>
+<strong>Modular expansion</strong> → Add specs/context without refactoring</li>
+  <li>
+<strong>Long-term viability</strong> → Architecture supports evolution</li>
+</ul>
+
+<hr>
+
+<h2 id="when-you-need-gradient">When You Need Gradient</h2>
+
+<h3 id="ideal-use-cases">Ideal Use Cases</h3>
+
+<p><strong>Claude Code Plugins</strong>:</p>
+<ul>
+  <li>Multiple specifications and contexts</li>
+  <li>Need to compose prompts dynamically</li>
+  <li>Want to avoid duplication across commands/agents</li>
+</ul>
+
+<p><strong>Documentation Projects</strong>:</p>
+<ul>
+  <li>Technical specifications with examples</li>
+  <li>Multiple formats (for humans, for LLMs)</li>
+  <li>Need to keep content synchronized</li>
+</ul>
+
+<p><strong>Prompt Engineering Systems</strong>:</p>
+<ul>
+  <li>Reusable prompt components</li>
+  <li>Modular composition patterns</li>
+  <li>Context injection at scale</li>
+</ul>
+
+<p><strong>Team Collaboration</strong>:</p>
+<ul>
+  <li>Multiple contributors</li>
+  <li>Shared specification sources</li>
+  <li>Need clear ownership boundaries</li>
+</ul>
+
+<h3 id="when-gradient-is-overkill">When Gradient is Overkill</h3>
+
+<p><strong>Not necessary for</strong>:</p>
+<ul>
+  <li>Single-file projects</li>
+  <li>One-off prompts</li>
+  <li>Disposable scripts</li>
+  <li>Trivial documentation (&lt; 3 files)</li>
+</ul>
+
+<p><strong>Rule of thumb</strong>: If you’re duplicating content or manually keeping multiple files synchronized, Gradient will help. If you have a simple, self-contained project, you don’t need it.</p>
+
+<hr>
+
+<h2 id="philosophy-in-practice">Philosophy in Practice</h2>
+
+<h3 id="the-gradient-metaphor">The Gradient Metaphor</h3>
+
+<p>Like a visual gradient where colors dissolve into each other:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>████████░░░░░░░░  SPECS     (Rigid definitions)
+    ████████░░░░  CONTEXT   (Applied knowledge)
+        ████████  PROMPTS   (Dynamic orchestration)
+</code></pre></div></div>
+
+<p><strong>Not discrete steps</strong>, but <strong>intentional transitions</strong>:</p>
+<ul>
+  <li>SPECS → CONTEXT: From rules to application</li>
+  <li>CONTEXT → PROMPTS: From patterns to action</li>
+</ul>
+
+<h3 id="single-source-of-truth">Single Source of Truth</h3>
+
+<p>Every concept has exactly <strong>one authoritative location</strong>:</p>
+<ul>
+  <li>
+<strong>Specifications</strong> → Live in <code class="language-plaintext highlighter-rouge">*-spec.md</code> files</li>
+  <li>
+<strong>Examples</strong> → Live in <code class="language-plaintext highlighter-rouge">context/examples.md</code>
+</li>
+  <li>
+<strong>Orchestration</strong> → Live in <code class="language-plaintext highlighter-rouge">prompts/*.md</code>
+</li>
+  <li>
+<strong>Everything else</strong> → References these sources</li>
+</ul>
+
+<h3 id="reference-based-composition-1">Reference-Based Composition</h3>
+
+<p>Build complex systems by composing simple parts:</p>
+<ul>
+  <li>
+<strong>Thin orchestrators</strong> (&gt;50% references)</li>
+  <li>
+<strong>Zero duplication</strong> (each concept appears once)</li>
+  <li>
+<strong>Clear dependencies</strong> (references make relationships explicit)</li>
+</ul>
+
+<hr>
+
+<h2 id="next-steps">Next Steps</h2>
+
+<p>Ready to try Gradient?</p>
+
+<ol>
+  <li>
+<strong><a href="/quick-start/">Quick Start</a></strong> - Build your first Gradient project in 10 minutes</li>
+  <li>
+<strong><a href="/specifications/">Specifications</a></strong> - Understand the technical details of each layer</li>
+  <li>
+<strong><a href="/architecture-guide/">Architecture Guide</a></strong> - Deep dive with Mermaid diagrams and examples</li>
+  <li>
+<strong><a href="/examples/">Examples</a></strong> - See real-world Gradient implementations</li>
+</ol>
+
+<hr>
+
+<p><strong>Key Insight</strong>: Gradient eliminates duplication through Single Source of Truth and enables maintainable, scalable documentation through smooth layer transitions and reference-based composition.</p>
+
+  </div>
+
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Davi Guides</li>
+</ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+<ul class="social-media-list"></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>A proposal for a layered context architecture for Claude Code plugins.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+
+</html>

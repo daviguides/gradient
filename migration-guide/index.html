@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Migration Guide | Gradient</title>
+<meta name="generator" content="Jekyll v4.4.1">
+<meta property="og:title" content="Migration Guide">
+<meta name="author" content="Davi Guides">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="A proposal for a layered context architecture for Claude Code plugins.">
+<meta property="og:description" content="A proposal for a layered context architecture for Claude Code plugins.">
+<meta property="og:site_name" content="Gradient">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="Migration Guide">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Davi Guides"},"description":"A proposal for a layered context architecture for Claude Code plugins.","headline":"Migration Guide","url":"/migration-guide/"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
+<link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Gradient">
+</head>
+<body>
+<header class="site-header">
+
+  <div class="wrapper">
+<a class="site-title" rel="author" href="/">Gradient</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger">
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewbox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger">
+<a class="page-link" href="/">Home</a><a class="page-link" href="/quick-start/">Quick Start</a><a class="page-link" href="/why-gradient/">Why Gradient?</a><a class="page-link" href="/specifications/">Specifications</a><a class="page-link" href="/examples/">Examples</a><a class="page-link" href="/tools/">Tools</a>
+</div>
+      </nav>
+</div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <!-- <header class="post-header">
+    <h1 class="post-title">Migration Guide</h1>
+  </header> -->
+
+  <div class="post-content">
+    <h1 id="migration-guide">Migration Guide</h1>
+
+<p>Step-by-step guide for refactoring existing projects to follow Gradient architecture.</p>
+
+<hr>
+
+<h2 id="overview">Overview</h2>
+
+<p>Migrating to Gradient eliminates duplication and establishes clear architectural boundaries. This guide covers assessment, planning, and execution.</p>
+
+<p><img class="mermaid" src="https://mermaid.ink/svg/eyJjb2RlIjoiZmxvd2NoYXJ0IExSXG5BW0V4aXN0aW5nPGJyLz5Qcm9qZWN0XSAtLT4gQltBc3Nlc3NtZW50PGJyLz5QaGFzZV1cbkIgLS0-IENbUGxhbm5pbmc8YnIvPlBoYXNlXVxuQyAtLT4gRFtFeGVjdXRpb248YnIvPlBoYXNlXVxuRCAtLT4gRVtWYWxpZGF0aW9uPGJyLz5QaGFzZV1cbkUgLS0-IEZbR3JhZGllbnQtPGJyLz5Db21wbGlhbnRdXG4lJS1cbnN0eWxlIEEgZmlsbDojZWNmMGYxLHN0cm9rZTojOTVhNWE2XG5zdHlsZSBCIGZpbGw6I2YzOWMxMixzdHJva2U6I2Q2ODkxMCxzdHJva2Utd2lkdGg6MnB4LGNvbG9yOiNmZmZcbnN0eWxlIEMgZmlsbDojMzQ5OGRiLHN0cm9rZTojMjk4MGI5LHN0cm9rZS13aWR0aDoycHgsY29sb3I6I2ZmZlxuc3R5bGUgRCBmaWxsOiM5YjU5YjYsc3Ryb2tlOiM4ZTQ0YWQsc3Ryb2tlLXdpZHRoOjJweCxjb2xvcjojZmZmXG5zdHlsZSBFIGZpbGw6Izk1YTVhNixzdHJva2U6IzdmOGM4ZCxzdHJva2Utd2lkdGg6MnB4LGNvbG9yOiNmZmZcbnN0eWxlIEYgZmlsbDojMjdhZTYwLHN0cm9rZTojMjI5OTU0LHN0cm9rZS13aWR0aDozcHgsY29sb3I6I2ZmZiIsIm1lcm1haWQiOm51bGx9"></p>
+
+<hr>
+
+<h2 id="phase-1-assessment">Phase 1: Assessment</h2>
+
+<h3 id="analyze-current-state">Analyze Current State</h3>
+
+<p><strong>Run detection scripts</strong>:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Clone current project state for backup</span>
+<span class="nb">cp</span> <span class="nt">-r</span> my-plugin my-plugin-backup
+
+<span class="nb">cd </span>my-plugin
+
+<span class="c"># Detect duplications</span>
+bash ~/.claude/gradient/scripts/detect-duplication.sh <span class="nb">.</span>
+
+<span class="c"># Calculate baseline metrics</span>
+bash ~/.claude/gradient/scripts/calculate-metrics.sh <span class="nb">.</span>
+</code></pre></div></div>
+
+<p><strong>Expected output</strong>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Potential duplication found:
+  File 1: docs/format.md (lines 10-45)
+  File 2: README.md (lines 50-85)
+  Common lines: 35
+  Similarity: High
+
+Duplication Ratio: 1.8  (target: ≤1.1)
+</code></pre></div></div>
+
+<h3 id="identify-duplication-patterns">Identify Duplication Patterns</h3>
+
+<p><strong>Create duplication map</strong>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Concept: "Format Rules"
+  Appears in:
+    - docs/format.md (lines 10-45) - Full definition
+    - README.md (lines 50-85) - Summary
+    - prompts/guide.md (lines 15-50) - Repeated inline
+
+SSOT candidate: docs/format.md (most complete)
+</code></pre></div></div>
+
+<p><strong>Document findings</strong>:</p>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># Duplication Assessment</span>
+
+<span class="gu">## High-Priority Duplications</span>
+<span class="p">
+1.</span> <span class="gs">**Format Rules**</span> (35 lines duplicated)
+<span class="p">   -</span> SSOT: docs/format.md
+<span class="p">   -</span> Duplicates: README.md, prompts/guide.md
+<span class="p">   -</span> Action: Consolidate to SPECS layer
+<span class="p">
+2.</span> <span class="gs">**Examples**</span> (20 lines duplicated)
+<span class="p">   -</span> SSOT: examples/basic.md
+<span class="p">   -</span> Duplicates: README.md, prompts/create.md
+<span class="p">   -</span> Action: Move to CONTEXT layer
+<span class="p">
+3.</span> <span class="gs">**Usage Instructions**</span> (15 lines duplicated)
+<span class="p">   -</span> SSOT: README.md
+<span class="p">   -</span> Duplicates: docs/quickstart.md, prompts/guide.md
+<span class="p">   -</span> Action: Extract to PROMPTS layer
+</code></pre></div></div>
+
+<h3 id="assess-current-architecture">Assess Current Architecture</h3>
+
+<p><strong>Current structure analysis</strong>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>my-plugin/
+├── docs/
+│   ├── format.md          # Mixed (specs + examples)
+│   └── quickstart.md      # Mixed (examples + instructions)
+├── prompts/
+│   ├── guide.md           # Mixed (specs + examples + orchestration)
+│   └── create.md          # Bloated (50 lines)
+└── README.md              # Mixed (everything)
+
+Issues:
+- No clear SSOT (content scattered)
+- Mixed layer responsibilities
+- High duplication (ratio: 1.8)
+- Unclear boundaries
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="phase-2-planning">Phase 2: Planning</h2>
+
+<h3 id="define-target-architecture">Define Target Architecture</h3>
+
+<p><strong>Plan layer organization</strong>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>my-plugin/
+├── my-plugin-spec/        # SPECS (new)
+│   ├── format-spec.md     ← Consolidate from docs/format.md
+│   └── principles.md      ← Extract from README.md
+│
+├── context/               # CONTEXT (new)
+│   ├── examples.md        ← Consolidate from examples/ + docs/
+│   └── implementation-guide.md ← Extract from docs/quickstart.md
+│
+├── prompts/               # PROMPTS (refactor)
+│   ├── load-context.md    ← Thin orchestrator
+│   └── create-workflow.md ← Thin orchestrator
+│
+└── commands/              # COMMANDS (new)
+    ├── load-context.md
+    └── create-item.md
+</code></pre></div></div>
+
+<h3 id="create-migration-checklist">Create Migration Checklist</h3>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># Migration Checklist</span>
+
+<span class="gu">## Phase 1: SPECS Layer</span>
+<span class="p">-</span> [ ] Create my-plugin-spec/ directory
+<span class="p">-</span> [ ] Extract format rules from docs/format.md
+<span class="p">-</span> [ ] Move to my-plugin-spec/format-spec.md (pure normative)
+<span class="p">-</span> [ ] Validate completeness
+<span class="p">-</span> [ ] Remove spec content from other files
+
+<span class="gu">## Phase 2: CONTEXT Layer</span>
+<span class="p">-</span> [ ] Create context/ directory
+<span class="p">-</span> [ ] Consolidate examples from all sources
+<span class="p">-</span> [ ] Move to context/examples.md
+<span class="p">-</span> [ ] Add @references to specs
+<span class="p">-</span> [ ] Remove example content from other files
+
+<span class="gu">## Phase 3: PROMPTS Layer</span>
+<span class="p">-</span> [ ] Refactor prompts/guide.md → prompts/load-context.md
+<span class="p">-</span> [ ] Replace inline content with @references
+<span class="p">-</span> [ ] Ensure &gt;50% reference density
+<span class="p">-</span> [ ] Keep meta-instructions brief (&lt;5 lines/section)
+
+<span class="gu">## Phase 4: COMMANDS Layer</span>
+<span class="p">-</span> [ ] Create commands/ directory
+<span class="p">-</span> [ ] Create thin command wrappers (≤5 lines)
+<span class="p">-</span> [ ] Map one-to-one with prompts
+
+<span class="gu">## Phase 5: Validation</span>
+<span class="p">-</span> [ ] Run validate-references.sh
+<span class="p">-</span> [ ] Run calculate-metrics.sh
+<span class="p">-</span> [ ] Use architecture-reviewer agent
+<span class="p">-</span> [ ] Fix all issues
+
+<span class="gu">## Phase 6: Cleanup</span>
+<span class="p">-</span> [ ] Remove duplicated content
+<span class="p">-</span> [ ] Archive old structure
+<span class="p">-</span> [ ] Update documentation
+</code></pre></div></div>
+
+<h3 id="choose-migration-strategy">Choose Migration Strategy</h3>
+
+<h4 id="strategy-1-big-bang-recommended-for-small-projects">Strategy 1: Big Bang (Recommended for small projects)</h4>
+
+<p><strong>When to use</strong>:</p>
+<ul>
+  <li>Project &lt;10 files</li>
+  <li>Can afford downtime</li>
+  <li>Want complete refactor at once</li>
+</ul>
+
+<p><strong>Steps</strong>:</p>
+<ol>
+  <li>Create new structure in parallel</li>
+  <li>Consolidate all content</li>
+  <li>Replace references</li>
+  <li>Switch over completely</li>
+  <li>Delete old structure</li>
+</ol>
+
+<p><strong>Timeline</strong>: 2-4 hours for small project</p>
+
+<h4 id="strategy-2-incremental-recommended-for-large-projects">Strategy 2: Incremental (Recommended for large projects)</h4>
+
+<p><strong>When to use</strong>:</p>
+<ul>
+  <li>Project &gt;10 files</li>
+  <li>Cannot afford downtime</li>
+  <li>Want gradual transition</li>
+</ul>
+
+<p><strong>Steps</strong>:</p>
+<ol>
+  <li>Create SPECS layer first</li>
+  <li>Migrate to SPECS incrementally</li>
+  <li>Create CONTEXT layer</li>
+  <li>Migrate to CONTEXT incrementally</li>
+  <li>Refactor PROMPTS to reference new layers</li>
+  <li>Clean up old structure</li>
+</ol>
+
+<p><strong>Timeline</strong>: 1-2 weeks for large project</p>
+
+<hr>
+
+<h2 id="phase-3-execution">Phase 3: Execution</h2>
+
+<h3 id="step-1-create-specs-layer">Step 1: Create SPECS Layer</h3>
+
+<p><strong>Create directory</strong>:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mkdir</span> <span class="nt">-p</span> my-plugin-spec
+</code></pre></div></div>
+
+<p><strong>Extract normative content</strong>:</p>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- OLD: docs/format.md (mixed) --&gt;</span>
+<span class="gh"># Format Documentation</span>
+
+Files must have:
+<span class="p">-</span> meta section (required)
+<span class="p">-</span> content section (required)
+
+Example:
+<span class="p">```</span><span class="nl">yaml
+</span><span class="na">meta</span><span class="pi">:</span>
+  <span class="na">id</span><span class="pi">:</span> <span class="s">example</span>
+</code></pre></div></div>
+<p>[… more examples …]</p>
+
+<p>Usage:
+Load this in Claude Code…
+[… usage instructions …]</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+**Extract to pure spec**:
+```markdown
+&lt;!-- NEW: my-plugin-spec/format-spec.md (pure normative) --&gt;
+# Format Specification
+
+**Purpose**: Define complete structure of plugin files.
+
+---
+
+## File Structure
+
+Plugin files MUST contain:
+1. Meta section (required)
+2. Content section (required)
+
+### Meta Section
+
+Required fields:
+- `id`: Unique identifier (snake_case, max 50 chars)
+- `version`: Semantic version (MAJOR.MINOR.PATCH)
+- `enabled`: Boolean flag
+
+### Content Section
+
+Required fields:
+- `type`: Content type (string, enum: text|yaml|json)
+- `body`: Content body (string, non-empty)
+
+---
+
+## Validation Rules
+
+Valid file if:
+- All required sections present
+- All required fields present and valid
+- Field constraints satisfied
+
+---
+
+For examples: @../context/examples.md
+For implementation: @../context/implementation-guide.md
+</code></pre></div></div>
+
+<p><strong>Validate</strong>:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># At this point, references won't resolve yet (context/ doesn't exist)</span>
+<span class="c"># But spec should be complete</span>
+</code></pre></div></div>
+
+<h3 id="step-2-create-context-layer">Step 2: Create CONTEXT Layer</h3>
+
+<p><strong>Create directory</strong>:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mkdir</span> <span class="nt">-p</span> context
+</code></pre></div></div>
+
+<p><strong>Consolidate examples</strong>:</p>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- NEW: context/examples.md --&gt;</span>
+<span class="gh"># Plugin File Examples</span>
+
+For format specifications: @../my-plugin-spec/format-spec.md
+<span class="p">
+---
+</span>
+<span class="gu">## Example 1: Minimal Valid File</span>
+
+<span class="gs">**Purpose**</span>: Demonstrates minimum required fields
+
+<span class="p">```</span><span class="nl">yaml
+</span><span class="na">meta</span><span class="pi">:</span>
+  <span class="na">id</span><span class="pi">:</span> <span class="s">minimal_example</span>
+  <span class="na">version</span><span class="pi">:</span> <span class="s">1.0.0</span>
+  <span class="na">enabled</span><span class="pi">:</span> <span class="kc">true</span>
+
+<span class="na">content</span><span class="pi">:</span>
+  <span class="na">type</span><span class="pi">:</span> <span class="s">text</span>
+  <span class="na">body</span><span class="pi">:</span> <span class="pi">|</span>
+    <span class="s">Sample content here</span>
+</code></pre></div></div>
+
+<p><strong>Validates</strong>: All required sections and fields present.</p>
+
+<hr>
+
+<h2 id="example-2-complex-file">Example 2: Complex File</h2>
+
+<p><strong>Purpose</strong>: Demonstrates optional fields and advanced features</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">meta</span><span class="pi">:</span>
+  <span class="na">id</span><span class="pi">:</span> <span class="s">complex_example</span>
+  <span class="na">version</span><span class="pi">:</span> <span class="s">2.1.0</span>
+  <span class="na">enabled</span><span class="pi">:</span> <span class="kc">true</span>
+  <span class="na">author</span><span class="pi">:</span> <span class="s2">"</span><span class="s">John</span><span class="nv"> </span><span class="s">Doe"</span>
+  <span class="na">tags</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">production"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">verified"</span><span class="pi">]</span>
+
+<span class="na">content</span><span class="pi">:</span>
+  <span class="na">type</span><span class="pi">:</span> <span class="s">yaml</span>
+  <span class="na">body</span><span class="pi">:</span> <span class="pi">|</span>
+    <span class="s">key: value</span>
+    <span class="s">nested:</span>
+      <span class="s">data: true</span>
+</code></pre></div></div>
+
+<p><strong>Validates</strong>: All required fields plus optional fields correctly formatted.</p>
+
+<hr>
+
+<h2 id="example-3-invalid-file">Example 3: Invalid File</h2>
+
+<p><strong>Purpose</strong>: Common mistake - missing required field</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">meta</span><span class="pi">:</span>
+  <span class="na">id</span><span class="pi">:</span> <span class="s">invalid_example</span>
+  <span class="na">version</span><span class="pi">:</span> <span class="s">1.0.0</span>
+  <span class="c1"># Missing 'enabled' field</span>
+
+<span class="na">content</span><span class="pi">:</span>
+  <span class="na">type</span><span class="pi">:</span> <span class="s">text</span>
+  <span class="na">body</span><span class="pi">:</span> <span class="s2">"</span><span class="s">content"</span>
+</code></pre></div></div>
+
+<p><strong>Fails validation</strong>: Missing required field <code class="language-plaintext highlighter-rouge">enabled</code> in meta section.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+**Validate**:
+```bash
+bash ~/.claude/gradient/scripts/validate-references.sh .
+# Should pass: context references specs correctly
+</code></pre></div></div>
+
+<h3 id="step-3-refactor-prompts-layer">Step 3: Refactor PROMPTS Layer</h3>
+
+<p><strong>Before (bloated)</strong>:</p>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- OLD: prompts/guide.md (50 lines) --&gt;</span>
+<span class="gh"># Plugin Guide</span>
+
+<span class="gu">## Format Rules</span>
+
+Files must have meta section with:
+<span class="p">-</span> id (required)
+<span class="p">-</span> version (required)
+<span class="p">-</span> enabled (required)
+[... 20 lines of spec content ...]
+
+<span class="gu">## Examples</span>
+
+Here's a basic example:
+[... 15 lines of examples ...]
+
+<span class="gu">## Your Task</span>
+
+Guide users in creating files...
+[... instructions ...]
+</code></pre></div></div>
+
+<p><strong>After (thin orchestrator)</strong>:</p>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- NEW: prompts/load-context.md (12 lines) --&gt;</span>
+<span class="gh"># Load Plugin Context</span>
+
+<span class="gs">**Purpose**</span>: Load plugin specifications and implementation knowledge.
+<span class="p">
+---
+</span>
+<span class="gu">## Format Specifications (Normative)</span>
+
+@../my-plugin-spec/format-spec.md
+<span class="p">
+---
+</span>
+<span class="gu">## Applied Knowledge (Practical)</span>
+
+@../context/examples.md
+@../context/implementation-guide.md
+<span class="p">
+---
+</span>
+<span class="gu">## Your Task</span>
+
+With specifications and examples loaded, guide users in creating valid plugin files.
+</code></pre></div></div>
+
+<p><strong>Validate</strong>:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash ~/.claude/gradient/scripts/calculate-metrics.sh <span class="nb">.</span>
+<span class="c"># Reference density should be &gt;50%</span>
+</code></pre></div></div>
+
+<h3 id="step-4-create-commands-layer">Step 4: Create COMMANDS Layer</h3>
+
+<p><strong>Create directory</strong>:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mkdir</span> <span class="nt">-p</span> commands
+</code></pre></div></div>
+
+<p><strong>Create thin wrappers</strong>:</p>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- NEW: commands/load-context.md (3 lines) --&gt;</span>
+Load plugin context for development.
+
+@../prompts/load-context.md
+</code></pre></div></div>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- NEW: commands/create-file.md (3 lines) --&gt;</span>
+Create new plugin file.
+
+@../prompts/create-workflow.md
+</code></pre></div></div>
+
+<p><strong>Validate</strong>:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Check command sizes</span>
+<span class="nb">wc</span> <span class="nt">-l</span> commands/<span class="k">*</span>.md
+<span class="c"># All should be ≤5 lines</span>
+</code></pre></div></div>
+
+<h3 id="step-5-remove-duplications">Step 5: Remove Duplications</h3>
+
+<p><strong>Replace duplicates with references</strong>:</p>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- OLD: README.md --&gt;</span>
+<span class="gh"># My Plugin</span>
+
+Files must have:
+<span class="p">-</span> meta section (required)
+[... repeated spec content ...]
+
+<span class="c">&lt;!-- NEW: README.md --&gt;</span>
+<span class="gh"># My Plugin</span>
+
+For format specifications: See <span class="p">[</span><span class="nv">format-spec.md</span><span class="p">](</span><span class="sx">my-plugin-spec/format-spec.md</span><span class="p">)</span>
+
+For usage: Run <span class="sb">`/load-context`</span> in Claude Code
+</code></pre></div></div>
+
+<p><strong>Delete obsolete files</strong>:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># After confirming content is consolidated</span>
+<span class="nb">rm</span> <span class="nt">-rf</span> docs/quickstart.md  <span class="c"># Content moved to context/</span>
+<span class="nb">rm</span> <span class="nt">-rf</span> old-prompts/         <span class="c"># Replaced with thin prompts</span>
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="phase-4-validation">Phase 4: Validation</h2>
+
+<h3 id="run-complete-validation-suite">Run Complete Validation Suite</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 1. Validate all references resolve</span>
+bash ~/.claude/gradient/scripts/validate-references.sh <span class="nb">.</span>
+
+<span class="c"># 2. Check for remaining duplication</span>
+bash ~/.claude/gradient/scripts/detect-duplication.sh <span class="nb">.</span>
+
+<span class="c"># 3. Calculate final metrics</span>
+bash ~/.claude/gradient/scripts/calculate-metrics.sh <span class="nb">.</span>
+
+<span class="c"># 4. Use agent for comprehensive review</span>
+<span class="c"># In Claude Code:</span>
+<span class="c"># "Use architecture-reviewer agent to validate my project"</span>
+</code></pre></div></div>
+
+<h3 id="expected-results">Expected Results</h3>
+
+<p><strong>Before migration</strong>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Duplication Ratio: 1.8
+Reference Density: 0%
+Command Sizes: N/A (no commands)
+Total Lines: 1,500
+</code></pre></div></div>
+
+<p><strong>After migration</strong>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Duplication Ratio: 1.0  ✓
+Reference Density: 75%  ✓
+Command Avg Size: 3 lines  ✓
+Total Lines: 950  (37% reduction)
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="migration-scenarios">Migration Scenarios</h2>
+
+<h3 id="scenario-1-documentation-project">Scenario 1: Documentation Project</h3>
+
+<p><strong>Before</strong>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docs/
+├── specification.md  (500 lines: specs + examples + usage)
+├── quickstart.md     (200 lines: examples + usage)
+└── reference.md      (300 lines: specs summary + examples)
+</code></pre></div></div>
+
+<p><strong>Issues</strong>: High duplication (specs repeated 3 times)</p>
+
+<p><strong>After</strong>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>project-spec/
+├── specification.md  (400 lines: pure specs)
+└── principles.md     (100 lines: pure principles)
+
+context/
+├── examples.md       (250 lines: unique examples)
+└── quickstart.md     (150 lines: implementation guide)
+
+prompts/
+└── load-context.md   (15 lines: thin orchestrator)
+</code></pre></div></div>
+
+<p><strong>Result</strong>: Duplication ratio 2.0 → 1.0</p>
+
+<h3 id="scenario-2-claude-code-plugin">Scenario 2: Claude Code Plugin</h3>
+
+<p><strong>Before</strong>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>plugin/
+├── format.md         (600 lines: mixed)
+├── prompts/
+│   ├── create.md     (80 lines: bloated)
+│   └── validate.md   (70 lines: bloated)
+└── README.md         (200 lines: mixed)
+</code></pre></div></div>
+
+<p><strong>Issues</strong>: Bloated prompts, mixed layer responsibilities</p>
+
+<p><strong>After</strong>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>plugin-spec/
+├── format-spec.md    (450 lines: pure specs)
+└── validation-spec.md (150 lines: pure specs)
+
+context/
+├── examples.md       (200 lines: unique examples)
+└── patterns.md       (100 lines: implementation patterns)
+
+prompts/
+├── load-context.md   (12 lines: thin)
+├── create.md         (15 lines: thin)
+└── validate.md       (18 lines: thin)
+
+commands/
+├── load-context.md   (3 lines)
+├── create-file.md    (3 lines)
+└── validate-file.md  (3 lines)
+</code></pre></div></div>
+
+<p><strong>Result</strong>: Clean architecture, command layer added</p>
+
+<h3 id="scenario-3-refactoring-ymd-spec-real-example">Scenario 3: Refactoring YMD-Spec (Real Example)</h3>
+
+<p><strong>Before</strong>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ymd-spec/
+├── ymd_format_spec.md  (500 lines: spec + examples)
+├── quick-reference.md  (300 lines: spec summary)
+└── prompts/
+    └── load-context.md (400 lines: repeated specs)
+
+Duplication Ratio: 2.0
+Total Lines: 1,200
+</code></pre></div></div>
+
+<p><strong>Migration steps</strong>:</p>
+<ol>
+  <li>Extract pure normative to ymd_format_spec.md (400 lines)</li>
+  <li>Move examples to context/examples.md (300 lines)</li>
+  <li>Delete quick-reference.md (duplication)</li>
+  <li>Refactor load-context.md to thin orchestrator (50 lines)</li>
+</ol>
+
+<p><strong>After</strong>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ymd-spec/
+├── ymd_format_spec.md  (400 lines: pure specs)
+├── context/
+│   └── examples.md     (300 lines: unique examples)
+└── prompts/
+    └── load-context.md (50 lines: thin orchestrator)
+
+Duplication Ratio: 1.0
+Total Lines: 750 (37% reduction)
+</code></pre></div></div>
+
+<p><strong>Metrics improvement</strong>:</p>
+<ul>
+  <li>Duplication: 50% → 0%</li>
+  <li>Reference density: 0% → 80%</li>
+  <li>Maintenance points: 3 → 1</li>
+</ul>
+
+<hr>
+
+<h2 id="troubleshooting">Troubleshooting</h2>
+
+<h3 id="issue-1-broken-references-after-migration">Issue 1: Broken References After Migration</h3>
+
+<p><strong>Problem</strong>: References don’t resolve after restructuring</p>
+
+<p><strong>Solution</strong>:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Validate references</span>
+bash ~/.claude/gradient/scripts/validate-references.sh <span class="nb">.</span>
+
+<span class="c"># Common mistakes:</span>
+<span class="c"># Wrong: @./project-spec/spec.md (same level)</span>
+<span class="c"># Right: @../project-spec/spec.md (up one level)</span>
+
+<span class="c"># Wrong: @/absolute/path/spec.md (system absolute)</span>
+<span class="c"># Right: @../project-spec/spec.md (relative)</span>
+</code></pre></div></div>
+
+<h3 id="issue-2-high-duplication-after-migration">Issue 2: High Duplication After Migration</h3>
+
+<p><strong>Problem</strong>: Duplication ratio still &gt;1.1</p>
+
+<p><strong>Solution</strong>:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Find remaining duplications</span>
+bash ~/.claude/gradient/scripts/detect-duplication.sh <span class="nb">.</span>
+
+<span class="c"># Review each finding:</span>
+<span class="c"># 1. Identify SSOT</span>
+<span class="c"># 2. Consolidate content</span>
+<span class="c"># 3. Replace with reference</span>
+<span class="c"># 4. Re-validate</span>
+</code></pre></div></div>
+
+<h3 id="issue-3-prompts-still-too-verbose">Issue 3: Prompts Still Too Verbose</h3>
+
+<p><strong>Problem</strong>: Reference density &lt;50%</p>
+
+<p><strong>Solution</strong>:</p>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- Find inline content blocks --&gt;</span>
+<span class="c">&lt;!-- Extract to SPECS or CONTEXT --&gt;</span>
+<span class="c">&lt;!-- Replace with @references --&gt;</span>
+
+Before:
+<span class="gu">## Rules</span>
+Files must have...
+[50 lines inline]
+
+After:
+<span class="gu">## Rules</span>
+@../project-spec/format-spec.md
+</code></pre></div></div>
+
+<h3 id="issue-4-unclear-where-content-belongs">Issue 4: Unclear Where Content Belongs</h3>
+
+<p><strong>Problem</strong>: Unsure if content is normative or applied</p>
+
+<p><strong>Decision tree</strong>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Is it a rule or definition? → SPECS
+Is it an example or guide? → CONTEXT
+Is it orchestration logic? → PROMPTS
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="success-criteria">Success Criteria</h2>
+
+<h3 id="migration-complete-when">Migration Complete When</h3>
+
+<p><strong>Metrics meet targets</strong>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>✓ Duplication ratio ≤ 1.1
+✓ Reference density (prompts) &gt; 50%
+✓ Command file sizes ≤ 5 lines
+✓ All references resolve
+✓ Zero broken references
+</code></pre></div></div>
+
+<p><strong>Architecture validated</strong>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>✓ Clear SSOT for every concept
+✓ Layer responsibilities respected
+✓ No mixed-layer files
+✓ Commands are thin wrappers
+✓ Prompts are thin orchestrators
+</code></pre></div></div>
+
+<p><strong>Agent review passes</strong>:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># In Claude Code</span>
+<span class="s2">"Use architecture-reviewer agent to validate my project"</span>
+
+<span class="c"># Expected result:</span>
+<span class="o">{</span>
+  <span class="s2">"status"</span>: <span class="s2">"pass"</span>,
+  <span class="s2">"duplication_ratio"</span>: 1.0,
+  <span class="s2">"reference_density"</span>: 0.75,
+  <span class="s2">"issues"</span>: <span class="o">[]</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="post-migration">Post-Migration</h2>
+
+<h3 id="update-documentation">Update Documentation</h3>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># Update README.md</span>
+<span class="p">-</span> Link to architecture overview
+<span class="p">-</span> Document new structure
+<span class="p">-</span> Update usage instructions
+
+<span class="gh"># Update CONTRIBUTING.md</span>
+<span class="p">-</span> Document layer responsibilities
+<span class="p">-</span> Add validation requirements
+<span class="p">-</span> Include reference examples
+</code></pre></div></div>
+
+<h3 id="establish-validation-workflow">Establish Validation Workflow</h3>
+
+<p><strong>Pre-commit hook</strong>:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+<span class="c"># .git/hooks/pre-commit</span>
+
+<span class="nb">echo</span> <span class="s2">"Validating Gradient architecture..."</span>
+
+<span class="k">if</span> <span class="o">!</span> bash ~/.claude/gradient/scripts/validate-references.sh .<span class="p">;</span> <span class="k">then
+    </span><span class="nb">echo</span> <span class="s2">"ERROR: Broken references detected"</span>
+    <span class="nb">exit </span>1
+<span class="k">fi
+
+</span><span class="nb">echo</span> <span class="s2">"Validation passed ✓"</span>
+</code></pre></div></div>
+
+<p><strong>CI/CD integration</strong>:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># .github/workflows/validate.yml</span>
+<span class="na">name</span><span class="pi">:</span> <span class="s">Validate Architecture</span>
+<span class="na">on</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">push</span><span class="pi">,</span> <span class="nv">pull_request</span><span class="pi">]</span>
+
+<span class="na">jobs</span><span class="pi">:</span>
+  <span class="na">validate</span><span class="pi">:</span>
+    <span class="na">runs-on</span><span class="pi">:</span> <span class="s">ubuntu-latest</span>
+    <span class="na">steps</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/checkout@v2</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Validate References</span>
+        <span class="na">run</span><span class="pi">:</span> <span class="s">bash ~/.claude/gradient/scripts/validate-references.sh .</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Calculate Metrics</span>
+        <span class="na">run</span><span class="pi">:</span> <span class="s">bash ~/.claude/gradient/scripts/calculate-metrics.sh .</span>
+</code></pre></div></div>
+
+<h3 id="monitor-quality-over-time">Monitor Quality Over Time</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Track metrics across releases</span>
+bash ~/.claude/gradient/scripts/calculate-metrics.sh <span class="nb">.</span> <span class="o">&gt;</span> metrics-v1.0.0.txt
+bash ~/.claude/gradient/scripts/calculate-metrics.sh <span class="nb">.</span> <span class="o">&gt;</span> metrics-v1.1.0.txt
+
+<span class="c"># Compare</span>
+diff metrics-v1.0.0.txt metrics-v1.1.0.txt
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="next-steps">Next Steps</h2>
+
+<ul>
+  <li>
+<strong><a href="/best-practices/">Best Practices</a></strong> - Maintain quality post-migration</li>
+  <li>
+<strong><a href="/cheatsheet/">Cheatsheet</a></strong> - Quick reference for daily use</li>
+  <li>
+<strong><a href="/tools/">Tools</a></strong> - Validation scripts</li>
+</ul>
+
+<hr>
+
+<p><strong>Key Takeaway</strong>: Migration to Gradient eliminates duplication, establishes clear boundaries, and creates maintainable architecture. Follow the assessment → planning → execution → validation workflow for successful migration.</p>
+
+  </div>
+
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Davi Guides</li>
+</ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+<ul class="social-media-list"></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>A proposal for a layered context architecture for Claude Code plugins.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+
+</html>

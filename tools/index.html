@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Tools | Gradient</title>
+<meta name="generator" content="Jekyll v4.4.1">
+<meta property="og:title" content="Tools">
+<meta name="author" content="Davi Guides">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="A proposal for a layered context architecture for Claude Code plugins.">
+<meta property="og:description" content="A proposal for a layered context architecture for Claude Code plugins.">
+<meta property="og:site_name" content="Gradient">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="Tools">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Davi Guides"},"description":"A proposal for a layered context architecture for Claude Code plugins.","headline":"Tools","url":"/tools/"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
+<link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Gradient">
+</head>
+<body>
+<header class="site-header">
+
+  <div class="wrapper">
+<a class="site-title" rel="author" href="/">Gradient</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger">
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewbox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger">
+<a class="page-link" href="/">Home</a><a class="page-link" href="/quick-start/">Quick Start</a><a class="page-link" href="/why-gradient/">Why Gradient?</a><a class="page-link" href="/specifications/">Specifications</a><a class="page-link" href="/examples/">Examples</a><a class="page-link" href="/tools/">Tools</a>
+</div>
+      </nav>
+</div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <!-- <header class="post-header">
+    <h1 class="post-title">Tools</h1>
+  </header> -->
+
+  <div class="post-content">
+    <h1 id="tools-and-integration">Tools and Integration</h1>
+
+<p>Validation scripts, specialized agents, and commands for working with Gradient architecture.</p>
+
+<hr>
+
+<h2 id="validation-scripts">Validation Scripts</h2>
+
+<p>Gradient includes bash scripts for automated validation and quality assurance.</p>
+
+<h3 id="validate-referencessh">validate-references.sh</h3>
+
+<p><strong>Purpose</strong>: Validate all <code class="language-plaintext highlighter-rouge">@</code> references resolve correctly.</p>
+
+<p><strong>Location</strong>: <code class="language-plaintext highlighter-rouge">~/.claude/gradient/scripts/validate-references.sh</code></p>
+
+<p><strong>Usage</strong>:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash ~/.claude/gradient/scripts/validate-references.sh &lt;project-path&gt;
+</code></pre></div></div>
+
+<p><strong>What it checks</strong>:</p>
+<ul>
+  <li>Finds all markdown files with <code class="language-plaintext highlighter-rouge">@</code> references</li>
+  <li>Resolves relative paths from each file</li>
+  <li>Verifies referenced files exist</li>
+  <li>Reports broken references with context</li>
+</ul>
+
+<p><strong>Example output</strong>:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>bash validate-references.sh my-plugin/
+
+Validating references <span class="k">in </span>my-plugin...
+
+Checking: prompts/load-context.md
+  ✓ @../project-spec/format-spec.md → /path/to/project-spec/format-spec.md
+  ✓ @../context/examples.md → /path/to/context/examples.md
+
+Checking: context/examples.md
+  ✓ @../project-spec/format-spec.md → /path/to/project-spec/format-spec.md
+
+All references valid ✓
+</code></pre></div></div>
+
+<p><strong>Error example</strong>:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>bash validate-references.sh my-plugin/
+
+ERROR: Broken reference <span class="k">in </span>prompts/load-context.md
+       Reference: @../project-spec/missing.md
+       Resolved to: /path/to/project-spec/missing.md <span class="o">(</span>not found<span class="o">)</span>
+</code></pre></div></div>
+
+<p><strong>When to use</strong>:</p>
+<ul>
+  <li>After creating new prompts/context files</li>
+  <li>Before committing changes</li>
+  <li>During refactoring</li>
+  <li>As part of CI/CD pipeline</li>
+</ul>
+
+<hr>
+
+<h3 id="detect-duplicationsh">detect-duplication.sh</h3>
+
+<p><strong>Purpose</strong>: Detect potential content duplication across files.</p>
+
+<p><strong>Location</strong>: <code class="language-plaintext highlighter-rouge">~/.claude/gradient/scripts/detect-duplication.sh</code></p>
+
+<p><strong>Usage</strong>:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash ~/.claude/gradient/scripts/detect-duplication.sh &lt;project-path&gt;
+</code></pre></div></div>
+
+<p><strong>What it checks</strong>:</p>
+<ul>
+  <li>Extracts significant text blocks (headers, paragraphs)</li>
+  <li>Compares files for common content</li>
+  <li>Reports similarities with ≥3 common lines</li>
+  <li>Highlights potential SSOT violations</li>
+</ul>
+
+<p><strong>Example output</strong>:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>bash detect-duplication.sh my-plugin/
+
+Scanning <span class="k">for </span>duplications <span class="k">in </span>my-plugin...
+
+Extracting significant blocks...
+Comparing files...
+
+Potential duplication found:
+  File 1: prompts/create-workflow.md <span class="o">(</span>lines 15-22<span class="o">)</span>
+  File 2: project-spec/format-spec.md <span class="o">(</span>lines 45-52<span class="o">)</span>
+  Common lines: 8
+  Similarity: High
+
+Review these files <span class="k">for </span>consolidation to SSOT.
+
+<span class="nt">---</span>
+
+No significant duplication detected ✓
+</code></pre></div></div>
+
+<p><strong>When to use</strong>:</p>
+<ul>
+  <li>During initial project assessment</li>
+  <li>When migrating to Gradient</li>
+  <li>After major content changes</li>
+  <li>To identify refactoring opportunities</li>
+</ul>
+
+<p><strong>Interpreting results</strong>:</p>
+<ul>
+  <li>
+<strong>High similarity (&gt;5 lines)</strong>: Likely needs consolidation</li>
+  <li>
+<strong>Medium similarity (3-5 lines)</strong>: Review for SSOT</li>
+  <li>
+<strong>Low similarity (&lt;3 lines)</strong>: Acceptable overlap</li>
+</ul>
+
+<hr>
+
+<h3 id="calculate-metricssh">calculate-metrics.sh</h3>
+
+<p><strong>Purpose</strong>: Calculate Gradient architecture quality metrics.</p>
+
+<p><strong>Location</strong>: <code class="language-plaintext highlighter-rouge">~/.claude/gradient/scripts/calculate-metrics.sh</code></p>
+
+<p><strong>Usage</strong>:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash ~/.claude/gradient/scripts/calculate-metrics.sh &lt;project-path&gt;
+</code></pre></div></div>
+
+<p><strong>What it calculates</strong>:</p>
+<ul>
+  <li>Duplication ratio (total lines / unique information lines)</li>
+  <li>Reference density (for prompts)</li>
+  <li>Command file sizes</li>
+  <li>Layer compliance</li>
+  <li>Total files per layer</li>
+</ul>
+
+<p><strong>Example output</strong>:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>bash calculate-metrics.sh my-plugin/
+
+<span class="o">===</span> Gradient Architecture Metrics <span class="o">===</span>
+
+Project: my-plugin/
+
+Layer Distribution:
+  SPECS:    3 files <span class="o">(</span>1,200 lines<span class="o">)</span>
+  CONTEXT:  4 files <span class="o">(</span>800 lines<span class="o">)</span>
+  PROMPTS:  3 files <span class="o">(</span>150 lines<span class="o">)</span>
+  COMMANDS: 3 files <span class="o">(</span>9 lines<span class="o">)</span>
+  AGENTS:   2 files <span class="o">(</span>250 lines<span class="o">)</span>
+
+Quality Metrics:
+  Duplication Ratio:     1.05  <span class="o">(</span>target: ≤1.1<span class="o">)</span> ✓ PASS
+  Reference Density:     72%   <span class="o">(</span>target: <span class="o">&gt;</span>50%<span class="o">)</span> ✓ PASS
+  Avg Command Size:      3 lines <span class="o">(</span>target: ≤5<span class="o">)</span> ✓ PASS
+
+Project-wide:
+  Total Files:           15
+  Total Lines:           2,409
+  Maintenance Points:    3 <span class="o">(</span>SPECS<span class="o">)</span>
+
+Status: ✓ COMPLIANT
+</code></pre></div></div>
+
+<p><strong>Metrics explained</strong>:</p>
+
+<p><strong>Duplication Ratio</strong>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Total Lines / Unique Information Lines
+
+Target: ≤1.1 (10% acceptable overlap)
+Warning: &gt;1.2 (20% duplication)
+Danger: &gt;1.3 (30% duplication - requires refactoring)
+</code></pre></div></div>
+
+<p><strong>Reference Density (for PROMPTS)</strong>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@ References / Total Lines
+
+Target: &gt;50% (majority should be references)
+Warning: 30-50% (moderate inline content)
+Danger: &lt;30% (too much duplication)
+</code></pre></div></div>
+
+<p><strong>Command File Size</strong>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Average lines per command file
+
+Target: ≤5 lines (thin wrappers)
+Warning: 6-10 lines
+Danger: &gt;10 lines (contains business logic)
+</code></pre></div></div>
+
+<p><strong>When to use</strong>:</p>
+<ul>
+  <li>After major structural changes</li>
+  <li>To validate project compliance</li>
+  <li>Before releases</li>
+  <li>To track quality over time</li>
+</ul>
+
+<hr>
+
+<h2 id="specialized-agents">Specialized Agents</h2>
+
+<p>Gradient provides agents with isolated contexts for specialized tasks.</p>
+
+<h3 id="architecture-reviewer">architecture-reviewer</h3>
+
+<p><strong>Purpose</strong>: Validate Gradient architecture compliance.</p>
+
+<p><strong>Location</strong>: <code class="language-plaintext highlighter-rouge">~/.claude/gradient/agents/architecture-reviewer.md</code></p>
+
+<p><strong>Usage</strong> (in Claude Code):</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Use the architecture-reviewer agent to validate my project structure.
+</code></pre></div></div>
+
+<p><strong>What it validates</strong>:</p>
+
+<p><strong>Layer boundaries</strong>:</p>
+<ul>
+  <li>SPECS contain only normative content</li>
+  <li>CONTEXT references SPECS appropriately</li>
+  <li>PROMPTS are thin orchestrators (&gt;50% references)</li>
+  <li>COMMANDS are thin wrappers (≤5 lines)</li>
+</ul>
+
+<p><strong>Duplication detection</strong>:</p>
+<ul>
+  <li>Each concept exists in exactly one place</li>
+  <li>No repeated content across files</li>
+  <li>Clear SSOT for every definition</li>
+</ul>
+
+<p><strong>Reference integrity</strong>:</p>
+<ul>
+  <li>All <code class="language-plaintext highlighter-rouge">@</code> references resolve</li>
+  <li>No circular dependencies</li>
+  <li>Proper relative path usage</li>
+</ul>
+
+<p><strong>Structural compliance</strong>:</p>
+<ul>
+  <li>Required directories present</li>
+  <li>File naming conventions followed</li>
+  <li>Layer organization correct</li>
+</ul>
+
+<p><strong>Return format</strong>:</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pass"</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="s2">"fail"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"duplication_ratio"</span><span class="p">:</span><span class="w"> </span><span class="mf">1.05</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"reference_density"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.72</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"issues"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"severity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"error"</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="s2">"warning"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"file"</span><span class="p">:</span><span class="w"> </span><span class="s2">"prompts/example.md"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"line"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Inline content exceeds 5 lines"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"metrics"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"total_files"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"total_lines"</span><span class="p">:</span><span class="w"> </span><span class="mi">2409</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"specs_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"context_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"prompts_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"recommendations"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"Consider extracting inline content to context layer"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Validate command file sizes meet ≤5 line requirement"</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p><strong>When to use</strong>:</p>
+<ul>
+  <li>Before releasing plugin</li>
+  <li>After major refactoring</li>
+  <li>When uncertain about architecture compliance</li>
+  <li>To get structured validation report</li>
+</ul>
+
+<hr>
+
+<h2 id="commands">Commands</h2>
+
+<p>Gradient provides slash commands for loading and working with context.</p>
+
+<h3 id="load-gradient-context">/load-gradient-context</h3>
+
+<p><strong>Purpose</strong>: Load Gradient architecture specifications and implementation knowledge.</p>
+
+<p><strong>Location</strong>: <code class="language-plaintext highlighter-rouge">~/.claude/gradient/commands/load-gradient-context.md</code></p>
+
+<p><strong>Usage</strong>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/load-gradient-context
+</code></pre></div></div>
+
+<p><strong>What it loads</strong>:</p>
+<ul>
+  <li>Complete architecture specifications (SPECS)</li>
+  <li>Implementation guides and examples (CONTEXT)</li>
+  <li>Anti-duplication principles</li>
+  <li>Layer specifications</li>
+  <li>Quality metrics and validation criteria</li>
+</ul>
+
+<p><strong>When to use</strong>:</p>
+<ul>
+  <li>Before creating new Gradient project</li>
+  <li>When working on plugin architecture</li>
+  <li>To understand Gradient patterns</li>
+  <li>For validation assistance</li>
+</ul>
+
+<p><strong>After loading</strong>:
+You can ask Claude Code:</p>
+<ul>
+  <li>“Create a Gradient-compliant project structure for X”</li>
+  <li>“Validate this prompt file against Gradient specs”</li>
+  <li>“Where should this content live (SPECS/CONTEXT/PROMPTS)?”</li>
+  <li>“How do I eliminate duplication in these files?”</li>
+</ul>
+
+<hr>
+
+<h2 id="integration-patterns">Integration Patterns</h2>
+
+<h3 id="cicd-integration">CI/CD Integration</h3>
+
+<p><strong>GitHub Actions example</strong>:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">name</span><span class="pi">:</span> <span class="s">Validate Gradient Architecture</span>
+
+<span class="na">on</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">push</span><span class="pi">,</span> <span class="nv">pull_request</span><span class="pi">]</span>
+
+<span class="na">jobs</span><span class="pi">:</span>
+  <span class="na">validate</span><span class="pi">:</span>
+    <span class="na">runs-on</span><span class="pi">:</span> <span class="s">ubuntu-latest</span>
+    <span class="na">steps</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/checkout@v2</span>
+
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Install Gradient</span>
+        <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
+          <span class="s">bash -c "$(curl -fsSL https://raw.githubusercontent.com/daviguides/gradient/main/install.sh)"</span>
+
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Validate References</span>
+        <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
+          <span class="s">bash ~/.claude/gradient/scripts/validate-references.sh .</span>
+
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Check Duplication</span>
+        <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
+          <span class="s">bash ~/.claude/gradient/scripts/detect-duplication.sh .</span>
+
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Calculate Metrics</span>
+        <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
+          <span class="s">bash ~/.claude/gradient/scripts/calculate-metrics.sh .</span>
+</code></pre></div></div>
+
+<p><strong>Pre-commit hook</strong>:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+<span class="c"># .git/hooks/pre-commit</span>
+
+<span class="nb">echo</span> <span class="s2">"Validating Gradient architecture..."</span>
+
+<span class="c"># Validate references</span>
+<span class="k">if</span> <span class="o">!</span> bash ~/.claude/gradient/scripts/validate-references.sh .<span class="p">;</span> <span class="k">then
+    </span><span class="nb">echo</span> <span class="s2">"ERROR: Broken references detected"</span>
+    <span class="nb">exit </span>1
+<span class="k">fi</span>
+
+<span class="c"># Check duplication</span>
+<span class="k">if</span> <span class="o">!</span> bash ~/.claude/gradient/scripts/detect-duplication.sh .<span class="p">;</span> <span class="k">then
+    </span><span class="nb">echo</span> <span class="s2">"WARNING: Potential duplication detected"</span>
+    <span class="c"># Note: Don't fail commit, just warn</span>
+<span class="k">fi
+
+</span><span class="nb">echo</span> <span class="s2">"Validation passed ✓"</span>
+</code></pre></div></div>
+
+<h3 id="editor-integration">Editor Integration</h3>
+
+<p><strong>VSCode Task</strong>:</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0.0"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"tasks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Validate Gradient"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"shell"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bash ~/.claude/gradient/scripts/validate-references.sh ${workspaceFolder}"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"problemMatcher"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+      </span><span class="nl">"group"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"isDefault"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Calculate Metrics"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"shell"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bash ~/.claude/gradient/scripts/calculate-metrics.sh ${workspaceFolder}"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"problemMatcher"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<hr>
+
+<h2 id="workflow-examples">Workflow Examples</h2>
+
+<h3 id="creating-a-new-plugin">Creating a New Plugin</h3>
+
+<p><img class="mermaid" src="https://mermaid.ink/svg/eyJjb2RlIjoiZmxvd2NoYXJ0IFREXG5TVEFSVChbTmV3IFBsdWdpbiBJZGVhXSkgLS0-IExPQURbXCIvbG9hZC1ncmFkaWVudC1jb250ZXh0XCJdXG5MT0FEIC0tPiBDUkVBVEVbXCJDcmVhdGUgZGlyZWN0b3J5IHN0cnVjdHVyZTxici8-KHNwZWNzLCBjb250ZXh0LCBwcm9tcHRzLCBjb21tYW5kcylcIl1cbkNSRUFURSAtLT4gU1BFQ1NbXCJXcml0ZSBzcGVjaWZpY2F0aW9uczxici8-KFNQRUNTIGxheWVyKVwiXVxuU1BFQ1MgLS0-IFZBTDFbXCJiYXNoIHZhbGlkYXRlLXJlZmVyZW5jZXMuc2hcIl1cbiUlLVxuVkFMMSAtLT4gQ09OVEVYVFtcIkNyZWF0ZSBleGFtcGxlcy9ndWlkZXM8YnIvPihDT05URVhUIGxheWVyKVwiXVxuQ09OVEVYVCAtLT4gVkFMMltcImJhc2ggdmFsaWRhdGUtcmVmZXJlbmNlcy5zaFwiXVxuJSUtXG5WQUwyIC0tPiBQUk9NUFRTW1wiQnVpbGQgb3JjaGVzdHJhdG9yczxici8-KFBST01QVFMgbGF5ZXIpXCJdXG5QUk9NUFRTIC0tPiBWQUwzW1wiYmFzaCBjYWxjdWxhdGUtbWV0cmljcy5zaFwiXVxuJSUtXG5WQUwzIC0tPiBSRVZJRVdbXCJVc2UgYXJjaGl0ZWN0dXJlLXJldmlld2VyIGFnZW50XCJdXG5SRVZJRVcgLS0-IERFQ0lTSU9Oe0NvbXBsaWFudD99XG4lJS1cbkRFQ0lTSU9OIC0tPnxZZXN8IERPTkUoW1BsdWdpbiBDb21wbGV0ZV0pXG5ERUNJU0lPTiAtLT58Tm98IEZJWFtcIkFkZHJlc3MgaXNzdWVzXCJdXG5GSVggLS0-IFJFVklFV1xuJSUtXG5zdHlsZSBTVEFSVCBmaWxsOiNlY2YwZjEsc3Ryb2tlOiM5NWE1YTZcbnN0eWxlIExPQUQgZmlsbDojMjdhZTYwLHN0cm9rZTojMjI5OTU0LGNvbG9yOiNmZmZcbnN0eWxlIENSRUFURSBmaWxsOiMzNDk4ZGIsc3Ryb2tlOiMyOTgwYjksY29sb3I6I2ZmZlxuc3R5bGUgU1BFQ1MgZmlsbDojZTc0YzNjLHN0cm9rZTojYzAzOTJiLGNvbG9yOiNmZmZcbnN0eWxlIENPTlRFWFQgZmlsbDojZjM5YzEyLHN0cm9rZTojZDY4OTEwLGNvbG9yOiNmZmZcbnN0eWxlIFBST01QVFMgZmlsbDojMjdhZTYwLHN0cm9rZTojMjI5OTU0LGNvbG9yOiNmZmZcbnN0eWxlIFZBTDEgZmlsbDojOTVhNWE2LHN0cm9rZTojN2Y4YzhkLGNvbG9yOiNmZmZcbnN0eWxlIFZBTDIgZmlsbDojOTVhNWE2LHN0cm9rZTojN2Y4YzhkLGNvbG9yOiNmZmZcbnN0eWxlIFZBTDMgZmlsbDojOTVhNWE2LHN0cm9rZTojN2Y4YzhkLGNvbG9yOiNmZmZcbnN0eWxlIFJFVklFVyBmaWxsOiM5YjU5YjYsc3Ryb2tlOiM4ZTQ0YWQsY29sb3I6I2ZmZlxuc3R5bGUgREVDSVNJT04gZmlsbDojZjM5YzEyLHN0cm9rZTojZDY4OTEwXG5zdHlsZSBGSVggZmlsbDojZTc0YzNjLHN0cm9rZTojYzAzOTJiLGNvbG9yOiNmZmZcbnN0eWxlIERPTkUgZmlsbDojMjdhZTYwLHN0cm9rZTojMjI5OTU0LGNvbG9yOiNmZmYiLCJtZXJtYWlkIjpudWxsfQ"></p>
+
+<h3 id="refactoring-existing-project">Refactoring Existing Project</h3>
+
+<p><img class="mermaid" src="https://mermaid.ink/svg/eyJjb2RlIjoiZmxvd2NoYXJ0IFREXG5TVEFSVChbRXhpc3RpbmcgUHJvamVjdF0pIC0tPiBBU1NFU1NbXCJiYXNoIGRldGVjdC1kdXBsaWNhdGlvbi5zaFwiXVxuQVNTRVNTIC0tPiBEVVBMe0R1cGxpY2F0aW9uPGJyLz5mb3VuZD99XG4lJS1cbkRVUEwgLS0-fFllc3wgSURFTlRJRllbXCJJZGVudGlmeSBTU09UIGZvciBlYWNoIGNvbmNlcHRcIl1cbkRVUEwgLS0-fE5vfCBPUkdBTklaRVtcIk9yZ2FuaXplIGludG8gR3JhZGllbnQgbGF5ZXJzXCJdXG4lJS1cbklERU5USUZZIC0tPiBDT05TT0xJREFURVtcIkNvbnNvbGlkYXRlIHRvIFNTT1RcIl1cbkNPTlNPTElEQVRFIC0tPiBSRVBMQUNFW1wiUmVwbGFjZSBkdXBsaWNhdGVzIHdpdGggQHJlZmVyZW5jZXNcIl1cbiUlLVxuUkVQTEFDRSAtLT4gVkFMMVtcImJhc2ggdmFsaWRhdGUtcmVmZXJlbmNlcy5zaFwiXVxuVkFMMSAtLT4gT1JHQU5JWkVcbiUlLVxuT1JHQU5JWkUgLS0-IFZBTDJbXCJiYXNoIGNhbGN1bGF0ZS1tZXRyaWNzLnNoXCJdXG5WQUwyIC0tPiBSRVZJRVdbXCJVc2UgYXJjaGl0ZWN0dXJlLXJldmlld2VyIGFnZW50XCJdXG4lJS1cblJFVklFVyAtLT4gREVDSVNJT057Q29tcGxpYW50P31cbkRFQ0lTSU9OIC0tPnxZZXN8IERPTkUoW01pZ3JhdGlvbiBDb21wbGV0ZV0pXG5ERUNJU0lPTiAtLT58Tm98IEZJWFtcIkFkZHJlc3MgaXNzdWVzXCJdXG5GSVggLS0-IFJFVklFV1xuJSUtXG5zdHlsZSBTVEFSVCBmaWxsOiNlY2YwZjEsc3Ryb2tlOiM5NWE1YTZcbnN0eWxlIEFTU0VTUyBmaWxsOiM5NWE1YTYsc3Ryb2tlOiM3ZjhjOGQsY29sb3I6I2ZmZlxuc3R5bGUgRFVQTCBmaWxsOiNmMzljMTIsc3Ryb2tlOiNkNjg5MTBcbnN0eWxlIElERU5USUZZIGZpbGw6IzM0OThkYixzdHJva2U6IzI5ODBiOSxjb2xvcjojZmZmXG5zdHlsZSBDT05TT0xJREFURSBmaWxsOiMzNDk4ZGIsc3Ryb2tlOiMyOTgwYjksY29sb3I6I2ZmZlxuc3R5bGUgUkVQTEFDRSBmaWxsOiMzNDk4ZGIsc3Ryb2tlOiMyOTgwYjksY29sb3I6I2ZmZlxuc3R5bGUgT1JHQU5JWkUgZmlsbDojMjdhZTYwLHN0cm9rZTojMjI5OTU0LGNvbG9yOiNmZmZcbnN0eWxlIFZBTDEgZmlsbDojOTVhNWE2LHN0cm9rZTojN2Y4YzhkLGNvbG9yOiNmZmZcbnN0eWxlIFZBTDIgZmlsbDojOTVhNWE2LHN0cm9rZTojN2Y4YzhkLGNvbG9yOiNmZmZcbnN0eWxlIFJFVklFVyBmaWxsOiM5YjU5YjYsc3Ryb2tlOiM4ZTQ0YWQsY29sb3I6I2ZmZlxuc3R5bGUgREVDSVNJT04gZmlsbDojZjM5YzEyLHN0cm9rZTojZDY4OTEwXG5zdHlsZSBGSVggZmlsbDojZTc0YzNjLHN0cm9rZTojYzAzOTJiLGNvbG9yOiNmZmZcbnN0eWxlIERPTkUgZmlsbDojMjdhZTYwLHN0cm9rZTojMjI5OTU0LGNvbG9yOiNmZmYiLCJtZXJtYWlkIjpudWxsfQ"></p>
+
+<hr>
+
+<h2 id="troubleshooting">Troubleshooting</h2>
+
+<h3 id="broken-references">Broken References</h3>
+
+<p><strong>Error</strong>: <code class="language-plaintext highlighter-rouge">ERROR: Broken reference in prompts/load-context.md</code></p>
+
+<p><strong>Solutions</strong>:</p>
+<ol>
+  <li>
+<strong>Check relative path</strong>: References are relative to current file
+    <div class="language-markdown highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- From prompts/load-context.md --&gt;</span>
+@../project-spec/format-spec.md  # Up one level, then into project-spec/
+</code></pre></div>    </div>
+  </li>
+  <li>
+<strong>Verify file exists</strong>: Ensure referenced file is present
+    <div class="language-bash highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-la</span> project-spec/format-spec.md
+</code></pre></div>    </div>
+  </li>
+  <li>
+<strong>Check spelling</strong>: Typos in filenames or paths
+    <div class="language-markdown highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>@../project-spec/fromat-spec.md  # Wrong: "fromat"
+@../project-spec/format-spec.md  # Correct: "format"
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h3 id="high-duplication-ratio">High Duplication Ratio</h3>
+
+<p><strong>Warning</strong>: <code class="language-plaintext highlighter-rouge">Duplication Ratio: 1.5</code> (target: ≤1.1)</p>
+
+<p><strong>Solutions</strong>:</p>
+<ol>
+  <li>
+<strong>Find duplicated content</strong>:
+    <div class="language-bash highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>bash detect-duplication.sh my-plugin/
+</code></pre></div>    </div>
+  </li>
+  <li>
+<strong>Identify SSOT</strong>: Determine which file should be authoritative
+    <ul>
+      <li>Normative definitions → SPECS</li>
+      <li>Examples → CONTEXT</li>
+      <li>Meta-instructions → PROMPTS</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Consolidate</strong>: Move content to SSOT location</p>
+  </li>
+  <li>
+<strong>Replace with references</strong>:
+    <div class="language-markdown highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- Before: duplicated content --&gt;</span>
+<span class="gu">## Format Rules</span>
+[50 lines of spec content]
+
+<span class="c">&lt;!-- After: reference --&gt;</span>
+<span class="gu">## Format Rules</span>
+@../project-spec/format-spec.md
+</code></pre></div>    </div>
+  </li>
+  <li>
+<strong>Validate</strong>:
+    <div class="language-bash highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>bash calculate-metrics.sh my-plugin/
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h3 id="low-reference-density">Low Reference Density</h3>
+
+<p><strong>Warning</strong>: <code class="language-plaintext highlighter-rouge">Reference density: 0.3</code> (target: &gt;0.5 for prompts)</p>
+
+<p><strong>Solutions</strong>:</p>
+<ol>
+  <li>
+<strong>Extract inline content</strong>: Move to SPECS or CONTEXT
+```markdown
+<!-- Before: too much inline content -->
+    <h2 id="rules">Rules</h2>
+    <p>Files must have these sections:</p>
+    <ul>
+      <li>meta (required)</li>
+      <li>content (required)</li>
+      <li>footer (optional)
+[… 40 more lines …]</li>
+    </ul>
+
+    <!-- After: reference -->
+    <h2 id="rules-1">Rules</h2>
+    <p>@../project-spec/format-spec.md
+```</p>
+  </li>
+  <li>
+    <p><strong>Use more references</strong>: Break large specs into smaller, referenceable pieces</p>
+  </li>
+  <li>
+<strong>Keep meta-instructions brief</strong>: &lt;5 lines per section</li>
+</ol>
+
+<hr>
+
+<h2 id="next-steps">Next Steps</h2>
+
+<ul>
+  <li>
+<strong><a href="/quick-start/">Quick Start</a></strong> - Create your first Gradient project</li>
+  <li>
+<strong><a href="/best-practices/">Best Practices</a></strong> - Guidelines for using tools effectively</li>
+  <li>
+<strong><a href="/examples/">Examples</a></strong> - See tools in action on real projects</li>
+</ul>
+
+<hr>
+
+<p><strong>Key Takeaway</strong>: Gradient provides automated validation and quality assurance through scripts, agents, and commands. Use them frequently to maintain zero duplication and architectural compliance.</p>
+
+  </div>
+
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Davi Guides</li>
+</ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+<ul class="social-media-list"></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>A proposal for a layered context architecture for Claude Code plugins.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+
+</html>
