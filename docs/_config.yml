@@ -7,7 +7,7 @@ plugins:
 
 theme: minima
 
-baseurl: "gradient"
+baseurl: ""
 repository: daviguides/gradient
 
 # Minima social links

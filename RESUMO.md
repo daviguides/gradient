@@ -1,0 +1,3 @@
+# Resumo do Gradient
+
+**Gradient** é um framework arquitetural para construção de plugins Claude Code que organiza contextos em três camadas com transições suaves: SPECS (especificações normativas que definem "o quê"), CONTEXT (conhecimento aplicado que demonstra "como"), e PROMPTS (orquestradores que executam "ações" referenciando as camadas anteriores via `@`). O princípio fundamental é anti-duplicação: cada informação existe em exatamente um lugar, com as outras camadas referenciando (nunca duplicando) esse conteúdo, criando uma arquitetura limpa onde specs são a fonte da verdade, contexts fornecem exemplos práticos e implementações, e prompts são orquestradores finos que carregam contexto dinamicamente.

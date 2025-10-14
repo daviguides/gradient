@@ -2,11 +2,13 @@
 layout: home
 title: Home
 ---
-<img src="assets/images/logo.png" alt="Gradient Logo" align="right" style="width: 300px; margin-left: -30px; margin-top:-30px; box-shadow:none;"/>
+<img src="assets/images/logo.png" alt="Gradient Logo" align="left" style="width: 300px; margin-left: -30px; margin-top:-30px; box-shadow:none;"/>
 
 # Gradient
 
-> **A proposal for a layered context architecture**
+<blockquote style="border: none;">
+  <p><strong>A proposal for a layered context architecture</strong></p>
+</blockquote>
 
 Architectural patterns for building maintainable Claude Code plugins through smooth layer transitions and zero duplication.
 
@@ -226,3 +228,5 @@ Code like a gradient: from normative specs through applied context to dynamic ac
 4. [Build Your First Plugin](#)
 
 **Ready to eliminate duplication?** [Get Started →]({% link _pages/quick-start.md %})
+
+<img src="assets/images/gradient_scene.png" alt="Gradient Logo" align="center" style="width: 600px; margin: 0 auto"/>
