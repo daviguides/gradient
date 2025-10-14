@@ -445,7 +445,7 @@ meta:
 
 **Problem**:
 ```markdown
-<!-- project-spec/format-spec.md -->
+<!-- project/spec/format-spec.md -->
 Now that you understand the format, you can:
 1. Create new files
 2. Validate existing files
@@ -455,11 +455,11 @@ Now that you understand the format, you can:
 
 **Solution**:
 ```markdown
-<!-- project-spec/format-spec.md -->
+<!-- project/spec/format-spec.md -->
 [Pure specification, no orchestration]
 
 <!-- prompts/format-workflow.md -->
-@../project-spec/format-spec.md
+@../project/spec/format-spec.md
 
 Now that specifications are loaded, you can:
 1. Create new files
@@ -475,7 +475,7 @@ Now that specifications are loaded, you can:
 
 ```
 project/
-├── project-spec/          # SPECS (normative)
+├── spec/                  # SPECS (normative)
 │   ├── format-spec.md
 │   ├── principles.md
 │   └── standards.md

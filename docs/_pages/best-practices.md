@@ -298,7 +298,7 @@ Files must have:
 <!-- ✓ GOOD: Referencing specs, adding unique value -->
 # Implementation Guide
 
-For format rules: @../project-spec/format-spec.md
+For format rules: @../project/spec/format-spec.md
 
 ## Getting Started
 
@@ -376,8 +376,8 @@ Guide users...
 
 ## Format Specifications (Normative)
 
-@../project-spec/format-spec.md
-@../project-spec/validation-spec.md
+@../project/spec/format-spec.md
+@../project/spec/validation-spec.md
 
 ## Applied Knowledge (Practical)
 
@@ -632,19 +632,19 @@ To use this in Claude Code...
 **Solution**: Separate into layers
 
 ```markdown
-<!-- ✓ project-spec/format-spec.md (SPECS only) -->
+<!-- ✓ project/spec/format-spec.md (SPECS only) -->
 # Format Specification
 Files MUST have...
 [normative definitions only]
 
 <!-- ✓ context/examples.md (CONTEXT only) -->
 # Format Examples
-For rules: @../project-spec/format-spec.md
+For rules: @../project/spec/format-spec.md
 [working examples only]
 
 <!-- ✓ prompts/load-context.md (PROMPTS only) -->
 # Load Context
-@../project-spec/format-spec.md
+@../project/spec/format-spec.md
 @../context/examples.md
 [brief meta-instructions only]
 ```
@@ -685,7 +685,7 @@ Create new file following specifications.
 <!-- ✓ prompts/create-file.md -->
 # Create File Workflow
 
-@../project-spec/format-spec.md
+@../project/spec/format-spec.md
 @../context/examples.md
 
 ## Your Task

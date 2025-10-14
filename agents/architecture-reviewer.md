@@ -92,7 +92,7 @@ Review the provided project structure for Gradient architecture compliance.
 - COMMANDS: Match prompt names
 
 **Directory Structure**:
-- Required: `project-spec/`, `context/`, `prompts/`
+- Required: `project/spec/`, `project/context/`, `project/prompts/`
 - Optional: `commands/`, `agents/`, `scripts/`, `hooks/`, `docs/`
 
 **File Sizes**:

@@ -39,11 +39,11 @@ $ bash validate-references.sh my-plugin/
 Validating references in my-plugin...
 
 Checking: prompts/load-context.md
-  ✓ @../project-spec/format-spec.md → /path/to/project-spec/format-spec.md
+  ✓ @../project/spec/format-spec.md → /path/to/project/spec/format-spec.md
   ✓ @../context/examples.md → /path/to/context/examples.md
 
 Checking: context/examples.md
-  ✓ @../project-spec/format-spec.md → /path/to/project-spec/format-spec.md
+  ✓ @../project/spec/format-spec.md → /path/to/project/spec/format-spec.md
 
 All references valid ✓
 ```
@@ -53,8 +53,8 @@ All references valid ✓
 $ bash validate-references.sh my-plugin/
 
 ERROR: Broken reference in prompts/load-context.md
-       Reference: @../project-spec/missing.md
-       Resolved to: /path/to/project-spec/missing.md (not found)
+       Reference: @../project/spec/missing.md
+       Resolved to: /path/to/project/spec/missing.md (not found)
 ```
 
 **When to use**:
@@ -93,7 +93,7 @@ Comparing files...
 
 Potential duplication found:
   File 1: prompts/create-workflow.md (lines 15-22)
-  File 2: project-spec/format-spec.md (lines 45-52)
+  File 2: project/spec/format-spec.md (lines 45-52)
   Common lines: 8
   Similarity: High
 
@@ -485,18 +485,18 @@ flowchart TD
 1. **Check relative path**: References are relative to current file
    ```markdown
    <!-- From prompts/load-context.md -->
-   @../project-spec/format-spec.md  # Up one level, then into project-spec/
+   @../project/spec/format-spec.md  # Up one level, then into project/spec/
    ```
 
 2. **Verify file exists**: Ensure referenced file is present
    ```bash
-   ls -la project-spec/format-spec.md
+   ls -la project/spec/format-spec.md
    ```
 
 3. **Check spelling**: Typos in filenames or paths
    ```markdown
-   @../project-spec/fromat-spec.md  # Wrong: "fromat"
-   @../project-spec/format-spec.md  # Correct: "format"
+   @../project/spec/fromat-spec.md  # Wrong: "fromat"
+   @../project/spec/format-spec.md  # Correct: "format"
    ```
 
 ### High Duplication Ratio
@@ -524,7 +524,7 @@ flowchart TD
 
    <!-- After: reference -->
    ## Format Rules
-   @../project-spec/format-spec.md
+   @../project/spec/format-spec.md
    ```
 
 5. **Validate**:
@@ -549,7 +549,7 @@ flowchart TD
 
    <!-- After: reference -->
    ## Rules
-   @../project-spec/format-spec.md
+   @../project/spec/format-spec.md
    ```
 
 2. **Use more references**: Break large specs into smaller, referenceable pieces

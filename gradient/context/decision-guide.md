@@ -33,7 +33,7 @@ Start: I have content about [X]
 ├─ Is it a normative definition or rule?
 │  ├─ YES: Does it define WHAT something is?
 │  │  └─ YES → SPECS layer
-│  │      File: project-spec/*-spec.md
+│  │      File: project/spec/*-spec.md
 │  │
 │  └─ NO: Continue...
 │
@@ -149,7 +149,7 @@ Pattern: ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$
 # In CONTEXT
 ## Email Validation Examples
 
-For validation rules: @../project-spec/validation-spec.md
+For validation rules: @../project/spec/validation-spec.md
 
 ### Valid Emails
 - user@example.com ✓
@@ -225,7 +225,7 @@ Start: I need content about [X]
 
 **Step 1: Search existing content**
 ```bash
-grep -r "concept name" project-spec/ context/ --include="*.md"
+grep -r "concept name" project/spec/ context/ --include="*.md"
 ```
 
 **Step 2: Evaluate results**
@@ -323,7 +323,7 @@ grep -r "concept name" project-spec/ context/ --include="*.md"
 **Multiple distinct concerns**:
 ```
 # Instead of single all-in-one-spec.md (800 lines)
-project-spec/
+project/spec/
 ├── format-spec.md      (300 lines)
 ├── validation-spec.md  (250 lines)
 └── api-spec.md         (250 lines)
@@ -332,7 +332,7 @@ project-spec/
 **Different audiences**:
 ```
 # LLMs vs Humans
-├── project-spec/       # For LLMs
+├── project/spec/       # For LLMs
 │   └── core-spec.md
 └── docs/               # For Humans
     └── user-guide.md
@@ -361,7 +361,7 @@ prompts/
 #### Flat Structure (Recommended for Most Projects)
 
 ```
-project-spec/
+project/spec/
 ├── format-spec.md
 ├── validation-spec.md
 └── api-spec.md
@@ -375,7 +375,7 @@ project-spec/
 #### Nested Structure
 
 ```
-project-spec/
+project/spec/
 ├── core/
 │   ├── format-spec.md
 │   └── validation-spec.md
@@ -435,11 +435,11 @@ project-spec/
 - Location: None are in correct layer (SPECS)
 
 **Decision**:
-1. Create `project-spec/format-spec.md` with complete definition
-2. Replace README.md content with `@../project-spec/format-spec.md`
+1. Create `project/spec/format-spec.md` with complete definition
+2. Replace README.md content with `@../project/spec/format-spec.md`
 3. Extract examples from guide.md to `context/examples.md`
 4. Update guide.md to reference both
-5. Replace prompts/load.md content with `@../project-spec/format-spec.md`
+5. Replace prompts/load.md content with `@../project/spec/format-spec.md`
 
 ### Decision 10: Consolidation Strategy
 
@@ -549,7 +549,7 @@ prompts/
 ```markdown
 # Load Context
 
-@../project-spec/core-spec.md
+@../project/spec/core-spec.md
 @../context/examples.md
 
 Your task: Guide users in creating files following the spec.
@@ -566,7 +566,7 @@ Your task: Guide users in creating files following the spec.
 ```markdown
 # Create Workflow
 
-@../project-spec/format-spec.md
+@../project/spec/format-spec.md
 @../context/implementation-guide.md
 
 Your task:
@@ -591,7 +591,7 @@ Remember:
 ```markdown
 # Complex Workflow
 
-@../project-spec/core-spec.md
+@../project/spec/core-spec.md
 @../context/implementation-guide.md
 @../context/decision-guide.md
 
@@ -671,7 +671,7 @@ Validation checklist:
 
 You are a YAML syntax validator.
 
-@../project-spec/yaml-spec.md
+@../project/spec/yaml-spec.md
 
 Validate ONLY syntax. Do not check:
 - Business logic
@@ -695,8 +695,8 @@ Validate ONLY syntax. Do not check:
 
 You validate format compliance.
 
-@../project-spec/format-spec.md
-@../project-spec/validation-spec.md
+@../project/spec/format-spec.md
+@../project/spec/validation-spec.md
 
 Validate:
 - Structure compliance

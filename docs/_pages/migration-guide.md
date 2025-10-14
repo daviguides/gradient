@@ -556,7 +556,7 @@ docs/
 
 **After**:
 ```
-project-spec/
+project/spec/
 ├── specification.md  (400 lines: pure specs)
 └── principles.md     (100 lines: pure principles)
 
@@ -659,11 +659,11 @@ Total Lines: 750 (37% reduction)
 bash ~/.claude/gradient/scripts/validate-references.sh .
 
 # Common mistakes:
-# Wrong: @./project-spec/spec.md (same level)
-# Right: @../project-spec/spec.md (up one level)
+# Wrong: @./project/spec/spec.md (same level)
+# Right: @../project/spec/spec.md (up one level)
 
 # Wrong: @/absolute/path/spec.md (system absolute)
-# Right: @../project-spec/spec.md (relative)
+# Right: @../project/spec/spec.md (relative)
 ```
 
 ### Issue 2: High Duplication After Migration
@@ -699,7 +699,7 @@ Files must have...
 
 After:
 ## Rules
-@../project-spec/format-spec.md
+@../project/spec/format-spec.md
 ```
 
 ### Issue 4: Unclear Where Content Belongs

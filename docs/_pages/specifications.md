@@ -176,7 +176,7 @@ Practical application of specifications through examples and guides.
 ```markdown
 # Implementation Guide
 
-For format rules: @../project-spec/format-spec.md
+For format rules: @../project/spec/format-spec.md
 
 ## Getting Started
 
@@ -237,8 +237,8 @@ Dynamic orchestration that loads specs/context and provides meta-instructions.
 
 ## Format Specifications (Normative)
 
-@../project-spec/format-spec.md
-@../project-spec/syntax-spec.md
+@../project/spec/format-spec.md
+@../project/spec/syntax-spec.md
 
 ## Applied Knowledge (Practical)
 

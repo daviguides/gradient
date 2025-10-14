@@ -93,7 +93,7 @@ Plan your directory layout:
 
 ```
 my-project/
-├── project-spec/       # Your specifications
+├── project/spec/       # Your specifications
 ├── context/            # Your examples and guides
 ├── prompts/            # Your orchestrators
 ├── commands/           # Your API entry points
@@ -105,7 +105,7 @@ my-project/
 Adjust based on your needs. Minimum viable structure:
 ```
 my-project/
-├── project-spec/       # Required
+├── project/spec/       # Required
 ├── context/            # Required
 └── prompts/            # Required
 ```
@@ -124,7 +124,7 @@ mkdir -p my-project/project-spec
 
 Create your main specification file:
 
-**Template**: `project-spec/core-spec.md`
+**Template**: `project/spec/core-spec.md`
 
 ```markdown
 # [Project Name] Specification
@@ -205,7 +205,7 @@ Write specifications using clear, definitive language:
 If you have multiple domains, create separate specs:
 
 ```
-project-spec/
+project/spec/
 ├── core-spec.md          # Main definitions
 ├── format-spec.md        # Format-specific rules
 ├── validation-spec.md    # Validation rules
@@ -252,7 +252,7 @@ mkdir -p my-project/context
 ```markdown
 # [Project Name] Examples
 
-For specifications: @../project-spec/core-spec.md
+For specifications: @../project/spec/core-spec.md
 
 ---
 
@@ -303,7 +303,7 @@ Header section contains:
 ```markdown
 ## Example 1: Valid File
 
-For format requirements: @../project-spec/format-spec.md
+For format requirements: @../project/spec/format-spec.md
 
 ```yaml
 header:
@@ -331,8 +331,8 @@ footer:
 ```markdown
 # Implementation Guide
 
-For format specification: @../project-spec/format-spec.md
-For validation rules: @../project-spec/validation-spec.md
+For format specification: @../project/spec/format-spec.md
+For validation rules: @../project/spec/validation-spec.md
 
 ---
 
@@ -407,7 +407,7 @@ If your project involves choices, create a decision guide:
 ```markdown
 # Decision Guide
 
-For specifications: @../project-spec/core-spec.md
+For specifications: @../project/spec/core-spec.md
 
 ---
 
@@ -481,9 +481,9 @@ mkdir -p my-project/prompts
 
 ## Specifications (Normative)
 
-@../project-spec/core-spec.md
-@../project-spec/format-spec.md
-@../project-spec/validation-spec.md
+@../project/spec/core-spec.md
+@../project/spec/format-spec.md
+@../project/spec/validation-spec.md
 
 ---
 
@@ -560,7 +560,7 @@ Files have three sections:
 
 ## Format Rules
 
-@../project-spec/format-spec.md
+@../project/spec/format-spec.md
 
 ## Examples
 
@@ -588,7 +588,7 @@ For complex multi-step processes:
 
 ## Context
 
-@../project-spec/core-spec.md
+@../project/spec/core-spec.md
 @../context/implementation-guide.md
 @../context/examples.md
 
@@ -717,7 +717,7 @@ You are a [role] specialized in [domain].
 
 ## Context
 
-@../project-spec/relevant-spec.md
+@../project/spec/relevant-spec.md
 @../context/relevant-guide.md
 
 ---
@@ -810,13 +810,13 @@ Calculate quality metrics:
 **For SPECS**:
 ```bash
 # Count total lines
-wc -l project-spec/*.md
+wc -l project/spec/*.md
 
 # Check for examples (should be minimal)
-grep -c "```" project-spec/*.md
+grep -c "```" project/spec/*.md
 
 # Check for "how to" language (should be absent)
-grep -i "how to\|step 1\|first," project-spec/*.md
+grep -i "how to\|step 1\|first," project/spec/*.md
 ```
 
 **For PROMPTS**:
@@ -844,7 +844,7 @@ ls -d my-project/prompts
 wc -l commands/*.md  # All should be ≤5 lines
 
 # Specs don't have examples?
-grep -l "```" project-spec/*.md | wc -l  # Should be 0 or minimal
+grep -l "```" project/spec/*.md | wc -l  # Should be 0 or minimal
 ```
 
 ### Step 7.5: Test Usage
@@ -928,7 +928,7 @@ mkdir -p my-project/{project-spec,context,prompts,commands}
 
 Move normative content to specs:
 
-**From guide.md lines 1-150** → **project-spec/format-spec.md**:
+**From guide.md lines 1-150** → **project/spec/format-spec.md**:
 ```markdown
 # Format Specification
 
@@ -943,7 +943,7 @@ Move examples and guides to context:
 ```markdown
 # Examples
 
-For format rules: @../project-spec/format-spec.md
+For format rules: @../project/spec/format-spec.md
 
 [Extract examples, add references to specs]
 ```
@@ -952,7 +952,7 @@ For format rules: @../project-spec/format-spec.md
 
 New `prompts/load-context.md`:
 ```markdown
-@../project-spec/format-spec.md
+@../project/spec/format-spec.md
 @../context/examples.md
 
 Your task: [orchestration logic]
@@ -985,7 +985,7 @@ The format requires three sections:
 ```markdown
 # Using the Plugin
 
-For format details: @project-spec/format-spec.md
+For format details: @project/spec/format-spec.md
 For examples: @context/examples.md
 ```
 
@@ -1055,7 +1055,7 @@ Files must have:
 
 # After (thin)
 ## Format Rules
-@../project-spec/format-spec.md
+@../project/spec/format-spec.md
 
 ## Examples
 @../context/examples.md

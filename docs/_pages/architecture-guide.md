@@ -222,7 +222,7 @@ Valid XYZ file if:
 ```markdown
 # Implementation Guide
 
-**For format specifications**: @../project-spec/format-spec.md
+**For format specifications**: @../project/spec/format-spec.md
 
 ## Getting Started
 
@@ -279,8 +279,8 @@ meta:
 
 ## Format Specifications (Normative)
 
-@../project-spec/format-spec.md
-@../project-spec/syntax-spec.md
+@../project/spec/format-spec.md
+@../project/spec/syntax-spec.md
 
 ## Applied Knowledge (Practical)
 
@@ -758,8 +758,8 @@ flowchart LR
 
 ## Specifications (Normative)
 
-@../project-spec/format-spec.md
-@../project-spec/validation-spec.md
+@../project/spec/format-spec.md
+@../project/spec/validation-spec.md
 
 ## Applied Knowledge (Practical)
 
@@ -782,7 +782,7 @@ flowchart LR
 <!-- prompts/adaptive-load.md -->
 
 {% if detailed_mode %}
-@../project-spec/detailed-spec.md
+@../project/spec/detailed-spec.md
 {% else %}
 @../context/quick-guide.md
 {% endif %}
@@ -800,7 +800,7 @@ flowchart LR
 
 ## Layer 1: Normative (SPECS)
 
-@../project-spec/core-spec.md
+@../project/spec/core-spec.md
 
 ## Layer 2: Applied (CONTEXT)
 
@@ -826,7 +826,7 @@ flowchart LR
 ```mermaid
 graph TD
     subgraph "Project Root"
-        PS[project-spec/<br/>Normative Layer]
+        PS[project/spec/<br/>Normative Layer]
         CT[context/<br/>Applied Layer]
         PR[prompts/<br/>Orchestration Layer]
         CM[commands/<br/>API Layer]
@@ -856,7 +856,7 @@ graph TD
 
 ```
 project/
-├── project-spec/           # SPECS (normative)
+├── project/spec/           # SPECS (normative)
 │   ├── format-spec.md
 │   ├── principles.md
 │   └── standards.md
@@ -953,8 +953,8 @@ flowchart LR
 ```
 
 **Start with**:
-1. `project-spec/core-spec.md` - Your main specification
-2. `project-spec/principles.md` - Foundational principles (if needed)
+1. `project/spec/core-spec.md` - Your main specification
+2. `project/spec/principles.md` - Foundational principles (if needed)
 
 #### Step 3: Add Context
 
@@ -965,7 +965,7 @@ Create applied knowledge that references your specs:
 
 # Implementation Guide
 
-**For format rules**: @../project-spec/core-spec.md
+**For format rules**: @../project/spec/core-spec.md
 
 ## Getting Started
 
@@ -979,7 +979,7 @@ Build orchestrators that load specs and context:
 ```markdown
 <!-- prompts/load-context.md -->
 
-@../project-spec/core-spec.md
+@../project/spec/core-spec.md
 @../context/implementation-guide.md
 
 ## Your Task
@@ -1050,7 +1050,7 @@ Concept Y → context/examples.md (example #3)
 - Validate references resolve
 
 **4. Reorganize into layers**:
-- Move normative content → `project-spec/`
+- Move normative content → `project/spec/`
 - Move examples → `context/`
 - Create thin prompts → `prompts/`
 

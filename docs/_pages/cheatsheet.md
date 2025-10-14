@@ -53,7 +53,7 @@ Quick reference for Gradient architecture patterns, syntax, and quality targets.
 ```markdown
 # From prompts/load-context.md
 
-@../project-spec/format-spec.md       # Up one, into project-spec/
+@../project/spec/format-spec.md       # Up one, into project/spec/
 @../context/examples.md               # Up one, into context/
 @./helper-prompt.md                   # Same directory
 ```
@@ -165,7 +165,7 @@ For implementation: @../context/implementation-guide.md
 ```markdown
 # {Concept} Examples
 
-For specifications: @../project-spec/{concept}-spec.md
+For specifications: @../project/spec/{concept}-spec.md
 
 ---
 
@@ -217,8 +217,8 @@ For specifications: @../project-spec/{concept}-spec.md
 
 ## Specifications (Normative)
 
-@../project-spec/{spec1}.md
-@../project-spec/{spec2}.md
+@../project/spec/{spec1}.md
+@../project/spec/{spec2}.md
 
 ---
 
@@ -258,7 +258,7 @@ You are {role description} specialized in {domain}.
 
 ## Context
 
-@../project-spec/{spec}.md
+@../project/spec/{spec}.md
 @../context/{guide}.md
 
 ---
@@ -462,7 +462,7 @@ spec.md:
   - Usage (prompts)
 
 ✓ DO:
-project-spec/spec.md:     ← SPECS only
+project/spec/spec.md:     ← SPECS only
   - Normative definitions
 
 context/examples.md:      ← CONTEXT only
