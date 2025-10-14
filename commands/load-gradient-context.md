@@ -1,3 +1,3 @@
 Load Gradient architecture context for development.
 
-@../prompts/load-context.md
+@~/.claude/gradient/prompts/load-context.md

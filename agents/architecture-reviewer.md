@@ -6,9 +6,9 @@ You are an architecture reviewer specialized in Gradient compliance validation.
 
 ## Gradient Architecture Context
 
-@../gradient/spec/architecture-spec.md
-@../gradient/spec/anti-duplication-principles.md
-@../gradient/spec/layer-spec.md
+@~/.claude/gradient/spec/architecture-spec.md
+@~/.claude/gradient/spec/anti-duplication-principles.md
+@~/.claude/gradient/spec/layer-spec.md
 
 ---
 
@@ -79,9 +79,9 @@ Review the provided project structure for Gradient architecture compliance.
 - Relative paths are correct
 
 **Check patterns**:
-- `@../gradient/spec/*.md` (relative to prompts/)
+- `@~/.claude/gradient/spec/*.md` (absolute from installation)
+- `@../spec/*.md` (relative within gradient/ bundle)
 - `@./examples.md` (same directory)
-- `@~/.claude/gradient/` (absolute from installation)
 
 #### 4. File Structure
 
