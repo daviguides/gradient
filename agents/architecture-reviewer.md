@@ -92,8 +92,9 @@ Review the provided project structure for Gradient architecture compliance.
 - COMMANDS: Match prompt names
 
 **Directory Structure**:
-- Required: `project/spec/`, `project/context/`, `project/prompts/`
-- Optional: `commands/`, `agents/`, `scripts/`, `hooks/`, `docs/`
+- Required (within bundle): `project/spec/`, `project/context/`, `project/prompts/`
+- Optional (within bundle): `project/scripts/`, `project/hooks/`
+- Optional (outside bundle): `commands/`, `agents/`, `docs/`
 
 **File Sizes**:
 - SPECS: Variable (can be large)
