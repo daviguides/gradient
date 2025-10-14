@@ -6,9 +6,9 @@
 
 ## Architecture Specifications (Normative)
 
-@../gradient-spec/architecture-spec.md
-@../gradient-spec/anti-duplication-principles.md
-@../gradient-spec/layer-spec.md
+@../spec/architecture-spec.md
+@../spec/anti-duplication-principles.md
+@../spec/layer-spec.md
 
 ---
 

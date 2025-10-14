@@ -2,8 +2,8 @@
 
 **Decision trees and guidance for making architectural choices when implementing Gradient.**
 
-For architecture specifications: @../gradient-spec/architecture-spec.md
-For layer specifications: @../gradient-spec/layer-spec.md
+For architecture specifications: @../spec/architecture-spec.md
+For layer specifications: @../spec/layer-spec.md
 
 ---
 
@@ -721,9 +721,9 @@ Validate:
 
 You are an architecture reviewer.
 
-@../gradient-spec/architecture-spec.md
-@../gradient-spec/anti-duplication-principles.md
-@../gradient-spec/layer-spec.md
+@../spec/architecture-spec.md
+@../spec/anti-duplication-principles.md
+@../spec/layer-spec.md
 
 Review all aspects of architecture:
 - Structure
@@ -889,9 +889,9 @@ Review all aspects of architecture:
 
 ### Decision Support Resources
 
-**For layer questions**: @../gradient-spec/layer-spec.md
-**For duplication questions**: @../gradient-spec/anti-duplication-principles.md
-**For architecture questions**: @../gradient-spec/architecture-spec.md
+**For layer questions**: @../spec/layer-spec.md
+**For duplication questions**: @../spec/anti-duplication-principles.md
+**For architecture questions**: @../spec/architecture-spec.md
 **For implementation questions**: @./implementation-guide.md
 **For examples**: @./examples.md
 

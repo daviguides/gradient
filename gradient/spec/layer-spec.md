@@ -285,7 +285,7 @@ Applied knowledge, working examples, and practical implementation guidance.
 ```markdown
 # Implementation Guide
 
-**For format specifications**: @../gradient-spec/format-spec.md
+**For format specifications**: @../spec/format-spec.md
 
 ---
 
@@ -445,8 +445,8 @@ Thin orchestration layer that loads specs/context and provides meta-instructions
 
 ## Format Specifications (Normative)
 
-@../gradient-spec/format-spec.md
-@../gradient-spec/syntax-spec.md
+@../spec/format-spec.md
+@../spec/syntax-spec.md
 
 ---
 
@@ -640,8 +640,8 @@ You are an architecture reviewer specialized in Gradient compliance validation.
 
 ## Context
 
-@../gradient-spec/architecture-spec.md
-@../gradient-spec/anti-duplication-principles.md
+@../spec/architecture-spec.md
+@../spec/anti-duplication-principles.md
 @../context/decision-guide.md
 
 ---
@@ -773,7 +773,7 @@ if [ -z "$PROJECT_PATH" ]; then
 fi
 
 # Check for required directories
-required_dirs=("gradient-spec" "context" "prompts")
+required_dirs=("spec" "context" "prompts")
 
 for dir in "${required_dirs[@]}"; do
     if [ ! -d "$PROJECT_PATH/$dir" ]; then

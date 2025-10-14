@@ -2,9 +2,9 @@
 
 **Step-by-step guide for implementing Gradient architecture in your projects.**
 
-For architecture specifications: @../gradient-spec/architecture-spec.md
-For anti-duplication principles: @../gradient-spec/anti-duplication-principles.md
-For layer specifications: @../gradient-spec/layer-spec.md
+For architecture specifications: @../spec/architecture-spec.md
+For anti-duplication principles: @../spec/anti-duplication-principles.md
+For layer specifications: @../spec/layer-spec.md
 
 ---
 
@@ -1106,9 +1106,9 @@ After implementing Gradient:
 ## Additional Resources
 
 **Specifications**:
-- @../gradient-spec/architecture-spec.md - Complete architecture
-- @../gradient-spec/anti-duplication-principles.md - Duplication prevention
-- @../gradient-spec/layer-spec.md - Layer technical specs
+- @../spec/architecture-spec.md - Complete architecture
+- @../spec/anti-duplication-principles.md - Duplication prevention
+- @../spec/layer-spec.md - Layer technical specs
 
 **Examples**:
 - @./examples.md - Working examples of Gradient projects

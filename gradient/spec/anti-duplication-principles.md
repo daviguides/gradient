@@ -344,9 +344,9 @@ Composition Rules:
 <!-- prompts/load-context.md -->
 ## Format Specifications
 
-@~/.claude/gradient-spec/ymd-spec.md
-@~/.claude/gradient-spec/pmd-spec.md
-@~/.claude/gradient-spec/composition-spec.md
+@~/.claude/ymd-spec/spec/ymd-spec.md
+@~/.claude/ymd-spec/spec/pmd-spec.md
+@~/.claude/ymd-spec/spec/composition-spec.md
 
 ## Your Task
 

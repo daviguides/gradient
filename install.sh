@@ -13,7 +13,7 @@ SAMPLE_CONFIG="$(cat << 'EOF'
 # Project Documentation Standards
 
 ## Standards Inheritance
-- **INHERITS FROM**: @./gradient-spec/layer-spec.md
+- **INHERITS FROM**: @./gradient/spec/layer-spec.md
 - **PRECEDENCE**: Project-specific rules override repository defaults
 - **FALLBACK**: When no override exists, gradient applies
 EOF
@@ -34,7 +34,7 @@ printf "%b\n\n" "${GREEN}✓ Repository cloned successfully${NC}"
 [ -d "$CLAUDE_DIR" ] || { printf "%b\n" "${YELLOW}Creating ~/.claude directory...${NC}"; mkdir -p "$CLAUDE_DIR"; }
 
 # --- COPIAR APENAS A SUBPASTA "$TMP_DIR/gradient" ---
-SRC_SUBDIR="$TMP_DIR/gradient-spec"
+SRC_SUBDIR="$TMP_DIR/gradient"
 if [ ! -d "$SRC_SUBDIR" ]; then
   printf "%b\n" "${RED}Error: expected subfolder not found:${NC} $SRC_SUBDIR"
   printf "%s\n" "Repo layout mudou? Verifique se a pasta 'gradient/' existe na raiz do repositório."

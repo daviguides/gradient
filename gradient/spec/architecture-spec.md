@@ -170,7 +170,7 @@ You are a [role] specialized in [domain].
 
 ## Context
 
-@../gradient-spec/relevant-spec.md
+@../spec/relevant-spec.md
 @../context/relevant-guide.md
 
 ## Your Task
@@ -256,12 +256,12 @@ Use `@` for referencing:
 
 **Absolute references** (from installed location):
 ```markdown
-@~/.claude/gradient/gradient-spec/architecture-spec.md
+@~/.claude/gradient/spec/architecture-spec.md
 ```
 
 **Relative references** (within project):
 ```markdown
-@../gradient-spec/architecture-spec.md
+@../spec/architecture-spec.md
 @./examples.md
 ```
 
@@ -275,12 +275,12 @@ Use `@` for referencing:
 
 **Example**:
 ```
-prompts/load-context.md references:
-@../gradient-spec/architecture-spec.md
+gradient/prompts/load-context.md references:
+@../spec/architecture-spec.md
 
 Resolution:
-/path/to/project/prompts/ + ../gradient-spec/architecture-spec.md
-= /path/to/project/gradient-spec/architecture-spec.md
+/path/to/project/gradient/prompts/ + ../spec/architecture-spec.md
+= /path/to/project/gradient/spec/architecture-spec.md
 ```
 
 ### Composition Patterns
@@ -288,8 +288,8 @@ Resolution:
 **Pattern 1: Thin Loader**
 ```markdown
 <!-- prompts/load-context.md -->
-@../gradient-spec/spec1.md
-@../gradient-spec/spec2.md
+@../spec/spec1.md
+@../spec/spec2.md
 @../context/examples.md
 
 Your task: [brief meta-instruction]
@@ -299,7 +299,7 @@ Your task: [brief meta-instruction]
 ```markdown
 <!-- prompts/adaptive-load.md -->
 {% if need_specs %}
-@../gradient-spec/detailed-spec.md
+@../spec/detailed-spec.md
 {% else %}
 @../context/quick-guide.md
 {% endif %}
@@ -309,7 +309,7 @@ Your task: [brief meta-instruction]
 ```markdown
 <!-- prompts/comprehensive-load.md -->
 ## Specifications (Normative)
-@../gradient-spec/spec.md
+@../spec/spec.md
 
 ## Applied Knowledge (Practical)
 @../context/guide.md
@@ -391,8 +391,8 @@ PMD files are pure markdown...
 **Solution**:
 ```markdown
 <!-- prompts/load.md -->
-@../gradient-spec/ymd-spec.md
-@../gradient-spec/pmd-spec.md
+@../spec/ymd-spec.md
+@../spec/pmd-spec.md
 
 Your task: [meta-instruction]
 ```
@@ -431,7 +431,7 @@ YMD files must have meta section with:
 ```markdown
 <!-- context/guide.md -->
 For YMD format rules:
-@../gradient-spec/ymd-spec.md
+@../spec/ymd-spec.md
 
 Example YMD file:
 ```yaml
@@ -445,7 +445,7 @@ meta:
 
 **Problem**:
 ```markdown
-<!-- gradient-spec/format-spec.md -->
+<!-- project-spec/format-spec.md -->
 Now that you understand the format, you can:
 1. Create new files
 2. Validate existing files
@@ -455,11 +455,11 @@ Now that you understand the format, you can:
 
 **Solution**:
 ```markdown
-<!-- gradient-spec/format-spec.md -->
+<!-- project-spec/format-spec.md -->
 [Pure specification, no orchestration]
 
 <!-- prompts/format-workflow.md -->
-@../gradient-spec/format-spec.md
+@../project-spec/format-spec.md
 
 Now that specifications are loaded, you can:
 1. Create new files

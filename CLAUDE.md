@@ -24,7 +24,7 @@ This project defines:
 
 ### Core Architecture
 
-**gradient-spec/** - Normative Specifications (SOURCE OF TRUTH)
+**gradient/spec/** - Normative Specifications (SOURCE OF TRUTH)
 - `architecture-spec.md` - Complete architecture specification for LLMs
 - `anti-duplication-principles.md` - Universal principles preventing duplication
 - `layer-spec.md` - Detailed specification of each architectural layer
@@ -103,7 +103,7 @@ Not discrete steps, but gradient transitions.
 
 **Ask first**: Which layer owns this information?
 
-1. **Is it a normative rule/definition?** → `gradient-spec/`
+1. **Is it a normative rule/definition?** → `gradient/spec/`
 2. **Is it practical application/example?** → `context/`
 3. **Is it orchestration logic?** → `prompts/` (use `@` references)
 
@@ -199,8 +199,8 @@ Use descriptive, semantic messages:
 
 Always use `@` syntax for referencing:
 ```markdown
-@~/.claude/gradient/gradient-spec/architecture-spec.md
-@./context/examples.md
+@~/.claude/gradient/gradient/spec/architecture-spec.md
+@./gradient/context/examples.md
 ```
 
 ---
@@ -214,7 +214,7 @@ Always use `@` syntax for referencing:
 - Explain the "why" behind decisions
 - Provide step-by-step guides
 
-### For LLMs (gradient-spec/)
+### For LLMs (gradient/spec/)
 
 - Be normative and complete
 - Use precise language
@@ -259,9 +259,9 @@ When reviewing changes, check:
 - Naming decision documented (design/naming-analysis.md)
 - README.md created
 - CLAUDE.md created
-- gradient-spec/anti-duplication-principles.md
-- gradient-spec/architecture-spec.md
-- gradient-spec/layer-spec.md
+- gradient/spec/anti-duplication-principles.md
+- gradient/spec/architecture-spec.md
+- gradient/spec/layer-spec.md
 
 **Phase 2 Completed (Documentation)**:
 - docs/architecture-guide.md (comprehensive guide with Mermaid diagrams)
@@ -299,7 +299,7 @@ Share insights from your Claude Code plugin development experiences.
 
 **Load Gradient Context**:
 ```markdown
-@~/.claude/gradient/gradient-spec/architecture-spec.md
+@~/.claude/gradient/gradient/spec/architecture-spec.md
 @~/.claude/gradient/context/implementation-guide.md
 ```
 

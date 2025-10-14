@@ -2,7 +2,7 @@
 
 **Complete working examples demonstrating Gradient architecture patterns.**
 
-For architecture specifications: @../gradient-spec/architecture-spec.md
+For architecture specifications: @../spec/architecture-spec.md
 
 ---
 
@@ -653,9 +653,9 @@ You are an architecture reviewer specialized in Gradient compliance validation.
 
 ## Gradient Architecture Context
 
-@../gradient-spec/architecture-spec.md
-@../gradient-spec/anti-duplication-principles.md
-@../gradient-spec/layer-spec.md
+@../spec/architecture-spec.md
+@../spec/anti-duplication-principles.md
+@../spec/layer-spec.md
 
 ---
 
@@ -1139,5 +1139,5 @@ These examples demonstrate:
 - Agents are specialized (reference what they need)
 - Zero duplication throughout
 
-For architectural details: @../gradient-spec/architecture-spec.md
+For architectural details: @../spec/architecture-spec.md
 For implementation guidance: @./implementation-guide.md

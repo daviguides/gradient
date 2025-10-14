@@ -52,7 +52,7 @@ Like a gradient, each layer dissolves into the next, creating a fluid, organic a
 
 ```
 gradient/
-├── gradient-spec/        # SPECS: Normative (The WHAT)
+├── gradient/spec/        # SPECS: Normative (The WHAT)
 │   ├── architecture-spec.md
 │   ├── anti-duplication-principles.md
 │   └── layer-spec.md
@@ -135,7 +135,7 @@ Specialized contexts with separate permissions:
 <!-- agents/architecture-reviewer.md -->
 You are an architecture reviewer for Gradient projects.
 
-@~/.claude/gradient/gradient-spec/architecture-spec.md
+@~/.claude/gradient/gradient/spec/architecture-spec.md
 @~/.claude/gradient/context/decision-guide.md
 ```
 
@@ -179,8 +179,8 @@ bundle exec jekyll serve
 Load the architecture spec:
 
 ```markdown
-@~/.claude/gradient/gradient-spec/architecture-spec.md
-@~/.claude/gradient/gradient-spec/anti-duplication-principles.md
+@~/.claude/gradient/gradient/spec/architecture-spec.md
+@~/.claude/gradient/gradient/spec/anti-duplication-principles.md
 ```
 
 ---
@@ -228,9 +228,9 @@ Complete documentation with interactive examples, Mermaid diagrams, and step-by-
 
 ### Core Specifications (for LLMs)
 
-- [Architecture Specification](gradient-spec/architecture-spec.md) - Complete normative definition
-- [Anti-Duplication Principles](gradient-spec/anti-duplication-principles.md) - Universal principles
-- [Layer Specification](gradient-spec/layer-spec.md) - Technical layer specs
+- [Architecture Specification](gradient/spec/architecture-spec.md) - Complete normative definition
+- [Anti-Duplication Principles](gradient/spec/anti-duplication-principles.md) - Universal principles
+- [Layer Specification](gradient/spec/layer-spec.md) - Technical layer specs
 
 ### Applied Knowledge
 

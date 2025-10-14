@@ -26,7 +26,7 @@ Gradient is defined by three foundational specifications:
 - Validation rules and anti-patterns
 - Implementation guidelines for LLMs
 
-[Read: `gradient-spec/architecture-spec.md`](https://github.com/daviguides/gradient/blob/main/gradient-spec/architecture-spec.md)
+[Read: `gradient/spec/architecture-spec.md`](https://github.com/daviguides/gradient/blob/main/gradient/spec/architecture-spec.md)
 
 ### 2. Anti-Duplication Principles
 
@@ -39,7 +39,7 @@ Gradient is defined by three foundational specifications:
 - Refactoring workflows
 - Validation checklists
 
-[Read: `gradient-spec/anti-duplication-principles.md`](https://github.com/daviguides/gradient/blob/main/gradient-spec/anti-duplication-principles.md)
+[Read: `gradient/spec/anti-duplication-principles.md`](https://github.com/daviguides/gradient/blob/main/gradient/spec/anti-duplication-principles.md)
 
 ### 3. Layer Specification
 
@@ -52,7 +52,7 @@ Gradient is defined by three foundational specifications:
 - Quality metrics
 - Examples of valid structures
 
-[Read: `gradient-spec/layer-spec.md`](https://github.com/daviguides/gradient/blob/main/gradient-spec/layer-spec.md)
+[Read: `gradient/spec/layer-spec.md`](https://github.com/daviguides/gradient/blob/main/gradient/spec/layer-spec.md)
 
 ---
 
@@ -297,8 +297,8 @@ You are an architecture reviewer specialized in Gradient compliance.
 
 ## Context
 
-@../gradient-spec/architecture-spec.md
-@../gradient-spec/anti-duplication-principles.md
+@../gradient/spec/architecture-spec.md
+@../gradient/spec/anti-duplication-principles.md
 
 ## Your Task
 
@@ -349,7 +349,7 @@ set -e
 PROJECT_PATH="$1"
 
 # Validation logic
-required_dirs=("gradient-spec" "context" "prompts")
+required_dirs=("spec" "context" "prompts")
 
 for dir in "${required_dirs[@]}"; do
     if [ ! -d "$PROJECT_PATH/$dir" ]; then
@@ -470,13 +470,13 @@ flowchart LR
 ### Absolute References
 
 ```markdown
-@~/.claude/gradient/gradient-spec/architecture-spec.md
+@~/.claude/gradient/gradient/spec/architecture-spec.md
 ```
 
 ### Relative References
 
 ```markdown
-@../gradient-spec/architecture-spec.md  # Up one level
+@../gradient/spec/architecture-spec.md  # Up one level
 @./examples.md                          # Same directory
 ```
 

@@ -344,8 +344,8 @@ You are an architecture reviewer specialized in Gradient compliance.
 
 ## Context
 
-@../gradient-spec/architecture-spec.md
-@../gradient-spec/anti-duplication-principles.md
+@../gradient/spec/architecture-spec.md
+@../gradient/spec/anti-duplication-principles.md
 
 ## Your Task
 
@@ -392,7 +392,7 @@ if [ -z "$PROJECT_PATH" ]; then
 fi
 
 # Validation logic
-required_dirs=("gradient-spec" "context" "prompts")
+required_dirs=("spec" "context" "prompts")
 
 for dir in "${required_dirs[@]}"; do
     if [ ! -d "$PROJECT_PATH/$dir" ]; then
@@ -641,7 +641,7 @@ graph TD
 - Clear authority
 - Efficient token usage
 
-For complete anti-duplication principles: @../gradient-spec/anti-duplication-principles.md
+For complete anti-duplication principles: @../gradient/spec/anti-duplication-principles.md
 
 ### Detection Decision Tree
 
@@ -720,12 +720,12 @@ Gradient uses `@` for file references, similar to imports in programming:
 
 **Absolute references** (from installed location):
 ```markdown
-@~/.claude/gradient/gradient-spec/architecture-spec.md
+@~/.claude/gradient/gradient/spec/architecture-spec.md
 ```
 
 **Relative references** (within project):
 ```markdown
-@../gradient-spec/architecture-spec.md
+@../gradient/spec/architecture-spec.md
 @./examples.md
 ```
 
@@ -733,7 +733,7 @@ Gradient uses `@` for file references, similar to imports in programming:
 
 ```mermaid
 flowchart LR
-    A[prompts/<br/>load-context.md] -->|"@../"| B[gradient-spec/<br/>architecture-spec.md]
+    A[prompts/<br/>load-context.md] -->|"@../"| B[gradient/spec/<br/>architecture-spec.md]
     A -->|"@../"| C[context/<br/>examples.md]
 
     C -->|"@../"| B
@@ -1142,7 +1142,7 @@ Danger: < 0.3 (too much duplication)
 
 ### Validation Checklist
 
-For complete validation rules: @../gradient-spec/architecture-spec.md
+For complete validation rules: @../gradient/spec/architecture-spec.md
 
 #### Project-Wide Checks
 
@@ -1394,9 +1394,9 @@ ymd-spec/
 ### Further Reading
 
 **Specifications** (for LLMs):
-- @../gradient-spec/architecture-spec.md - Complete architecture specification
-- @../gradient-spec/anti-duplication-principles.md - Universal principles
-- @../gradient-spec/layer-spec.md - Technical layer specifications
+- @../gradient/spec/architecture-spec.md - Complete architecture specification
+- @../gradient/spec/anti-duplication-principles.md - Universal principles
+- @../gradient/spec/layer-spec.md - Technical layer specifications
 
 **Documentation** (for humans):
 - @./getting-started.md - Quick start guide

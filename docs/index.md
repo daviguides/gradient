@@ -41,7 +41,7 @@ cd gradient
 **Verify**:
 ```bash
 ls ~/.claude/gradient/
-# Should show: gradient-spec/, context/, prompts/, commands/, agents/, scripts/
+# Should show: gradient/spec/, context/, prompts/, commands/, agents/, scripts/
 ```
 
 ---

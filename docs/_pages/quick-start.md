@@ -20,7 +20,7 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/daviguides/gradient/main
 ```
 
 **What it does**:
-- Copies `gradient-spec/` to `~/.claude/gradient/`
+- Copies `gradient/spec/` to `~/.claude/gradient/`
 - Optionally configures `~/.claude/CLAUDE.md`
 - Makes scripts executable
 
@@ -40,7 +40,7 @@ ls ~/.claude/gradient/
 
 **Expected**:
 ```
-gradient-spec/    # Specifications (SPECS)
+gradient/spec/    # Specifications (SPECS)
 context/          # Examples & guides (CONTEXT)
 prompts/          # Orchestrators (PROMPTS)
 commands/         # Entry points (COMMANDS)
