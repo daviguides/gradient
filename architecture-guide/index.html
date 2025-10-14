@@ -398,8 +398,8 @@ You are an architecture reviewer specialized in Gradient compliance.
 
 <span class="gu">## Context</span>
 
-@../gradient-spec/architecture-spec.md
-@../gradient-spec/anti-duplication-principles.md
+@../gradient/spec/architecture-spec.md
+@../gradient/spec/anti-duplication-principles.md
 
 <span class="gu">## Your Task</span>
 
@@ -449,7 +449,7 @@ Return summary containing:
 <span class="k">fi</span>
 
 <span class="c"># Validation logic</span>
-<span class="nv">required_dirs</span><span class="o">=(</span><span class="s2">"gradient-spec"</span> <span class="s2">"context"</span> <span class="s2">"prompts"</span><span class="o">)</span>
+<span class="nv">required_dirs</span><span class="o">=(</span><span class="s2">"spec"</span> <span class="s2">"context"</span> <span class="s2">"prompts"</span><span class="o">)</span>
 
 <span class="k">for </span><span class="nb">dir </span><span class="k">in</span> <span class="s2">"</span><span class="k">${</span><span class="nv">required_dirs</span><span class="p">[@]</span><span class="k">}</span><span class="s2">"</span><span class="p">;</span> <span class="k">do
     if</span> <span class="o">[</span> <span class="o">!</span> <span class="nt">-d</span> <span class="s2">"</span><span class="nv">$PROJECT_PATH</span><span class="s2">/</span><span class="nv">$dir</span><span class="s2">"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then
@@ -627,7 +627,7 @@ Guide the user in creating a YMD file:
   <li>Efficient token usage</li>
 </ul>
 
-<p>For complete anti-duplication principles: @../gradient-spec/anti-duplication-principles.md</p>
+<p>For complete anti-duplication principles: @../gradient/spec/anti-duplication-principles.md</p>
 
 <h3 id="detection-decision-tree">Detection Decision Tree</h3>
 
@@ -646,17 +646,17 @@ Guide the user in creating a YMD file:
 <p>Gradient uses <code class="language-plaintext highlighter-rouge">@</code> for file references, similar to imports in programming:</p>
 
 <p><strong>Absolute references</strong> (from installed location):</p>
-<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@~/.claude/gradient/gradient-spec/architecture-spec.md
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@~/.claude/gradient/gradient/spec/architecture-spec.md
 </code></pre></div></div>
 
 <p><strong>Relative references</strong> (within project):</p>
-<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@../gradient-spec/architecture-spec.md
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@../gradient/spec/architecture-spec.md
 @./examples.md
 </code></pre></div></div>
 
 <h3 id="reference-resolution">Reference Resolution</h3>
 
-<p><img class="mermaid" src="https://mermaid.ink/svg/eyJjb2RlIjoiZmxvd2NoYXJ0IExSXG5BW3Byb21wdHMvPGJyLz5sb2FkLWNvbnRleHQubWRdIC0tPnxcIkAuLi9cInwgQltncmFkaWVudC1zcGVjLzxici8-YXJjaGl0ZWN0dXJlLXNwZWMubWRdXG5BIC0tPnxcIkAuLi9cInwgQ1tjb250ZXh0Lzxici8-ZXhhbXBsZXMubWRdXG4lJS1cbkMgLS0-fFwiQC4uL1wifCBCXG4lJS1cbnN0eWxlIEEgZmlsbDojMjdhZTYwLHN0cm9rZTojMjI5OTU0LHN0cm9rZS13aWR0aDozcHgsY29sb3I6I2ZmZlxuc3R5bGUgQiBmaWxsOiNlNzRjM2Msc3Ryb2tlOiNjMDM5MmIsc3Ryb2tlLXdpZHRoOjNweCxjb2xvcjojZmZmXG5zdHlsZSBDIGZpbGw6I2YzOWMxMixzdHJva2U6I2Q2ODkxMCxzdHJva2Utd2lkdGg6M3B4LGNvbG9yOiNmZmYiLCJtZXJtYWlkIjpudWxsfQ"></p>
+<p><img class="mermaid" src="https://mermaid.ink/svg/eyJjb2RlIjoiZmxvd2NoYXJ0IExSXG5BW3Byb21wdHMvPGJyLz5sb2FkLWNvbnRleHQubWRdIC0tPnxcIkAuLi9cInwgQltncmFkaWVudC9zcGVjLzxici8-YXJjaGl0ZWN0dXJlLXNwZWMubWRdXG5BIC0tPnxcIkAuLi9cInwgQ1tjb250ZXh0Lzxici8-ZXhhbXBsZXMubWRdXG4lJS1cbkMgLS0-fFwiQC4uL1wifCBCXG4lJS1cbnN0eWxlIEEgZmlsbDojMjdhZTYwLHN0cm9rZTojMjI5OTU0LHN0cm9rZS13aWR0aDozcHgsY29sb3I6I2ZmZlxuc3R5bGUgQiBmaWxsOiNlNzRjM2Msc3Ryb2tlOiNjMDM5MmIsc3Ryb2tlLXdpZHRoOjNweCxjb2xvcjojZmZmXG5zdHlsZSBDIGZpbGw6I2YzOWMxMixzdHJva2U6I2Q2ODkxMCxzdHJva2Utd2lkdGg6M3B4LGNvbG9yOiNmZmYiLCJtZXJtYWlkIjpudWxsfQ"></p>
 
 <p><strong>Resolution rules</strong>:</p>
 <ol>
@@ -998,7 +998,7 @@ Danger: &lt; 0.3 (too much duplication)
 
 <h3 id="validation-checklist">Validation Checklist</h3>
 
-<p>For complete validation rules: @../gradient-spec/architecture-spec.md</p>
+<p>For complete validation rules: @../gradient/spec/architecture-spec.md</p>
 
 <h4 id="project-wide-checks">Project-Wide Checks</h4>
 
@@ -1322,9 +1322,9 @@ find <span class="nb">.</span> <span class="nt">-name</span> <span class="s2">"*
 
 <p><strong>Specifications</strong> (for LLMs):</p>
 <ul>
-  <li>@../gradient-spec/architecture-spec.md - Complete architecture specification</li>
-  <li>@../gradient-spec/anti-duplication-principles.md - Universal principles</li>
-  <li>@../gradient-spec/layer-spec.md - Technical layer specifications</li>
+  <li>@../gradient/spec/architecture-spec.md - Complete architecture specification</li>
+  <li>@../gradient/spec/anti-duplication-principles.md - Universal principles</li>
+  <li>@../gradient/spec/layer-spec.md - Technical layer specifications</li>
 </ul>
 
 <p><strong>Documentation</strong> (for humans):</p>

@@ -76,7 +76,7 @@
   <li>Implementation guidelines for LLMs</li>
 </ul>
 
-<p><a href="https://github.com/daviguides/gradient/blob/main/gradient-spec/architecture-spec.md">Read: <code class="language-plaintext highlighter-rouge">gradient-spec/architecture-spec.md</code></a></p>
+<p><a href="https://github.com/daviguides/gradient/blob/main/gradient/spec/architecture-spec.md">Read: <code class="language-plaintext highlighter-rouge">gradient/spec/architecture-spec.md</code></a></p>
 
 <h3 id="2-anti-duplication-principles">2. Anti-Duplication Principles</h3>
 
@@ -91,7 +91,7 @@
   <li>Validation checklists</li>
 </ul>
 
-<p><a href="https://github.com/daviguides/gradient/blob/main/gradient-spec/anti-duplication-principles.md">Read: <code class="language-plaintext highlighter-rouge">gradient-spec/anti-duplication-principles.md</code></a></p>
+<p><a href="https://github.com/daviguides/gradient/blob/main/gradient/spec/anti-duplication-principles.md">Read: <code class="language-plaintext highlighter-rouge">gradient/spec/anti-duplication-principles.md</code></a></p>
 
 <h3 id="3-layer-specification">3. Layer Specification</h3>
 
@@ -106,7 +106,7 @@
   <li>Examples of valid structures</li>
 </ul>
 
-<p><a href="https://github.com/daviguides/gradient/blob/main/gradient-spec/layer-spec.md">Read: <code class="language-plaintext highlighter-rouge">gradient-spec/layer-spec.md</code></a></p>
+<p><a href="https://github.com/daviguides/gradient/blob/main/gradient/spec/layer-spec.md">Read: <code class="language-plaintext highlighter-rouge">gradient/spec/layer-spec.md</code></a></p>
 
 <hr>
 
@@ -374,8 +374,8 @@ You are an architecture reviewer specialized in Gradient compliance.
 
 <span class="gu">## Context</span>
 
-@../gradient-spec/architecture-spec.md
-@../gradient-spec/anti-duplication-principles.md
+@../gradient/spec/architecture-spec.md
+@../gradient/spec/anti-duplication-principles.md
 
 <span class="gu">## Your Task</span>
 
@@ -435,7 +435,7 @@ Return summary containing:
 <span class="nv">PROJECT_PATH</span><span class="o">=</span><span class="s2">"</span><span class="nv">$1</span><span class="s2">"</span>
 
 <span class="c"># Validation logic</span>
-<span class="nv">required_dirs</span><span class="o">=(</span><span class="s2">"gradient-spec"</span> <span class="s2">"context"</span> <span class="s2">"prompts"</span><span class="o">)</span>
+<span class="nv">required_dirs</span><span class="o">=(</span><span class="s2">"spec"</span> <span class="s2">"context"</span> <span class="s2">"prompts"</span><span class="o">)</span>
 
 <span class="k">for </span><span class="nb">dir </span><span class="k">in</span> <span class="s2">"</span><span class="k">${</span><span class="nv">required_dirs</span><span class="p">[@]</span><span class="k">}</span><span class="s2">"</span><span class="p">;</span> <span class="k">do
     if</span> <span class="o">[</span> <span class="o">!</span> <span class="nt">-d</span> <span class="s2">"</span><span class="nv">$PROJECT_PATH</span><span class="s2">/</span><span class="nv">$dir</span><span class="s2">"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then
@@ -580,12 +580,12 @@ Skip validation for commands:
 
 <h3 id="absolute-references">Absolute References</h3>
 
-<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@~/.claude/gradient/gradient-spec/architecture-spec.md
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@~/.claude/gradient/gradient/spec/architecture-spec.md
 </code></pre></div></div>
 
 <h3 id="relative-references">Relative References</h3>
 
-<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@../gradient-spec/architecture-spec.md  # Up one level
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@../gradient/spec/architecture-spec.md  # Up one level
 @./examples.md                          # Same directory
 </code></pre></div></div>
 
