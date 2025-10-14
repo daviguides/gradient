@@ -568,7 +568,7 @@ Total Lines: 950  (37% reduction)
 <p><strong>Issues</strong>: High duplication (specs repeated 3 times)</p>
 
 <p><strong>After</strong>:</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>project-spec/
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>project/spec/
 ├── specification.md  (400 lines: pure specs)
 └── principles.md     (100 lines: pure principles)
 
@@ -670,11 +670,11 @@ Total Lines: 750 (37% reduction)
 bash ~/.claude/gradient/scripts/validate-references.sh <span class="nb">.</span>
 
 <span class="c"># Common mistakes:</span>
-<span class="c"># Wrong: @./project-spec/spec.md (same level)</span>
-<span class="c"># Right: @../project-spec/spec.md (up one level)</span>
+<span class="c"># Wrong: @./project/spec/spec.md (same level)</span>
+<span class="c"># Right: @../project/spec/spec.md (up one level)</span>
 
 <span class="c"># Wrong: @/absolute/path/spec.md (system absolute)</span>
-<span class="c"># Right: @../project-spec/spec.md (relative)</span>
+<span class="c"># Right: @../project/spec/spec.md (relative)</span>
 </code></pre></div></div>
 
 <h3 id="issue-2-high-duplication-after-migration">Issue 2: High Duplication After Migration</h3>
@@ -708,7 +708,7 @@ Files must have...
 
 After:
 <span class="gu">## Rules</span>
-@../project-spec/format-spec.md
+@../project/spec/format-spec.md
 </code></pre></div></div>
 
 <h3 id="issue-4-unclear-where-content-belongs">Issue 4: Unclear Where Content Belongs</h3>

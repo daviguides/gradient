@@ -87,11 +87,11 @@
 Validating references <span class="k">in </span>my-plugin...
 
 Checking: prompts/load-context.md
-  ✓ @../project-spec/format-spec.md → /path/to/project-spec/format-spec.md
+  ✓ @../project/spec/format-spec.md → /path/to/project/spec/format-spec.md
   ✓ @../context/examples.md → /path/to/context/examples.md
 
 Checking: context/examples.md
-  ✓ @../project-spec/format-spec.md → /path/to/project-spec/format-spec.md
+  ✓ @../project/spec/format-spec.md → /path/to/project/spec/format-spec.md
 
 All references valid ✓
 </code></pre></div></div>
@@ -100,8 +100,8 @@ All references valid ✓
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>bash validate-references.sh my-plugin/
 
 ERROR: Broken reference <span class="k">in </span>prompts/load-context.md
-       Reference: @../project-spec/missing.md
-       Resolved to: /path/to/project-spec/missing.md <span class="o">(</span>not found<span class="o">)</span>
+       Reference: @../project/spec/missing.md
+       Resolved to: /path/to/project/spec/missing.md <span class="o">(</span>not found<span class="o">)</span>
 </code></pre></div></div>
 
 <p><strong>When to use</strong>:</p>
@@ -142,7 +142,7 @@ Comparing files...
 
 Potential duplication found:
   File 1: prompts/create-workflow.md <span class="o">(</span>lines 15-22<span class="o">)</span>
-  File 2: project-spec/format-spec.md <span class="o">(</span>lines 45-52<span class="o">)</span>
+  File 2: project/spec/format-spec.md <span class="o">(</span>lines 45-52<span class="o">)</span>
   Common lines: 8
   Similarity: High
 
@@ -484,20 +484,20 @@ You can ask Claude Code:</p>
 <strong>Check relative path</strong>: References are relative to current file
     <div class="language-markdown highlighter-rouge">
 <div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- From prompts/load-context.md --&gt;</span>
-@../project-spec/format-spec.md  # Up one level, then into project-spec/
+@../project/spec/format-spec.md  # Up one level, then into project/spec/
 </code></pre></div>    </div>
   </li>
   <li>
 <strong>Verify file exists</strong>: Ensure referenced file is present
     <div class="language-bash highlighter-rouge">
-<div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-la</span> project-spec/format-spec.md
+<div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-la</span> project/spec/format-spec.md
 </code></pre></div>    </div>
   </li>
   <li>
 <strong>Check spelling</strong>: Typos in filenames or paths
     <div class="language-markdown highlighter-rouge">
-<div class="highlight"><pre class="highlight"><code>@../project-spec/fromat-spec.md  # Wrong: "fromat"
-@../project-spec/format-spec.md  # Correct: "format"
+<div class="highlight"><pre class="highlight"><code>@../project/spec/fromat-spec.md  # Wrong: "fromat"
+@../project/spec/format-spec.md  # Correct: "format"
 </code></pre></div>    </div>
   </li>
 </ol>
@@ -534,7 +534,7 @@ You can ask Claude Code:</p>
 
 <span class="c">&lt;!-- After: reference --&gt;</span>
 <span class="gu">## Format Rules</span>
-@../project-spec/format-spec.md
+@../project/spec/format-spec.md
 </code></pre></div>    </div>
   </li>
   <li>
@@ -566,7 +566,7 @@ You can ask Claude Code:</p>
 
     <!-- After: reference -->
     <h2 id="rules-1">Rules</h2>
-    <p>@../project-spec/format-spec.md
+    <p>@../project/spec/format-spec.md
 ```</p>
   </li>
   <li>

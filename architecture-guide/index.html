@@ -271,7 +271,7 @@ Valid XYZ file if:
 <p><strong>Example Structure</strong>:</p>
 <div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># Implementation Guide</span>
 
-<span class="gs">**For format specifications**</span>: @../project-spec/format-spec.md
+<span class="gs">**For format specifications**</span>: @../project/spec/format-spec.md
 
 <span class="gu">## Getting Started</span>
 
@@ -327,8 +327,8 @@ To create your first file:
 
 ## Format Specifications (Normative)
 
-@../project-spec/format-spec.md
-@../project-spec/syntax-spec.md
+@../project/spec/format-spec.md
+@../project/spec/syntax-spec.md
 
 ## Applied Knowledge (Practical)
 
@@ -674,8 +674,8 @@ Guide the user in creating a YMD file:
 
 <span class="gu">## Specifications (Normative)</span>
 
-@../project-spec/format-spec.md
-@../project-spec/validation-spec.md
+@../project/spec/format-spec.md
+@../project/spec/validation-spec.md
 
 <span class="gu">## Applied Knowledge (Practical)</span>
 
@@ -716,7 +716,7 @@ Guide the user in creating a YMD file:
 
 <span class="gu">## Layer 1: Normative (SPECS)</span>
 
-@../project-spec/core-spec.md
+@../project/spec/core-spec.md
 
 <span class="gu">## Layer 2: Applied (CONTEXT)</span>
 
@@ -741,12 +741,12 @@ Guide the user in creating a YMD file:
 
 <h3 id="project-structure">Project Structure</h3>
 
-<p><img class="mermaid" src="https://mermaid.ink/svg/eyJjb2RlIjoiZ3JhcGggVERcbnN1YmdyYXBoIFwiUHJvamVjdCBSb290XCJcblBTW3Byb2plY3Qtc3BlYy88YnIvPk5vcm1hdGl2ZSBMYXllcl1cbkNUW2NvbnRleHQvPGJyLz5BcHBsaWVkIExheWVyXVxuUFJbcHJvbXB0cy88YnIvPk9yY2hlc3RyYXRpb24gTGF5ZXJdXG5DTVtjb21tYW5kcy88YnIvPkFQSSBMYXllcl1cbkFHW2FnZW50cy88YnIvPlNwZWNpYWxpemVkIExheWVyXVxuU0Nbc2NyaXB0cy88YnIvPkVmZmljaWVuY3kgTGF5ZXJdXG5IS1tob29rcy88YnIvPkV2ZW50IExheWVyXVxuZW5kXG4lJS1cblBTIC0uLT58XCJzZWxmLWNvbnRhaW5lZDxici8-ZGVmaW5pdGlvbnNcInwgUFNcbkNUIC0tPnxcIkByZWZlcmVuY2VzXCJ8IFBTXG5QUiAtLT58XCJAcmVmZXJlbmNlc1wifCBQU1xuUFIgLS0-fFwiQHJlZmVyZW5jZXNcInwgQ1RcbkNNIC0tPnxcIkByZWZlcmVuY2VzXCJ8IFBSXG5BRyAtLT58XCJAcmVmZXJlbmNlc1wifCBQU1xuQUcgLS0-fFwiQHJlZmVyZW5jZXNcInwgQ1RcbiUlLVxuc3R5bGUgUFMgZmlsbDojZTc0YzNjLHN0cm9rZTojYzAzOTJiLHN0cm9rZS13aWR0aDozcHgsY29sb3I6I2ZmZlxuc3R5bGUgQ1QgZmlsbDojZjM5YzEyLHN0cm9rZTojZDY4OTEwLHN0cm9rZS13aWR0aDozcHgsY29sb3I6I2ZmZlxuc3R5bGUgUFIgZmlsbDojMjdhZTYwLHN0cm9rZTojMjI5OTU0LHN0cm9rZS13aWR0aDozcHgsY29sb3I6I2ZmZlxuc3R5bGUgQ00gZmlsbDojMzQ5OGRiLHN0cm9rZTojMjk4MGI5LHN0cm9rZS13aWR0aDozcHgsY29sb3I6I2ZmZlxuc3R5bGUgQUcgZmlsbDojOWI1OWI2LHN0cm9rZTojOGU0NGFkLHN0cm9rZS13aWR0aDozcHgsY29sb3I6I2ZmZlxuc3R5bGUgU0MgZmlsbDojOTVhNWE2LHN0cm9rZTojN2Y4YzhkLHN0cm9rZS13aWR0aDozcHgsY29sb3I6I2ZmZlxuc3R5bGUgSEsgZmlsbDojMzQ0OTVlLHN0cm9rZTojMmMzZTUwLHN0cm9rZS13aWR0aDozcHgsY29sb3I6I2ZmZiIsIm1lcm1haWQiOm51bGx9"></p>
+<p><img class="mermaid" src="https://mermaid.ink/svg/eyJjb2RlIjoiZ3JhcGggVERcbnN1YmdyYXBoIFwiUHJvamVjdCBSb290XCJcblBTW3Byb2plY3Qvc3BlYy88YnIvPk5vcm1hdGl2ZSBMYXllcl1cbkNUW2NvbnRleHQvPGJyLz5BcHBsaWVkIExheWVyXVxuUFJbcHJvbXB0cy88YnIvPk9yY2hlc3RyYXRpb24gTGF5ZXJdXG5DTVtjb21tYW5kcy88YnIvPkFQSSBMYXllcl1cbkFHW2FnZW50cy88YnIvPlNwZWNpYWxpemVkIExheWVyXVxuU0Nbc2NyaXB0cy88YnIvPkVmZmljaWVuY3kgTGF5ZXJdXG5IS1tob29rcy88YnIvPkV2ZW50IExheWVyXVxuZW5kXG4lJS1cblBTIC0uLT58XCJzZWxmLWNvbnRhaW5lZDxici8-ZGVmaW5pdGlvbnNcInwgUFNcbkNUIC0tPnxcIkByZWZlcmVuY2VzXCJ8IFBTXG5QUiAtLT58XCJAcmVmZXJlbmNlc1wifCBQU1xuUFIgLS0-fFwiQHJlZmVyZW5jZXNcInwgQ1RcbkNNIC0tPnxcIkByZWZlcmVuY2VzXCJ8IFBSXG5BRyAtLT58XCJAcmVmZXJlbmNlc1wifCBQU1xuQUcgLS0-fFwiQHJlZmVyZW5jZXNcInwgQ1RcbiUlLVxuc3R5bGUgUFMgZmlsbDojZTc0YzNjLHN0cm9rZTojYzAzOTJiLHN0cm9rZS13aWR0aDozcHgsY29sb3I6I2ZmZlxuc3R5bGUgQ1QgZmlsbDojZjM5YzEyLHN0cm9rZTojZDY4OTEwLHN0cm9rZS13aWR0aDozcHgsY29sb3I6I2ZmZlxuc3R5bGUgUFIgZmlsbDojMjdhZTYwLHN0cm9rZTojMjI5OTU0LHN0cm9rZS13aWR0aDozcHgsY29sb3I6I2ZmZlxuc3R5bGUgQ00gZmlsbDojMzQ5OGRiLHN0cm9rZTojMjk4MGI5LHN0cm9rZS13aWR0aDozcHgsY29sb3I6I2ZmZlxuc3R5bGUgQUcgZmlsbDojOWI1OWI2LHN0cm9rZTojOGU0NGFkLHN0cm9rZS13aWR0aDozcHgsY29sb3I6I2ZmZlxuc3R5bGUgU0MgZmlsbDojOTVhNWE2LHN0cm9rZTojN2Y4YzhkLHN0cm9rZS13aWR0aDozcHgsY29sb3I6I2ZmZlxuc3R5bGUgSEsgZmlsbDojMzQ0OTVlLHN0cm9rZTojMmMzZTUwLHN0cm9rZS13aWR0aDozcHgsY29sb3I6I2ZmZiIsIm1lcm1haWQiOm51bGx9"></p>
 
 <h3 id="directory-structure">Directory Structure</h3>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>project/
-├── project-spec/           # SPECS (normative)
+├── project/spec/           # SPECS (normative)
 │   ├── format-spec.md
 │   ├── principles.md
 │   └── standards.md
@@ -856,9 +856,9 @@ Guide the user in creating a YMD file:
 <p><strong>Start with</strong>:</p>
 <ol>
   <li>
-<code class="language-plaintext highlighter-rouge">project-spec/core-spec.md</code> - Your main specification</li>
+<code class="language-plaintext highlighter-rouge">project/spec/core-spec.md</code> - Your main specification</li>
   <li>
-<code class="language-plaintext highlighter-rouge">project-spec/principles.md</code> - Foundational principles (if needed)</li>
+<code class="language-plaintext highlighter-rouge">project/spec/principles.md</code> - Foundational principles (if needed)</li>
 </ol>
 
 <h4 id="step-3-add-context">Step 3: Add Context</h4>
@@ -869,7 +869,7 @@ Guide the user in creating a YMD file:
 
 <span class="gh"># Implementation Guide</span>
 
-<span class="gs">**For format rules**</span>: @../project-spec/core-spec.md
+<span class="gs">**For format rules**</span>: @../project/spec/core-spec.md
 
 <span class="gu">## Getting Started</span>
 
@@ -882,7 +882,7 @@ Guide the user in creating a YMD file:
 
 <div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- prompts/load-context.md --&gt;</span>
 
-@../project-spec/core-spec.md
+@../project/spec/core-spec.md
 @../context/implementation-guide.md
 
 <span class="gu">## Your Task</span>
@@ -928,7 +928,7 @@ Concept Y → context/examples.md (example #3)
 
 <p><strong>4. Reorganize into layers</strong>:</p>
 <ul>
-  <li>Move normative content → <code class="language-plaintext highlighter-rouge">project-spec/</code>
+  <li>Move normative content → <code class="language-plaintext highlighter-rouge">project/spec/</code>
 </li>
   <li>Move examples → <code class="language-plaintext highlighter-rouge">context/</code>
 </li>

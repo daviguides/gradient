@@ -249,7 +249,7 @@
 
 <div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># From prompts/load-context.md</span>
 
-@../project-spec/format-spec.md       # Up one, into project-spec/
+@../project/spec/format-spec.md       # Up one, into project/spec/
 @../context/examples.md               # Up one, into context/
 @./helper-prompt.md                   # Same directory
 </code></pre></div></div>
@@ -360,7 +360,7 @@ For implementation: @../context/implementation-guide.md
 
 <div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># {Concept} Examples</span>
 
-For specifications: @../project-spec/{concept}-spec.md
+For specifications: @../project/spec/{concept}-spec.md
 <span class="p">
 ---
 </span>
@@ -411,8 +411,8 @@ For specifications: @../project-spec/{concept}-spec.md
 </span>
 <span class="gu">## Specifications (Normative)</span>
 
-@../project-spec/{spec1}.md
-@../project-spec/{spec2}.md
+@../project/spec/{spec1}.md
+@../project/spec/{spec2}.md
 <span class="p">
 ---
 </span>
@@ -450,7 +450,7 @@ You are {role description} specialized in {domain}.
 </span>
 <span class="gu">## Context</span>
 
-@../project-spec/{spec}.md
+@../project/spec/{spec}.md
 @../context/{guide}.md
 <span class="p">
 ---
@@ -643,7 +643,7 @@ spec.md:
   - Usage (prompts)
 
 ✓ DO:
-project-spec/spec.md:     ← SPECS only
+project/spec/spec.md:     ← SPECS only
   - Normative definitions
 
 context/examples.md:      ← CONTEXT only
