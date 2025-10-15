@@ -22,12 +22,12 @@ EOF
 cleanup() { [ -d "$TMP_DIR" ] && { printf "%b\n" "${BLUE}Cleaning up temporary files...${NC}"; rm -rf "$TMP_DIR"; }; }
 trap cleanup EXIT
 
-printf "%b\n" "${BLUE}Semantic Docstrings Installer${NC}"
+printf "%b\n" "${BLUE}Gradient Installer${NC}"
 printf "%b\n\n" "${BLUE}===========================${NC}"
 
 command -v git >/dev/null 2>&1 || { printf "%b\n" "${RED}Error: git is not installed${NC}"; printf "%s\n" "Install: https://git-scm.com/downloads"; exit 1; }
 
-printf "%b\n" "${BLUE}Cloning Semantic Docstrings repository...${NC}"
+printf "%b\n" "${BLUE}Cloning Gradient repository...${NC}"
 git clone --quiet "$REPO_URL" "$TMP_DIR" 2>/dev/null || { printf "%b\n" "${RED}Error: Failed to clone repository${NC}"; printf "Repository: %s\n" "$REPO_URL"; exit 1; }
 printf "%b\n\n" "${GREEN}✓ Repository cloned successfully${NC}"
 
@@ -59,28 +59,28 @@ printf "%b\n\n" "${GREEN}✓ gradient installed successfully!${NC}"
 
 if [ ! -f "$CLAUDE_MD" ]; then
   printf "%b\n" "${BLUE}No CLAUDE.md found in ~/.claude/${NC}"
-  read -p "Create ~/.claude/CLAUDE.md with Semantic Docstrings configuration? (y/n) " -n 1 -r; printf "\n"
+  read -p "Create ~/.claude/CLAUDE.md with Gradient configuration? (y/n) " -n 1 -r; printf "\n"
   if [[ $REPLY =~ ^[Yy]$ ]]; then
     printf "%s\n" "$SAMPLE_CONFIG" > "$CLAUDE_MD"
     printf "%b\n\n" "${GREEN}✓ CLAUDE.md created successfully!${NC}"
   else
     printf "%b\n" "${YELLOW}Skipped CLAUDE.md creation.${NC}"
-    printf "%b\n\n" "${YELLOW}To use Semantic Docstrings, add this to your ~/.claude/CLAUDE.md:${NC}"
+    printf "%b\n\n" "${YELLOW}To use Gradient, add this to your ~/.claude/CLAUDE.md:${NC}"
     printf "%s\n\n" "$SAMPLE_CONFIG"
   fi
 else
   printf "%b\n" "${YELLOW}~/.claude/CLAUDE.md already exists.${NC}"
-  read -p "Append Semantic Docstrings configuration to existing CLAUDE.md? (y/n) " -n 1 -r; printf "\n"
+  read -p "Append Gradient configuration to existing CLAUDE.md? (y/n) " -n 1 -r; printf "\n"
   if [[ $REPLY =~ ^[Yy]$ ]]; then
     if grep -q "gradient" "$CLAUDE_MD"; then
-      printf "%b\n" "${YELLOW}Semantic Docstrings already referenced in CLAUDE.md${NC}"
+      printf "%b\n" "${YELLOW}Gradient already referenced in CLAUDE.md${NC}"
     else
       printf "\n\n%s\n" "$SAMPLE_CONFIG" >> "$CLAUDE_MD"
-      printf "%b\n\n" "${GREEN}✓ Semantic Docstrings configuration added to CLAUDE.md${NC}"
+      printf "%b\n\n" "${GREEN}✓ Gradient configuration added to CLAUDE.md${NC}"
     fi
   else
     printf "%b\n" "${YELLOW}Skipped CLAUDE.md modification.${NC}"
-    printf "%b\n\n" "${YELLOW}To use Semantic Docstrings, add this to your ~/.claude/CLAUDE.md:${NC}"
+    printf "%b\n\n" "${YELLOW}To use Gradient, add this to your ~/.claude/CLAUDE.md:${NC}"
     printf "%s\n\n" "$SAMPLE_CONFIG"
   fi
 fi
@@ -88,5 +88,5 @@ fi
 printf "%b\n" "${GREEN}Installation complete!${NC}"
 printf "%b\n\n" "${BLUE}Next steps:${NC}"
 printf "%s\n" "1. Check ~/.claude/CLAUDE.md to ensure configuration is correct"
-printf "%s\n" "2. Use Semantic Docstrings in any project by referencing it in project CLAUDE.md"
+printf "%s\n" "2. Use Gradient in any project by referencing it in project CLAUDE.md"
 printf "%s\n" "3. Docs: https://github.com/daviguides/gradient"
