@@ -2,11 +2,10 @@
 
 **Purpose**: Comprehensive validation of Gradient architecture compliance in the current project.
 
----
-
 ## Gradient Architecture Context
 
-Execute o command /gradient:load-gradient-context
+Antes de qualquer passo faça:
+- Execute o command /gradient:load-gradient-context para carregar o contexto
 
 ---
 
