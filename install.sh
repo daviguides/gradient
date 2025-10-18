@@ -13,7 +13,7 @@ SAMPLE_CONFIG="$(cat << 'EOF'
 # Project Documentation Standards
 
 ## Standards Inheritance
-- **INHERITS FROM**: @~/.claude/gradient/spec/layer-spec.md
+- **INHERITS FROM**: @./gradient/spec/layer-spec.md
 - **PRECEDENCE**: Project-specific rules override repository defaults
 - **FALLBACK**: When no override exists, gradient applies
 EOF

@@ -122,7 +122,7 @@ Like REST routes, commands are thin entry points:
 
 ```markdown
 <!-- commands/load-gradient-context.md -->
-@~/.claude/gradient/prompts/load-context.md
+@./gradient/prompts/load-context.md
 ```
 
 One-to-one mapping with prompts. Commands define the interface, prompts orchestrate the logic.
@@ -135,8 +135,8 @@ Specialized contexts with separate permissions:
 <!-- agents/architecture-reviewer.md -->
 You are an architecture reviewer for Gradient projects.
 
-@~/.claude/gradient/gradient/spec/architecture-spec.md
-@~/.claude/gradient/context/decision-guide.md
+@./gradient/gradient/spec/architecture-spec.md
+@./gradient/context/decision-guide.md
 ```
 
 Run independently, return summarized results without contaminating main context.
@@ -179,8 +179,8 @@ bundle exec jekyll serve
 Load the architecture spec:
 
 ```markdown
-@~/.claude/gradient/gradient/spec/architecture-spec.md
-@~/.claude/gradient/gradient/spec/anti-duplication-principles.md
+@./gradient/gradient/spec/architecture-spec.md
+@./gradient/gradient/spec/anti-duplication-principles.md
 ```
 
 ---

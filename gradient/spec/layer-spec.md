@@ -285,7 +285,7 @@ Applied knowledge, working examples, and practical implementation guidance.
 ```markdown
 # Implementation Guide
 
-**For format specifications**: @~/.claude/gradientspec/format-spec.md
+**For format specifications**: @./gradient/spec/format-spec.md
 
 ---
 
@@ -367,8 +367,8 @@ Thin orchestration layer that loads specs/context and provides meta-instructions
 
 [Brief intro]
 
-@~/.claude/gradientcontext/guide1.md
-@~/.claude/gradientcontext/examples.md
+@./gradient/context/guide1.md
+@./gradient/context/examples.md
 
 ---
 
@@ -445,15 +445,15 @@ Thin orchestration layer that loads specs/context and provides meta-instructions
 
 ## Format Specifications (Normative)
 
-@~/.claude/gradientspec/format-spec.md
-@~/.claude/gradientspec/syntax-spec.md
+@./gradient/spec/format-spec.md
+@./gradient/spec/syntax-spec.md
 
 ---
 
 ## Applied Knowledge (Practical)
 
-@~/.claude/gradientcontext/implementation-guide.md
-@~/.claude/gradientcontext/examples.md
+@./gradient/context/implementation-guide.md
+@./gradient/context/examples.md
 
 ---
 
@@ -545,7 +545,7 @@ Thin API entry points that map one-to-one with PROMPTS.
 ```markdown
 [Optional: One-line description]
 
-@~/.claude/gradientprompts/corresponding-prompt.md
+@./gradient/prompts/corresponding-prompt.md
 ```
 
 ### Required Sections
@@ -595,7 +595,7 @@ Thin API entry points that map one-to-one with PROMPTS.
 ```markdown
 Load Gradient architecture context.
 
-@~/.claude/gradientprompts/load-context.md
+@./gradient/prompts/load-context.md
 ```
 
 ---
@@ -617,7 +617,7 @@ You are a [role] specialized in [domain].
 ## Context
 
 @~/.claude/gradient[project]-spec/relevant-spec.md
-@~/.claude/gradientcontext/relevant-guide.md
+@./gradient/context/relevant-guide.md
 
 ---
 
@@ -700,9 +700,9 @@ You are an architecture reviewer specialized in Gradient compliance validation.
 
 ## Context
 
-@~/.claude/gradientspec/architecture-spec.md
-@~/.claude/gradientspec/anti-duplication-principles.md
-@~/.claude/gradientcontext/decision-guide.md
+@./gradient/spec/architecture-spec.md
+@./gradient/spec/anti-duplication-principles.md
+@./gradient/context/decision-guide.md
 
 ---
 
@@ -926,7 +926,7 @@ Event-driven workflows triggered by Claude Code lifecycle events.
 
 ## Action
 
-@~/.claude/gradientprompts/workflow-prompt.md
+@./gradient/prompts/workflow-prompt.md
 
 ---
 
@@ -987,7 +987,7 @@ Event-driven workflows triggered by Claude Code lifecycle events.
 
 ## Action
 
-@~/.claude/gradientprompts/validate-architecture.md
+@./gradient/prompts/validate-architecture.md
 
 ---
 

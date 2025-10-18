@@ -63,7 +63,7 @@ Quick reference for Gradient architecture patterns, syntax, and quality targets.
 ```markdown
 # From installed location
 
-@~/.claude/gradient/gradient/spec/architecture-spec.md
+@./gradient/gradient/spec/architecture-spec.md
 @~/.claude/ymd-spec/ymd_format_spec.md
 ```
 

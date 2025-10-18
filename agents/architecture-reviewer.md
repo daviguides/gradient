@@ -45,10 +45,31 @@ Review the provided project structure for Gradient architecture compliance.
 - [ ] No format respecification
 
 **PROMPTS Layer**:
-- [ ] Majority are `@` references (>50% of lines)
+- [ ] Majority are `@` references OR command delegations (>50% of lines)
 - [ ] Inline content <5 lines per section
 - [ ] No duplication of SPECS or CONTEXT
 - [ ] Meta-instructions are clear
+
+**Command Delegation Pattern** (INFO severity, not WARNING):
+- Using "Execute o command /project:load-context" instead of direct @ references
+- **Acceptable when**: 3+ files need identical context (DRY trade-off)
+- **Classify as INFO**: "Command delegation for DRY (acceptable architectural choice)"
+- **Classify as WARNING if**: Only 1-2 consumers (premature abstraction)
+
+**Severity Classification Logic**:
+```
+When detecting command delegation pattern:
+  Count consumers of that command across project
+  IF consumers >= 3 AND reference_list >= 5:
+    severity = "info"
+    message = "Command delegation for DRY (acceptable, N consumers)"
+  ELSE IF consumers < 3:
+    severity = "warning"
+    message = "Premature abstraction, use direct @ references (only N consumers)"
+  ELSE IF reference_list < 3:
+    severity = "info"
+    message = "Short reference list, consider direct @ for explicitness"
+```
 
 **COMMANDS Layer**:
 - [ ] Single `@` reference to PROMPT
@@ -86,7 +107,7 @@ Review the provided project structure for Gradient architecture compliance.
 - Relative paths are correct
 
 **Check patterns**:
-- `@~/.claude/gradient/spec/*.md` (absolute from installation)
+- `@./gradient/spec/*.md` (absolute from installation)
 - `@../spec/*.md` (relative within gradient/ bundle)
 - `@./examples.md` (same directory)
 
@@ -113,7 +134,7 @@ Review the provided project structure for Gradient architecture compliance.
 **Bundle Naming** (CRITICAL):
 - Bundle directory MUST match project name
 - Example: For project `gradient/`, bundle must be `gradient/gradient/`
-- Commands reference: `@~/.claude/gradient/prompts/validate.md`
+- Commands reference: `@./gradient/prompts/validate.md`
 - Install: `cp -r gradient/ ~/.claude/gradient/`
 
 **File Sizes**:

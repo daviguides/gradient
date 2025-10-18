@@ -120,7 +120,7 @@ Commands are **thin API entry points**:
 
 ```markdown
 <!-- commands/review-architecture.md -->
-@~/.claude/gradient/prompts/architecture-review.md
+@./gradient/prompts/architecture-review.md
 ```
 
 One command = one prompt. Commands define interface, prompts orchestrate logic.
@@ -199,7 +199,7 @@ Use descriptive, semantic messages:
 
 Always use `@` syntax for referencing:
 ```markdown
-@~/.claude/gradient/gradient/spec/architecture-spec.md
+@./gradient/gradient/spec/architecture-spec.md
 @./gradient/context/examples.md
 ```
 
@@ -299,8 +299,8 @@ Share insights from your Claude Code plugin development experiences.
 
 **Load Gradient Context**:
 ```markdown
-@~/.claude/gradient/gradient/spec/architecture-spec.md
-@~/.claude/gradient/context/implementation-guide.md
+@./gradient/gradient/spec/architecture-spec.md
+@./gradient/context/implementation-guide.md
 ```
 
 **Validate Architecture**:

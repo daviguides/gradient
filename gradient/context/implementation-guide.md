@@ -2,9 +2,9 @@
 
 **Step-by-step guide for implementing Gradient architecture in your projects.**
 
-For architecture specifications: @~/.claude/gradientspec/architecture-spec.md
-For anti-duplication principles: @~/.claude/gradientspec/anti-duplication-principles.md
-For layer specifications: @~/.claude/gradientspec/layer-spec.md
+For architecture specifications: @./gradient/spec/architecture-spec.md
+For anti-duplication principles: @./gradient/spec/anti-duplication-principles.md
+For layer specifications: @./gradient/spec/layer-spec.md
 
 ---
 
@@ -252,7 +252,7 @@ mkdir -p my-project/context
 ```markdown
 # [Project Name] Examples
 
-For specifications: @~/.claude/gradientproject/spec/core-spec.md
+For specifications: @./gradient/project/spec/core-spec.md
 
 ---
 
@@ -303,7 +303,7 @@ Header section contains:
 ```markdown
 ## Example 1: Valid File
 
-For format requirements: @~/.claude/gradientproject/spec/format-spec.md
+For format requirements: @./gradient/project/spec/format-spec.md
 
 ```yaml
 header:
@@ -331,8 +331,8 @@ footer:
 ```markdown
 # Implementation Guide
 
-For format specification: @~/.claude/gradientproject/spec/format-spec.md
-For validation rules: @~/.claude/gradientproject/spec/validation-spec.md
+For format specification: @./gradient/project/spec/format-spec.md
+For validation rules: @./gradient/project/spec/validation-spec.md
 
 ---
 
@@ -407,7 +407,7 @@ If your project involves choices, create a decision guide:
 ```markdown
 # Decision Guide
 
-For specifications: @~/.claude/gradientproject/spec/core-spec.md
+For specifications: @./gradient/project/spec/core-spec.md
 
 ---
 
@@ -481,17 +481,17 @@ mkdir -p my-project/prompts
 
 ## Specifications (Normative)
 
-@~/.claude/gradientproject/spec/core-spec.md
-@~/.claude/gradientproject/spec/format-spec.md
-@~/.claude/gradientproject/spec/validation-spec.md
+@./gradient/project/spec/core-spec.md
+@./gradient/project/spec/format-spec.md
+@./gradient/project/spec/validation-spec.md
 
 ---
 
 ## Applied Knowledge (Practical)
 
-@~/.claude/gradientcontext/examples.md
-@~/.claude/gradientcontext/implementation-guide.md
-@~/.claude/gradientcontext/decision-guide.md
+@./gradient/context/examples.md
+@./gradient/context/implementation-guide.md
+@./gradient/context/decision-guide.md
 
 ---
 
@@ -560,11 +560,11 @@ Files have three sections:
 
 ## Format Rules
 
-@~/.claude/gradientproject/spec/format-spec.md
+@./gradient/project/spec/format-spec.md
 
 ## Examples
 
-@~/.claude/gradientcontext/examples.md
+@./gradient/context/examples.md
 
 ## Your Task
 
@@ -588,9 +588,9 @@ For complex multi-step processes:
 
 ## Context
 
-@~/.claude/gradientproject/spec/core-spec.md
-@~/.claude/gradientcontext/implementation-guide.md
-@~/.claude/gradientcontext/examples.md
+@./gradient/project/spec/core-spec.md
+@./gradient/context/implementation-guide.md
+@./gradient/context/examples.md
 
 ---
 
@@ -647,7 +647,7 @@ mkdir -p my-project/commands
 ```markdown
 [Optional: One-line description]
 
-@~/.claude/gradientprompts/corresponding-prompt.md
+@./gradient/prompts/corresponding-prompt.md
 ```
 
 **That's it!** Commands should be exactly this simple.
@@ -717,8 +717,8 @@ You are a [role] specialized in [domain].
 
 ## Context
 
-@~/.claude/gradientproject/spec/relevant-spec.md
-@~/.claude/gradientcontext/relevant-guide.md
+@./gradient/project/spec/relevant-spec.md
+@./gradient/context/relevant-guide.md
 
 ---
 
@@ -943,7 +943,7 @@ Move examples and guides to context:
 ```markdown
 # Examples
 
-For format rules: @~/.claude/gradientproject/spec/format-spec.md
+For format rules: @./gradient/project/spec/format-spec.md
 
 [Extract examples, add references to specs]
 ```
@@ -952,8 +952,8 @@ For format rules: @~/.claude/gradientproject/spec/format-spec.md
 
 New `prompts/load-context.md`:
 ```markdown
-@~/.claude/gradientproject/spec/format-spec.md
-@~/.claude/gradientcontext/examples.md
+@./gradient/project/spec/format-spec.md
+@./gradient/context/examples.md
 
 Your task: [orchestration logic]
 ```
@@ -996,6 +996,256 @@ For examples: @context/examples.md
 - [ ] References resolve correctly
 - [ ] Metrics improved (duplication ratio, etc.)
 - [ ] Functionality intact
+
+---
+
+## Phase 8: Development Workflow Setup
+
+### Overview
+
+When developing a Gradient project, use a **Makefile toggle system** to switch between development (relative refs) and production (absolute refs) modes.
+
+**Key Principle**: Repository uses absolute paths (production-ready), Makefile temporarily converts for local testing.
+
+### Step 8.1: Understand Reference Strategy
+
+**Repository (Default/Production)**:
+```markdown
+# Committed code uses absolute paths (production-ready)
+@~/.claude/my-bundle/spec/core-spec.md
+@~/.claude/my-bundle/context/examples.md
+@~/.claude/my-bundle/prompts/workflow.md
+```
+
+**Development (Temporary)**:
+```markdown
+# make dev converts to relative paths (local testing)
+@./my-bundle/spec/core-spec.md
+@./my-bundle/context/examples.md
+@./my-bundle/prompts/workflow.md
+```
+
+**Benefits**:
+- Repository always production-ready (works if cloned)
+- Local testing possible via make dev
+- No build step needed in install.sh
+- Single source maintained
+
+### Step 8.2: Create Makefile
+
+Add to your project root:
+
+```makefile
+.PHONY: dev prod status help
+
+BUNDLE_NAME := my-bundle
+
+help:
+	@echo "Development Utilities"
+	@echo ""
+	@echo "  make dev     - Convert to relative refs"
+	@echo "  make prod    - Convert to absolute refs"
+	@echo "  make status  - Show current state"
+
+dev:
+	@echo "Converting to development mode..."
+	@find . -name "*.md" -exec sed -i.bak 's|@~/\.claude/$(BUNDLE_NAME)/|@./$(BUNDLE_NAME)/|g' {} \;
+	@find . -name "*.md.bak" -delete
+	@echo "✓ Ready for local development"
+
+prod:
+	@echo "Converting to production mode..."
+	@find . -name "*.md" -exec sed -i.bak 's|@\./$(BUNDLE_NAME)/|@~/.claude/$(BUNDLE_NAME)/|g' {} \;
+	@find . -name "*.md.bak" -delete
+	@echo "✓ Ready for commit"
+
+status:
+	@if grep -r "@\./$(BUNDLE_NAME)/" . --include="*.md" 2>/dev/null | grep -q .; then \
+		echo "DEVELOPMENT mode"; \
+	else \
+		echo "PRODUCTION mode (ready to commit)"; \
+	fi
+```
+
+### Step 8.3: Workflow During Development
+
+**Daily workflow**:
+```bash
+# Start development
+make dev
+
+# Make changes and test locally
+# References now point to local files
+
+# Before committing
+make status      # Verify current state
+make prod        # Convert back to production refs
+git add .
+git commit -m "Your changes"
+git push
+```
+
+**Why this works**:
+- Repository is always production-ready (absolute refs)
+- `make dev` temporarily converts for local testing
+- `make prod` reverts before commit
+- No build step needed during installation
+
+### Step 8.4: Validate Reference State
+
+**Check production state** (before starting work):
+```bash
+make status
+# Should show: PRODUCTION mode (ready to commit)
+
+# Verify no relative references
+grep -r "@\./" . --include="*.md"
+# Should be empty
+```
+
+**After switching to dev**:
+```bash
+make dev
+make status
+# Should show: DEVELOPMENT mode
+
+# Verify relative references exist
+grep -r "@\./my-bundle/" . --include="*.md" | head -5
+```
+
+**Before committing**:
+```bash
+make prod
+make status
+# Should show: PRODUCTION mode (ready to commit)
+
+# Verify only absolute references
+grep -r "@~/.claude/my-bundle/" . --include="*.md" | head -5
+```
+
+### Step 8.5: Test Both Modes
+
+**1. Test production mode** (default):
+```bash
+# Repository in production state
+make status  # Should show PROD
+
+# Clone and use (simulates other users)
+cd /tmp
+git clone your-repo test-install
+cd test-install
+# Should work without any make commands
+```
+
+**2. Test development mode**:
+```bash
+# In your working directory
+make dev
+
+# Make changes to files
+# Test with Claude Code
+# Changes load from local files immediately
+```
+
+**3. Test transition**:
+```bash
+make dev
+# ... work on features ...
+make prod
+git diff  # Should only show your actual changes, not ref changes
+```
+
+### Step 8.6: Document Workflow
+
+Add to `README.md`:
+
+```markdown
+## Development Workflow
+
+### For Contributors
+
+This project uses a Makefile to manage development/production reference modes:
+
+**Setup**:
+```bash
+git clone https://github.com/user/my-bundle.git
+cd my-bundle
+make status  # Should show "PRODUCTION mode"
+```
+
+**Development**:
+```bash
+make dev     # Convert to local references
+# ... make changes and test locally ...
+make prod    # Convert back before committing
+git commit
+```
+
+**Important**: Always run `make prod` before committing! The repository must stay in production mode (absolute references).
+
+**Commands**:
+- `make dev` - Enable local development mode
+- `make prod` - Return to production mode
+- `make status` - Check current state
+- `make help` - Show all available commands
+
+### For Users
+
+Just install normally - no special steps needed:
+```bash
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/user/my-bundle/main/install.sh)"
+```
+```
+
+### Step 8.7: Add CI/CD Validation (Optional)
+
+Add GitHub Actions workflow to ensure production state:
+
+```yaml
+name: Validate Production State
+on: [push, pull_request]
+
+jobs:
+  validate-refs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Check repository is in production mode
+        run: |
+          if grep -r "@\./my-bundle/" . --include="*.md" 2>/dev/null; then
+            echo "ERROR: Repository has relative refs (dev mode)"
+            echo "Run 'make prod' before committing"
+            exit 1
+          fi
+          echo "✓ Repository is in production mode"
+
+      - name: Verify Makefile exists
+        run: |
+          if [ ! -f "Makefile" ]; then
+            echo "ERROR: Makefile not found"
+            exit 1
+          fi
+          echo "✓ Makefile exists"
+
+      - name: Test Makefile commands
+        run: |
+          make status | grep -q "PRODUCTION"
+          echo "✓ Makefile status command works"
+```
+
+### Success Criteria
+
+- [ ] Repository uses absolute references (`@~/.claude/bundle-name/...`)
+- [ ] Makefile exists with dev/prod/status targets
+- [ ] `.gitignore` includes `*.md.bak`
+- [ ] `make dev` successfully converts to relative refs
+- [ ] `make prod` successfully converts back to absolute refs
+- [ ] `make status` accurately reports current mode
+- [ ] Local development works in dev mode (loads local files)
+- [ ] Production mode works when cloned (no make needed)
+- [ ] Documentation explains Makefile workflow
+- [ ] CI/CD validates production state (if applicable)
 
 ---
 
@@ -1055,10 +1305,10 @@ Files must have:
 
 # After (thin)
 ## Format Rules
-@~/.claude/gradientproject/spec/format-spec.md
+@./gradient/project/spec/format-spec.md
 
 ## Examples
-@~/.claude/gradientcontext/examples.md
+@./gradient/context/examples.md
 ```
 
 ### Problem: Unclear Layer Boundaries
@@ -1106,9 +1356,9 @@ After implementing Gradient:
 ## Additional Resources
 
 **Specifications**:
-- @~/.claude/gradientspec/architecture-spec.md - Complete architecture
-- @~/.claude/gradientspec/anti-duplication-principles.md - Duplication prevention
-- @~/.claude/gradientspec/layer-spec.md - Layer technical specs
+- @./gradient/spec/architecture-spec.md - Complete architecture
+- @./gradient/spec/anti-duplication-principles.md - Duplication prevention
+- @./gradient/spec/layer-spec.md - Layer technical specs
 
 **Examples**:
 - @./examples.md - Working examples of Gradient projects

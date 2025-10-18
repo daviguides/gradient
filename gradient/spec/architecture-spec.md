@@ -144,7 +144,7 @@ Gradient **is**:
 <!-- commands/command-name.md -->
 Brief description of what this command does.
 
-@~/.claude/gradientprompts/prompt-name.md
+@./gradient/prompts/prompt-name.md
 ```
 
 **Validation**:
@@ -170,8 +170,8 @@ You are a [role] specialized in [domain].
 
 ## Context
 
-@~/.claude/gradientspec/relevant-spec.md
-@~/.claude/gradientcontext/relevant-guide.md
+@./gradient/spec/relevant-spec.md
+@./gradient/context/relevant-guide.md
 
 ## Your Task
 
@@ -181,6 +181,26 @@ You are a [role] specialized in [domain].
 
 [What to return to main context]
 ```
+
+**Command Delegation Pattern** (Acceptable Alternative):
+
+When multiple agents/guides need identical context, command delegation maintains DRY:
+
+```markdown
+<!-- agents/agent-name.md -->
+You are a [role] specialized in [domain].
+
+## Context
+
+Antes de qualquer passo:
+- Execute o command /project:load-context  # Delegates to load workflow
+
+## Your Task
+
+[Specific instructions]
+```
+
+This creates one level of indirection but preserves Single Source of Truth for reference lists. Recommended when **3+ files** need identical context.
 
 **Validation**:
 - Clear role definition
@@ -238,7 +258,7 @@ You are a [role] specialized in [domain].
 <!-- hooks/event-name.md -->
 Triggered on: [event]
 
-@~/.claude/gradientprompts/workflow.md
+@./gradient/prompts/workflow.md
 ```
 
 **Validation**:
@@ -256,12 +276,12 @@ Use `@` for referencing:
 
 **Absolute references** (from installed location):
 ```markdown
-@~/.claude/gradient/spec/architecture-spec.md
+@./gradient/spec/architecture-spec.md
 ```
 
 **Relative references** (within project):
 ```markdown
-@~/.claude/gradientspec/architecture-spec.md
+@./gradient/spec/architecture-spec.md
 @./examples.md
 ```
 
@@ -276,7 +296,7 @@ Use `@` for referencing:
 **Example**:
 ```
 gradient/prompts/load-context.md references:
-@~/.claude/gradientspec/architecture-spec.md
+@./gradient/spec/architecture-spec.md
 
 Resolution:
 /path/to/project/gradient/prompts/ + ../spec/architecture-spec.md
@@ -288,9 +308,9 @@ Resolution:
 **Pattern 1: Thin Loader**
 ```markdown
 <!-- prompts/load-context.md -->
-@~/.claude/gradientspec/spec1.md
-@~/.claude/gradientspec/spec2.md
-@~/.claude/gradientcontext/examples.md
+@./gradient/spec/spec1.md
+@./gradient/spec/spec2.md
+@./gradient/context/examples.md
 
 Your task: [brief meta-instruction]
 ```
@@ -299,9 +319,9 @@ Your task: [brief meta-instruction]
 ```markdown
 <!-- prompts/adaptive-load.md -->
 {% if need_specs %}
-@~/.claude/gradientspec/detailed-spec.md
+@./gradient/spec/detailed-spec.md
 {% else %}
-@~/.claude/gradientcontext/quick-guide.md
+@./gradient/context/quick-guide.md
 {% endif %}
 ```
 
@@ -309,10 +329,10 @@ Your task: [brief meta-instruction]
 ```markdown
 <!-- prompts/comprehensive-load.md -->
 ## Specifications (Normative)
-@~/.claude/gradientspec/spec.md
+@./gradient/spec/spec.md
 
 ## Applied Knowledge (Practical)
-@~/.claude/gradientcontext/guide.md
+@./gradient/context/guide.md
 
 ## Meta-Instructions
 [orchestration logic]
@@ -437,7 +457,9 @@ Antes de qualquer passo faça:
 - Not redefine syntax or formats
 
 **PROMPTS files must**:
-- Primarily use `@` references (>50% of content)
+- Primarily use `@` references OR command delegations (>50% of content)
+  - Command delegations (e.g., "Execute o command /load-context") count as references
+  - Both patterns maintain thin orchestrator principle
 - Contain <5 lines of inline content per section
 - Not duplicate SPECS or CONTEXT
 - Focus on orchestration
@@ -477,8 +499,8 @@ PMD files are pure markdown...
 **Solution**:
 ```markdown
 <!-- prompts/load.md -->
-@~/.claude/gradientspec/ymd-spec.md
-@~/.claude/gradientspec/pmd-spec.md
+@./gradient/spec/ymd-spec.md
+@./gradient/spec/pmd-spec.md
 
 Your task: [meta-instruction]
 ```
@@ -517,7 +539,7 @@ YMD files must have meta section with:
 ```markdown
 <!-- context/guide.md -->
 For YMD format rules:
-@~/.claude/gradientspec/ymd-spec.md
+@./gradient/spec/ymd-spec.md
 
 Example YMD file:
 ```yaml
@@ -545,7 +567,7 @@ Now that you understand the format, you can:
 [Pure specification, no orchestration]
 
 <!-- prompts/format-workflow.md -->
-@~/.claude/gradientproject/spec/format-spec.md
+@./gradient/project/spec/format-spec.md
 
 Now that specifications are loaded, you can:
 1. Create new files
@@ -624,8 +646,8 @@ project-name/                    # Repository root
 
 **From prompts/** (internal to bundle):
 ```markdown
-@~/.claude/gradientspec/spec-file.md
-@~/.claude/gradientcontext/guide.md
+@./gradient/spec/spec-file.md
+@./gradient/context/guide.md
 ```
 
 **Installation**:
@@ -635,7 +657,7 @@ cp -r project-name/ ~/.claude/project-name/
 
 # References continue to work
 # Commands: @~/.claude/project-name/prompts/...
-# Prompts: @~/.claude/gradientspec/... (internal)
+# Prompts: @./gradient/spec/... (internal)
 ```
 
 **Validation**:
@@ -657,6 +679,170 @@ Repository: my-awesome-plugin/
 Bundle: my-awesome-plugin/my-awesome-plugin/
 Commands reference: @~/.claude/my-awesome-plugin/
 Install target: ~/.claude/my-awesome-plugin/
+```
+
+---
+
+### Reference Path Strategy (Source vs Installed)
+
+**Purpose**: Define reference patterns for development (source) and production (installed).
+
+**Rule**: Use relative paths in source code, transform to absolute paths during installation.
+
+**Rationale**:
+- Enables local testing during development (references point to local files)
+- Maintains compatibility with global installation (references point to ~/.claude/)
+- Separates concerns: source code vs built/installed artifacts
+- Follows standard build/deploy patterns from software engineering
+
+---
+
+#### Development Phase (Source Code)
+
+**All references use relative paths** starting with `@./bundle-name/`:
+
+```markdown
+# In source repository commands/load-context.md
+@./code-zen/prompts/load-zen-workflow.md
+
+# In source repository code-zen/prompts/load-zen-workflow.md
+@./code-zen/spec/principles/zen-principles-spec.md
+@./code-zen/context/guides/zen-implementation-guide.md
+```
+
+**Benefits**:
+- Claude loads files from local repository during development
+- Changes can be tested immediately without reinstalling
+- No need to maintain separate dev/prod files
+- Git tracks source files with relative references
+
+---
+
+#### Production Phase (Installed)
+
+**All references use absolute paths** starting with `@~/.claude/bundle-name/`:
+
+```markdown
+# In installed ~/.claude/commands/load-context.md
+@~/.claude/code-zen/prompts/load-zen-workflow.md
+
+# In installed ~/.claude/code-zen/prompts/load-zen-workflow.md
+@~/.claude/code-zen/spec/principles/zen-principles-spec.md
+@~/.claude/code-zen/context/guides/zen-implementation-guide.md
+```
+
+**Benefits**:
+- References work correctly in global installation
+- Multiple projects can reference same installed bundle
+- Standard location for all Claude Code plugins
+
+---
+
+#### Development Toggle (Makefile)
+
+**Implementation**: Use Makefile to toggle between dev/prod modes.
+
+**Makefile Pattern**:
+```makefile
+.PHONY: dev prod status
+
+BUNDLE_NAME := my-bundle
+
+dev:
+	@find . -name "*.md" -exec sed -i.bak 's|@~/\.claude/$(BUNDLE_NAME)/|@./$(BUNDLE_NAME)/|g' {} \;
+	@find . -name "*.md.bak" -delete
+
+prod:
+	@find . -name "*.md" -exec sed -i.bak 's|@\./$(BUNDLE_NAME)/|@~/.claude/$(BUNDLE_NAME)/|g' {} \;
+	@find . -name "*.md.bak" -delete
+
+status:
+	@if grep -r "@\./$(BUNDLE_NAME)/" . --include="*.md"; then echo "DEV"; else echo "PROD"; fi
+```
+
+**Development Workflow**:
+```bash
+# Switch to dev mode for local testing
+make dev          # @~/.claude/bundle → @./bundle
+
+# Test changes locally
+# ...
+
+# Switch back to prod before commit
+make prod         # @./bundle → @~/.claude/bundle
+git add .
+git commit
+```
+
+---
+
+#### Validation
+
+**Repository State**:
+- [ ] All references use `@~/.claude/bundle-name/...` pattern (production-ready)
+- [ ] No `@./` references in committed code
+- [ ] Makefile exists with dev/prod targets
+
+**Development Workflow**:
+- [ ] `make dev` converts to relative references
+- [ ] Local testing works with relative refs
+- [ ] `make prod` reverts to absolute references
+- [ ] `make status` shows current state
+
+**Testing**:
+```bash
+# Verify production state (before dev)
+make status  # Should show "PRODUCTION mode"
+grep -r "@\./bundle-name/" .  # Should be empty
+
+# Test dev mode
+make dev
+make status  # Should show "DEVELOPMENT mode"
+
+# Test prod mode
+make prod
+make status  # Should show "PRODUCTION mode"
+```
+
+---
+
+#### Anti-Patterns
+
+**❌ BAD: Mixed references in repository**:
+```markdown
+# Some files use relative
+@./code-zen/spec/file.md
+
+# Other files use absolute
+@~/.claude/code-zen/spec/file.md
+# Inconsistent state!
+```
+
+**❌ BAD: Committing dev mode**:
+```bash
+make dev
+# Edit files...
+git commit  # Forgot to run make prod!
+# Now repo has relative refs - won't work for others!
+```
+
+**❌ BAD: Manual dual maintenance**:
+```
+dev-branch/commands/file.md    # Uses @./
+prod-branch/commands/file.md   # Uses @~/.claude/
+# Duplication! Maintenance nightmare!
+```
+
+**✅ GOOD: Makefile toggle workflow**:
+```
+# Repository always in prod mode (default)
+main branch: @~/.claude/bundle-name/
+
+# Developer workflow:
+make dev     # Temporarily convert for local testing
+# ... test locally ...
+make prod    # Convert back before commit
+git commit   # Repository stays production-ready
 ```
 
 ---
@@ -724,7 +910,7 @@ PROMPTS:  @ references, meta-instructions
 
 ### For Humans Implementing Gradient
 
-See: `@~/.claude/gradientcontext/implementation-guide.md`
+See: `@./gradient/context/implementation-guide.md`
 
 ---
 
@@ -805,7 +991,7 @@ See: `@~/.claude/gradientcontext/implementation-guide.md`
 - `@./layer-spec.md`
 
 **For implementation guidance** (applied, not normative):
-- `@~/.claude/gradientcontext/implementation-guide.md`
+- `@./gradient/context/implementation-guide.md`
 
 ---
 

@@ -94,10 +94,10 @@ Use `@` references when:
 **Example**:
 ```markdown
 For format syntax, see:
-@~/.claude/gradientspecs/format-spec.md
+@./gradient/specs/format-spec.md
 
 For complete examples:
-@~/.claude/gradientcontext/examples.md
+@./gradient/context/examples.md
 ```
 
 ### When to Duplicate (Exceptions)
@@ -153,7 +153,7 @@ Detailed explanation of concept XYZ...
 
 <!-- After (referenced) -->
 For details on concept XYZ:
-@~/.claude/gradientspecs/xyz-spec.md
+@./gradient/specs/xyz-spec.md
 ```
 
 ### Step 4: Validate
@@ -243,7 +243,7 @@ If PROMPTS contains >5 lines of inline content
 
 ❌ WRONG:
 <!-- load-context.md -->
-@~/.claude/gradientspec/format-spec.md
+@./gradient/spec/format-spec.md
 ```
 
 **Why**: Absolute references ensure load workflows work consistently when delegated from agents, prompts, or commands.
@@ -313,6 +313,102 @@ If agents/prompts list @ references
   → Extract to load workflow, delegate via slash command
 ```
 
+### Command Delegation vs Direct References
+
+**Trade-off**: When multiple files need the same context, you face a choice:
+
+#### Approach A: Direct @ References
+
+**Pattern**:
+```markdown
+# file-1.md
+@./spec/a.md
+@./spec/b.md
+@./spec/c.md
+
+# file-2.md (duplicates references)
+@./spec/a.md
+@./spec/b.md
+@./spec/c.md
+```
+
+**Pros**:
+- ✅ Explicit - see exactly what's loaded
+- ✅ No indirection - direct path to content
+- ✅ Self-contained - all dependencies visible
+
+**Cons**:
+- ❌ Violates DRY - reference list duplicated
+- ❌ Harder to maintain - changes in N places
+- ❌ More lines - scales linearly with consumers
+
+#### Approach B: Command Delegation
+
+**Pattern**:
+```markdown
+# prompts/load-context.md (SSOT for references)
+@./spec/a.md
+@./spec/b.md
+@./spec/c.md
+
+# file-1.md
+- Execute o command /project:load-context
+
+# file-2.md
+- Execute o command /project:load-context
+```
+
+**Pros**:
+- ✅ DRY - reference list in one place
+- ✅ Easier maintenance - change once, apply everywhere
+- ✅ Composable - can combine multiple load commands
+- ✅ Centralized control - manage context loading in one location
+
+**Cons**:
+- ❌ Indirection - follow command to see what's loaded
+- ❌ Less explicit - dependencies not immediately visible
+
+#### Guideline: Choose Based on Reuse
+
+**Use Command Delegation when**:
+- **3+ files** need identical context
+- Reference list is **5+ files**
+- Context loading is a **standard pattern**
+- **Centralized control** is valuable
+- **Maintenance** > explicitness
+
+**Example**: Code Zen has 5 guides needing same 6 specs → command delegation saves 19 lines
+
+**Use Direct References when**:
+- **1-2 files** need context
+- Each file needs **unique subset** of context
+- **Explicitness** is more valuable than DRY
+- Reference lists are **short (<5 files)**
+- **Self-documentation** > centralization
+
+**Example**: Single specialized workflow needing 2 specific specs → direct references clearer
+
+#### Architectural Validity
+
+**Both approaches are valid Gradient architecture**. The choice is a trade-off between:
+- **DRY principle** (command delegation)
+- **Explicitness principle** (direct references)
+
+**Severity Classification**:
+- Using commands for DRY: **INFO** level (acceptable architectural choice)
+- Using commands unnecessarily (1-2 consumers): **WARNING** level (premature abstraction)
+
+**Validation Rule**:
+```
+If command delegation used:
+  Count consumers of that command
+  ├─ 3+ consumers → INFO: "DRY via command delegation (acceptable)"
+  ├─ 1-2 consumers → WARNING: "Premature abstraction, use direct @references"
+  └─ Reference list <3 files → WARNING: "Short list, direct references clearer"
+```
+
+**Real-World Example**: The code-zen project correctly uses command delegation because 5+ files need the same 6 specs, saving significant duplication while maintaining DRY.
+
 ---
 
 ## Validation Checklist
@@ -369,7 +465,7 @@ YMD files must have a meta section containing:
 ```markdown
 <!-- context/guide.md -->
 For YMD metadata requirements:
-@~/.claude/gradientspecs/format.md
+@./gradient/specs/format.md
 
 Example metadata:
 ```yaml
@@ -609,8 +705,8 @@ Danger: < 0.2 (too much inline content)
 - `@./layer-spec.md` - Layer-specific specifications
 
 **For implementation**:
-- `@~/.claude/gradientcontext/implementation-guide.md` - Step-by-step guide
-- `@~/.claude/gradientcontext/decision-guide.md` - Decision trees
+- `@./gradient/context/implementation-guide.md` - Step-by-step guide
+- `@./gradient/context/decision-guide.md` - Decision trees
 
 ---
 

@@ -2,8 +2,8 @@
 
 **Decision trees and guidance for making architectural choices when implementing Gradient.**
 
-For architecture specifications: @~/.claude/gradientspec/architecture-spec.md
-For layer specifications: @~/.claude/gradientspec/layer-spec.md
+For architecture specifications: @./gradient/spec/architecture-spec.md
+For layer specifications: @./gradient/spec/layer-spec.md
 
 ---
 
@@ -149,7 +149,7 @@ Pattern: ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$
 # In CONTEXT
 ## Email Validation Examples
 
-For validation rules: @~/.claude/gradientproject/spec/validation-spec.md
+For validation rules: @./gradient/project/spec/validation-spec.md
 
 ### Valid Emails
 - user@example.com ✓
@@ -436,10 +436,10 @@ project/spec/
 
 **Decision**:
 1. Create `project/spec/format-spec.md` with complete definition
-2. Replace README.md content with `@~/.claude/gradientproject/spec/format-spec.md`
+2. Replace README.md content with `@./gradient/project/spec/format-spec.md`
 3. Extract examples from guide.md to `context/examples.md`
 4. Update guide.md to reference both
-5. Replace prompts/load.md content with `@~/.claude/gradientproject/spec/format-spec.md`
+5. Replace prompts/load.md content with `@./gradient/project/spec/format-spec.md`
 
 ### Decision 10: Consolidation Strategy
 
@@ -549,8 +549,8 @@ prompts/
 ```markdown
 # Load Context
 
-@~/.claude/gradientproject/spec/core-spec.md
-@~/.claude/gradientcontext/examples.md
+@./gradient/project/spec/core-spec.md
+@./gradient/context/examples.md
 
 Your task: Guide users in creating files following the spec.
 ```
@@ -566,8 +566,8 @@ Your task: Guide users in creating files following the spec.
 ```markdown
 # Create Workflow
 
-@~/.claude/gradientproject/spec/format-spec.md
-@~/.claude/gradientcontext/implementation-guide.md
+@./gradient/project/spec/format-spec.md
+@./gradient/context/implementation-guide.md
 
 Your task:
 1. Gather requirements from user
@@ -591,9 +591,9 @@ Remember:
 ```markdown
 # Complex Workflow
 
-@~/.claude/gradientproject/spec/core-spec.md
-@~/.claude/gradientcontext/implementation-guide.md
-@~/.claude/gradientcontext/decision-guide.md
+@./gradient/project/spec/core-spec.md
+@./gradient/context/implementation-guide.md
+@./gradient/context/decision-guide.md
 
 Your task: [Detailed steps]
 
@@ -671,7 +671,7 @@ Validation checklist:
 
 You are a YAML syntax validator.
 
-@~/.claude/gradientproject/spec/yaml-spec.md
+@./gradient/project/spec/yaml-spec.md
 
 Validate ONLY syntax. Do not check:
 - Business logic
@@ -695,8 +695,8 @@ Validate ONLY syntax. Do not check:
 
 You validate format compliance.
 
-@~/.claude/gradientproject/spec/format-spec.md
-@~/.claude/gradientproject/spec/validation-spec.md
+@./gradient/project/spec/format-spec.md
+@./gradient/project/spec/validation-spec.md
 
 Validate:
 - Structure compliance
@@ -721,9 +721,9 @@ Validate:
 
 You are an architecture reviewer.
 
-@~/.claude/gradientspec/architecture-spec.md
-@~/.claude/gradientspec/anti-duplication-principles.md
-@~/.claude/gradientspec/layer-spec.md
+@./gradient/spec/architecture-spec.md
+@./gradient/spec/anti-duplication-principles.md
+@./gradient/spec/layer-spec.md
 
 Review all aspects of architecture:
 - Structure
@@ -870,6 +870,127 @@ Review all aspects of architecture:
 
 **Recommendation**: Use batch testing for most migrations - balance between safety and efficiency.
 
+### Decision 17: Command Delegation vs Direct @ References
+
+**Question**: Should files load context via slash commands or direct @ references?
+
+#### Decision Tree
+
+```
+Start: Multiple files need same context
+│
+├─ How many files need this context?
+│  ├─ 1-2 files → Use direct @ references (no duplication)
+│  │
+│  └─ 3+ files → Continue...
+│
+├─ How many specs/context files to load?
+│  ├─ 1-4 files → Direct references acceptable
+│  │
+│  └─ 5+ files → Command delegation preferred
+│
+├─ Is this a standard pattern?
+│  ├─ YES: Used across project → Command delegation
+│  │
+│  └─ NO: One-off case → Direct references
+│
+└─ What's more valuable?
+   ├─ Explicitness → Direct references
+   └─ Maintainability → Command delegation
+```
+
+#### Comparison Table
+
+| Factor | Direct References | Command Delegation |
+|--------|------------------|-------------------|
+| DRY Compliance | ❌ Duplicates list | ✅ Single source |
+| Explicitness | ✅ See all refs | ⚠️ Follow command |
+| Maintenance | ⚠️ Update N files | ✅ Update 1 file |
+| Indirection | ✅ None | ⚠️ One level |
+| Best for | 1-2 consumers | 3+ consumers |
+
+#### Real-World Example: Code Zen
+
+**Scenario**: 5 guides need same context (6 spec files)
+
+**Approach A - Direct References** (before):
+```markdown
+# zen-check-guide.md (50 lines with 6 refs)
+@./spec/universal/code-structure-spec.md
+@./spec/universal/naming-conventions-spec.md
+@./spec/universal/error-handling-spec.md
+@./spec/principles/zen-principles-spec.md
+@./spec/python/python-language-spec.md
+@./spec/python/python-style-spec.md
+
+# zen-refactor-guide.md (duplicates same 6 refs)
+# python-patterns.md (duplicates same 6 refs)
+# ... (3 more files)
+```
+**Result**: 6 references × 5 files = **30 duplicated lines**
+
+**Approach B - Command Delegation** (better):
+```markdown
+# prompts/load-python-workflow.md (SSOT - 6 refs)
+@./spec/universal/code-structure-spec.md
+@./spec/universal/naming-conventions-spec.md
+@./spec/universal/error-handling-spec.md
+@./spec/principles/zen-principles-spec.md
+@./spec/python/python-language-spec.md
+@./spec/python/python-style-spec.md
+
+# zen-check-guide.md (1 line delegation)
+Antes de qualquer passo:
+- Execute o command /code-zen:load-python-context
+
+# zen-refactor-guide.md (1 line delegation)
+Antes de qualquer passo:
+- Execute o command /code-zen:load-python-context
+```
+**Result**: 6 references in SSOT + 5 delegations = **11 total lines**
+**Savings**: 30 - 11 = **19 lines eliminated** (63% reduction)
+
+#### When Command Delegation Wins
+
+**Metrics favoring command delegation**:
+- Consumers: **5 files** (> 3 threshold)
+- Reference list: **6 files** (> 5 threshold)
+- Duplication eliminated: **19 lines**
+- Maintenance points: **1** (vs 5 with direct refs)
+
+**Trade-off**: Adds one level of indirection, but DRY benefit is substantial.
+
+#### When Direct References Win
+
+**Example**: Single specialized workflow
+```markdown
+# validate-specific-format.md
+@./spec/format-spec.md
+@./spec/validation-spec.md
+```
+
+**Metrics favoring direct references**:
+- Consumers: **1 file** (< 3 threshold)
+- Reference list: **2 files** (< 5 threshold)
+- No duplication risk
+- Self-contained and explicit
+
+**Trade-off**: Minor duplication if another consumer emerges, but current state is clearest.
+
+#### Recommendation
+
+**Default**: Use command delegation when **3+ files** need same context.
+
+**Override**: Use direct references when:
+- Explicitness matters more than DRY
+- Only 1-2 consumers exist
+- Reference list is very short (<3 files)
+
+**Important**: Both approaches are architecturally valid Gradient patterns. Choose based on:
+1. Number of consumers (3+ → commands)
+2. Size of reference list (5+ → commands)
+3. Project philosophy (DRY vs explicitness)
+
 ---
 
 ## Summary
@@ -886,12 +1007,13 @@ Review all aspects of architecture:
 | Granular or comprehensive? | Usage pattern | Specific needs → Granular, Always together → Comprehensive |
 | Agent or prompt? | Isolation need | Separate execution → Agent, Integrated → Prompt |
 | Migration strategy? | Project size | <20 files → Big bang, >20 files → Incremental |
+| Command delegation or direct refs? | Number of consumers | 3+ consumers → Commands, 1-2 → Direct refs |
 
 ### Decision Support Resources
 
-**For layer questions**: @~/.claude/gradientspec/layer-spec.md
-**For duplication questions**: @~/.claude/gradientspec/anti-duplication-principles.md
-**For architecture questions**: @~/.claude/gradientspec/architecture-spec.md
+**For layer questions**: @./gradient/spec/layer-spec.md
+**For duplication questions**: @./gradient/spec/anti-duplication-principles.md
+**For architecture questions**: @./gradient/spec/architecture-spec.md
 **For implementation questions**: @./implementation-guide.md
 **For examples**: @./examples.md
 

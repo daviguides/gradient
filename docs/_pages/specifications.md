@@ -470,7 +470,7 @@ flowchart LR
 ### Absolute References
 
 ```markdown
-@~/.claude/gradient/gradient/spec/architecture-spec.md
+@./gradient/gradient/spec/architecture-spec.md
 ```
 
 ### Relative References
