@@ -2,7 +2,7 @@
 
 **Complete working examples demonstrating Gradient architecture patterns.**
 
-For architecture specifications: @../spec/architecture-spec.md
+For architecture specifications: @~/.claude/gradientspec/architecture-spec.md
 
 ---
 
@@ -87,7 +87,7 @@ Fields with format requirements MUST match the specified pattern.
 ```markdown
 # Validation Examples
 
-For validation rules: @../validation-spec/rules-spec.md
+For validation rules: @~/.claude/gradientvalidation-spec/rules-spec.md
 
 ---
 
@@ -224,13 +224,13 @@ For validation rules: @../validation-spec/rules-spec.md
 
 ## Validation Rules (Normative)
 
-@../validation-spec/rules-spec.md
+@~/.claude/gradientvalidation-spec/rules-spec.md
 
 ---
 
 ## Applied Examples (Practical)
 
-@../context/examples.md
+@~/.claude/gradientcontext/examples.md
 
 ---
 
@@ -253,7 +253,7 @@ When validating data:
 <!-- commands/validate-data.md -->
 Validate data against defined rules.
 
-@../prompts/load-context.md
+@~/.claude/gradientprompts/load-context.md
 ```
 
 **Result**: Clean separation with zero duplication. Rules defined once, examples show application, prompt orchestrates.
@@ -295,13 +295,13 @@ Load only format-related specifications and examples.
 
 ## Format Specification
 
-@../content-spec/format-spec.md
+@~/.claude/gradientcontent-spec/format-spec.md
 
 ---
 
 ## Format Examples
 
-@../context/format-examples.md
+@~/.claude/gradientcontext/format-examples.md
 
 ---
 
@@ -322,13 +322,13 @@ Load only metadata-related specifications and examples.
 
 ## Metadata Specification
 
-@../content-spec/metadata-spec.md
+@~/.claude/gradientcontent-spec/metadata-spec.md
 
 ---
 
 ## Metadata Examples
 
-@../context/metadata-examples.md
+@~/.claude/gradientcontext/metadata-examples.md
 
 ---
 
@@ -349,17 +349,17 @@ Load all specifications and context for comprehensive assistance.
 
 ## All Specifications
 
-@../content-spec/format-spec.md
-@../content-spec/metadata-spec.md
-@../content-spec/validation-spec.md
+@~/.claude/gradientcontent-spec/format-spec.md
+@~/.claude/gradientcontent-spec/metadata-spec.md
+@~/.claude/gradientcontent-spec/validation-spec.md
 
 ---
 
 ## All Context
 
-@../context/format-examples.md
-@../context/metadata-examples.md
-@../context/implementation-guide.md
+@~/.claude/gradientcontext/format-examples.md
+@~/.claude/gradientcontext/metadata-examples.md
+@~/.claude/gradientcontext/implementation-guide.md
 
 ---
 
@@ -373,13 +373,13 @@ Assist with all aspects: format, metadata, validation, and implementation.
 
 ```markdown
 <!-- commands/load-format.md -->
-@../prompts/load-format-context.md
+@~/.claude/gradientprompts/load-format-context.md
 
 <!-- commands/load-metadata.md -->
-@../prompts/load-metadata-context.md
+@~/.claude/gradientprompts/load-metadata-context.md
 
 <!-- commands/load-all.md -->
-@../prompts/load-complete-context.md
+@~/.claude/gradientprompts/load-complete-context.md
 ```
 
 **Benefits**:
@@ -446,7 +446,7 @@ Combines Concept A and Concept B in sophisticated ways.
 ```markdown
 # Basic Examples
 
-For core concepts: @../chain-spec/core-spec.md
+For core concepts: @~/.claude/gradientchain-spec/core-spec.md
 
 ---
 
@@ -464,8 +464,8 @@ For core concepts: @../chain-spec/core-spec.md
 ```markdown
 # Advanced Examples
 
-For core concepts: @../chain-spec/core-spec.md
-For advanced concepts: @../chain-spec/advanced-spec.md
+For core concepts: @~/.claude/gradientchain-spec/core-spec.md
+For advanced concepts: @~/.claude/gradientchain-spec/advanced-spec.md
 
 ---
 
@@ -485,13 +485,13 @@ For advanced concepts: @../chain-spec/advanced-spec.md
 
 ## Specifications
 
-@../chain-spec/core-spec.md
-@../chain-spec/advanced-spec.md
+@~/.claude/gradientchain-spec/core-spec.md
+@~/.claude/gradientchain-spec/advanced-spec.md
 
 ## Examples
 
-@../context/basic-examples.md
-@../context/advanced-examples.md
+@~/.claude/gradientcontext/basic-examples.md
+@~/.claude/gradientcontext/advanced-examples.md
 
 ## Your Task
 
@@ -582,7 +582,7 @@ Example 1:
 
 → Moved to `context/examples.md` with reference to spec:
 ```markdown
-For format rules: @../plugin-spec/core-spec.md
+For format rules: @~/.claude/gradientplugin-spec/core-spec.md
 
 ## Example 1
 [complete working example]
@@ -616,8 +616,8 @@ For examples: @context/examples.md
 
 New `prompts/load-context.md`:
 ```markdown
-@../plugin-spec/core-spec.md
-@../context/examples.md
+@~/.claude/gradientplugin-spec/core-spec.md
+@~/.claude/gradientcontext/examples.md
 
 Your task: [orchestration logic]
 ```
@@ -653,9 +653,9 @@ You are an architecture reviewer specialized in Gradient compliance validation.
 
 ## Gradient Architecture Context
 
-@../spec/architecture-spec.md
-@../spec/anti-duplication-principles.md
-@../spec/layer-spec.md
+@~/.claude/gradientspec/architecture-spec.md
+@~/.claude/gradientspec/anti-duplication-principles.md
+@~/.claude/gradientspec/layer-spec.md
 
 ---
 
@@ -876,9 +876,9 @@ Valid task file if:
 ```markdown
 # Task Manager Implementation Guide
 
-For format specification: @../task-spec/task-format-spec.md
-For priority rules: @../task-spec/priority-spec.md
-For status rules: @../task-spec/status-spec.md
+For format specification: @~/.claude/gradienttask-spec/task-format-spec.md
+For priority rules: @~/.claude/gradienttask-spec/priority-spec.md
+For status rules: @~/.claude/gradienttask-spec/status-spec.md
 
 ---
 
@@ -941,18 +941,18 @@ Use validation workflow to ensure compliance with all specs.
 
 ## Specifications (Normative)
 
-@../task-spec/task-format-spec.md
-@../task-spec/priority-spec.md
-@../task-spec/status-spec.md
-@../task-spec/validation-spec.md
+@~/.claude/gradienttask-spec/task-format-spec.md
+@~/.claude/gradienttask-spec/priority-spec.md
+@~/.claude/gradienttask-spec/status-spec.md
+@~/.claude/gradienttask-spec/validation-spec.md
 
 ---
 
 ## Implementation Guidance (Applied)
 
-@../context/implementation-guide.md
-@../context/examples.md
-@../context/decision-guide.md
+@~/.claude/gradientcontext/implementation-guide.md
+@~/.claude/gradientcontext/examples.md
+@~/.claude/gradientcontext/decision-guide.md
 
 ---
 
@@ -982,9 +982,9 @@ Assist users with:
 
 ## Context
 
-@../task-spec/task-format-spec.md
-@../context/implementation-guide.md
-@../context/examples.md
+@~/.claude/gradienttask-spec/task-format-spec.md
+@~/.claude/gradientcontext/implementation-guide.md
+@~/.claude/gradientcontext/examples.md
 
 ---
 
@@ -1034,7 +1034,7 @@ Show complete task file and ask for confirmation.
 ```markdown
 Create a new task following task manager specifications.
 
-@../prompts/create-task-workflow.md
+@~/.claude/gradientprompts/create-task-workflow.md
 ```
 
 ### File: agents/task-author.md
@@ -1048,11 +1048,11 @@ You are a task authoring specialist for the task manager plugin.
 
 ## Context
 
-@../task-spec/task-format-spec.md
-@../task-spec/priority-spec.md
-@../task-spec/status-spec.md
-@../context/implementation-guide.md
-@../context/examples.md
+@~/.claude/gradienttask-spec/task-format-spec.md
+@~/.claude/gradienttask-spec/priority-spec.md
+@~/.claude/gradienttask-spec/status-spec.md
+@~/.claude/gradientcontext/implementation-guide.md
+@~/.claude/gradientcontext/examples.md
 
 ---
 
@@ -1139,5 +1139,5 @@ These examples demonstrate:
 - Agents are specialized (reference what they need)
 - Zero duplication throughout
 
-For architectural details: @../spec/architecture-spec.md
+For architectural details: @~/.claude/gradientspec/architecture-spec.md
 For implementation guidance: @./implementation-guide.md

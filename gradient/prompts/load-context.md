@@ -6,17 +6,17 @@
 
 ## Architecture Specifications (Normative)
 
-@../spec/architecture-spec.md
-@../spec/anti-duplication-principles.md
-@../spec/layer-spec.md
+@~/.claude/gradientspec/architecture-spec.md
+@~/.claude/gradientspec/anti-duplication-principles.md
+@~/.claude/gradientspec/layer-spec.md
 
 ---
 
 ## Applied Knowledge (Practical)
 
-@../context/examples.md
-@../context/implementation-guide.md
-@../context/decision-guide.md
+@~/.claude/gradientcontext/examples.md
+@~/.claude/gradientcontext/implementation-guide.md
+@~/.claude/gradientcontext/decision-guide.md
 
 ---
 

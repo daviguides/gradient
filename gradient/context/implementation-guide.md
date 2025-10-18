@@ -2,9 +2,9 @@
 
 **Step-by-step guide for implementing Gradient architecture in your projects.**
 
-For architecture specifications: @../spec/architecture-spec.md
-For anti-duplication principles: @../spec/anti-duplication-principles.md
-For layer specifications: @../spec/layer-spec.md
+For architecture specifications: @~/.claude/gradientspec/architecture-spec.md
+For anti-duplication principles: @~/.claude/gradientspec/anti-duplication-principles.md
+For layer specifications: @~/.claude/gradientspec/layer-spec.md
 
 ---
 
@@ -252,7 +252,7 @@ mkdir -p my-project/context
 ```markdown
 # [Project Name] Examples
 
-For specifications: @../project/spec/core-spec.md
+For specifications: @~/.claude/gradientproject/spec/core-spec.md
 
 ---
 
@@ -303,7 +303,7 @@ Header section contains:
 ```markdown
 ## Example 1: Valid File
 
-For format requirements: @../project/spec/format-spec.md
+For format requirements: @~/.claude/gradientproject/spec/format-spec.md
 
 ```yaml
 header:
@@ -331,8 +331,8 @@ footer:
 ```markdown
 # Implementation Guide
 
-For format specification: @../project/spec/format-spec.md
-For validation rules: @../project/spec/validation-spec.md
+For format specification: @~/.claude/gradientproject/spec/format-spec.md
+For validation rules: @~/.claude/gradientproject/spec/validation-spec.md
 
 ---
 
@@ -407,7 +407,7 @@ If your project involves choices, create a decision guide:
 ```markdown
 # Decision Guide
 
-For specifications: @../project/spec/core-spec.md
+For specifications: @~/.claude/gradientproject/spec/core-spec.md
 
 ---
 
@@ -481,17 +481,17 @@ mkdir -p my-project/prompts
 
 ## Specifications (Normative)
 
-@../project/spec/core-spec.md
-@../project/spec/format-spec.md
-@../project/spec/validation-spec.md
+@~/.claude/gradientproject/spec/core-spec.md
+@~/.claude/gradientproject/spec/format-spec.md
+@~/.claude/gradientproject/spec/validation-spec.md
 
 ---
 
 ## Applied Knowledge (Practical)
 
-@../context/examples.md
-@../context/implementation-guide.md
-@../context/decision-guide.md
+@~/.claude/gradientcontext/examples.md
+@~/.claude/gradientcontext/implementation-guide.md
+@~/.claude/gradientcontext/decision-guide.md
 
 ---
 
@@ -560,11 +560,11 @@ Files have three sections:
 
 ## Format Rules
 
-@../project/spec/format-spec.md
+@~/.claude/gradientproject/spec/format-spec.md
 
 ## Examples
 
-@../context/examples.md
+@~/.claude/gradientcontext/examples.md
 
 ## Your Task
 
@@ -588,9 +588,9 @@ For complex multi-step processes:
 
 ## Context
 
-@../project/spec/core-spec.md
-@../context/implementation-guide.md
-@../context/examples.md
+@~/.claude/gradientproject/spec/core-spec.md
+@~/.claude/gradientcontext/implementation-guide.md
+@~/.claude/gradientcontext/examples.md
 
 ---
 
@@ -647,7 +647,7 @@ mkdir -p my-project/commands
 ```markdown
 [Optional: One-line description]
 
-@../prompts/corresponding-prompt.md
+@~/.claude/gradientprompts/corresponding-prompt.md
 ```
 
 **That's it!** Commands should be exactly this simple.
@@ -717,8 +717,8 @@ You are a [role] specialized in [domain].
 
 ## Context
 
-@../project/spec/relevant-spec.md
-@../context/relevant-guide.md
+@~/.claude/gradientproject/spec/relevant-spec.md
+@~/.claude/gradientcontext/relevant-guide.md
 
 ---
 
@@ -943,7 +943,7 @@ Move examples and guides to context:
 ```markdown
 # Examples
 
-For format rules: @../project/spec/format-spec.md
+For format rules: @~/.claude/gradientproject/spec/format-spec.md
 
 [Extract examples, add references to specs]
 ```
@@ -952,8 +952,8 @@ For format rules: @../project/spec/format-spec.md
 
 New `prompts/load-context.md`:
 ```markdown
-@../project/spec/format-spec.md
-@../context/examples.md
+@~/.claude/gradientproject/spec/format-spec.md
+@~/.claude/gradientcontext/examples.md
 
 Your task: [orchestration logic]
 ```
@@ -1055,10 +1055,10 @@ Files must have:
 
 # After (thin)
 ## Format Rules
-@../project/spec/format-spec.md
+@~/.claude/gradientproject/spec/format-spec.md
 
 ## Examples
-@../context/examples.md
+@~/.claude/gradientcontext/examples.md
 ```
 
 ### Problem: Unclear Layer Boundaries
@@ -1106,9 +1106,9 @@ After implementing Gradient:
 ## Additional Resources
 
 **Specifications**:
-- @../spec/architecture-spec.md - Complete architecture
-- @../spec/anti-duplication-principles.md - Duplication prevention
-- @../spec/layer-spec.md - Layer technical specs
+- @~/.claude/gradientspec/architecture-spec.md - Complete architecture
+- @~/.claude/gradientspec/anti-duplication-principles.md - Duplication prevention
+- @~/.claude/gradientspec/layer-spec.md - Layer technical specs
 
 **Examples**:
 - @./examples.md - Working examples of Gradient projects

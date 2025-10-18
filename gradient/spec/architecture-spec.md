@@ -144,7 +144,7 @@ Gradient **is**:
 <!-- commands/command-name.md -->
 Brief description of what this command does.
 
-@../prompts/prompt-name.md
+@~/.claude/gradientprompts/prompt-name.md
 ```
 
 **Validation**:
@@ -170,8 +170,8 @@ You are a [role] specialized in [domain].
 
 ## Context
 
-@../spec/relevant-spec.md
-@../context/relevant-guide.md
+@~/.claude/gradientspec/relevant-spec.md
+@~/.claude/gradientcontext/relevant-guide.md
 
 ## Your Task
 
@@ -238,7 +238,7 @@ You are a [role] specialized in [domain].
 <!-- hooks/event-name.md -->
 Triggered on: [event]
 
-@../prompts/workflow.md
+@~/.claude/gradientprompts/workflow.md
 ```
 
 **Validation**:
@@ -261,7 +261,7 @@ Use `@` for referencing:
 
 **Relative references** (within project):
 ```markdown
-@../spec/architecture-spec.md
+@~/.claude/gradientspec/architecture-spec.md
 @./examples.md
 ```
 
@@ -276,7 +276,7 @@ Use `@` for referencing:
 **Example**:
 ```
 gradient/prompts/load-context.md references:
-@../spec/architecture-spec.md
+@~/.claude/gradientspec/architecture-spec.md
 
 Resolution:
 /path/to/project/gradient/prompts/ + ../spec/architecture-spec.md
@@ -288,9 +288,9 @@ Resolution:
 **Pattern 1: Thin Loader**
 ```markdown
 <!-- prompts/load-context.md -->
-@../spec/spec1.md
-@../spec/spec2.md
-@../context/examples.md
+@~/.claude/gradientspec/spec1.md
+@~/.claude/gradientspec/spec2.md
+@~/.claude/gradientcontext/examples.md
 
 Your task: [brief meta-instruction]
 ```
@@ -299,9 +299,9 @@ Your task: [brief meta-instruction]
 ```markdown
 <!-- prompts/adaptive-load.md -->
 {% if need_specs %}
-@../spec/detailed-spec.md
+@~/.claude/gradientspec/detailed-spec.md
 {% else %}
-@../context/quick-guide.md
+@~/.claude/gradientcontext/quick-guide.md
 {% endif %}
 ```
 
@@ -309,10 +309,10 @@ Your task: [brief meta-instruction]
 ```markdown
 <!-- prompts/comprehensive-load.md -->
 ## Specifications (Normative)
-@../spec/spec.md
+@~/.claude/gradientspec/spec.md
 
 ## Applied Knowledge (Practical)
-@../context/guide.md
+@~/.claude/gradientcontext/guide.md
 
 ## Meta-Instructions
 [orchestration logic]
@@ -477,8 +477,8 @@ PMD files are pure markdown...
 **Solution**:
 ```markdown
 <!-- prompts/load.md -->
-@../spec/ymd-spec.md
-@../spec/pmd-spec.md
+@~/.claude/gradientspec/ymd-spec.md
+@~/.claude/gradientspec/pmd-spec.md
 
 Your task: [meta-instruction]
 ```
@@ -517,7 +517,7 @@ YMD files must have meta section with:
 ```markdown
 <!-- context/guide.md -->
 For YMD format rules:
-@../spec/ymd-spec.md
+@~/.claude/gradientspec/ymd-spec.md
 
 Example YMD file:
 ```yaml
@@ -545,7 +545,7 @@ Now that you understand the format, you can:
 [Pure specification, no orchestration]
 
 <!-- prompts/format-workflow.md -->
-@../project/spec/format-spec.md
+@~/.claude/gradientproject/spec/format-spec.md
 
 Now that specifications are loaded, you can:
 1. Create new files
@@ -624,8 +624,8 @@ project-name/                    # Repository root
 
 **From prompts/** (internal to bundle):
 ```markdown
-@../spec/spec-file.md
-@../context/guide.md
+@~/.claude/gradientspec/spec-file.md
+@~/.claude/gradientcontext/guide.md
 ```
 
 **Installation**:
@@ -635,7 +635,7 @@ cp -r project-name/ ~/.claude/project-name/
 
 # References continue to work
 # Commands: @~/.claude/project-name/prompts/...
-# Prompts: @../spec/... (internal)
+# Prompts: @~/.claude/gradientspec/... (internal)
 ```
 
 **Validation**:
@@ -724,7 +724,7 @@ PROMPTS:  @ references, meta-instructions
 
 ### For Humans Implementing Gradient
 
-See: `@../context/implementation-guide.md`
+See: `@~/.claude/gradientcontext/implementation-guide.md`
 
 ---
 
@@ -805,7 +805,7 @@ See: `@../context/implementation-guide.md`
 - `@./layer-spec.md`
 
 **For implementation guidance** (applied, not normative):
-- `@../context/implementation-guide.md`
+- `@~/.claude/gradientcontext/implementation-guide.md`
 
 ---
 

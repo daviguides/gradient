@@ -200,7 +200,7 @@ Applied knowledge, working examples, and practical implementation guidance.
 ```markdown
 # [Topic] Guide
 
-**For format rules**: @../[project]-spec/format-spec.md
+**For format rules**: @~/.claude/gradient[project]-spec/format-spec.md
 
 ---
 
@@ -285,7 +285,7 @@ Applied knowledge, working examples, and practical implementation guidance.
 ```markdown
 # Implementation Guide
 
-**For format specifications**: @../spec/format-spec.md
+**For format specifications**: @~/.claude/gradientspec/format-spec.md
 
 ---
 
@@ -358,8 +358,8 @@ Thin orchestration layer that loads specs/context and provides meta-instructions
 
 [Brief intro]
 
-@../[project]-spec/spec1.md
-@../[project]-spec/spec2.md
+@~/.claude/gradient[project]-spec/spec1.md
+@~/.claude/gradient[project]-spec/spec2.md
 
 ---
 
@@ -367,8 +367,8 @@ Thin orchestration layer that loads specs/context and provides meta-instructions
 
 [Brief intro]
 
-@../context/guide1.md
-@../context/examples.md
+@~/.claude/gradientcontext/guide1.md
+@~/.claude/gradientcontext/examples.md
 
 ---
 
@@ -445,15 +445,15 @@ Thin orchestration layer that loads specs/context and provides meta-instructions
 
 ## Format Specifications (Normative)
 
-@../spec/format-spec.md
-@../spec/syntax-spec.md
+@~/.claude/gradientspec/format-spec.md
+@~/.claude/gradientspec/syntax-spec.md
 
 ---
 
 ## Applied Knowledge (Practical)
 
-@../context/implementation-guide.md
-@../context/examples.md
+@~/.claude/gradientcontext/implementation-guide.md
+@~/.claude/gradientcontext/examples.md
 
 ---
 
@@ -498,7 +498,7 @@ You now understand:
 
 **Validation Rules**:
 - [ ] ALL references are absolute (`@~/.claude/project/...`)
-- [ ] NO relative references (`@../` is forbidden in load workflows)
+- [ ] NO relative references (`@~/.claude/gradient` is forbidden in load workflows)
 - [ ] File is named `load-*.md`
 - [ ] Each reference points to existing file
 - [ ] No duplication with other load workflows (if modular)
@@ -545,7 +545,7 @@ Thin API entry points that map one-to-one with PROMPTS.
 ```markdown
 [Optional: One-line description]
 
-@../prompts/corresponding-prompt.md
+@~/.claude/gradientprompts/corresponding-prompt.md
 ```
 
 ### Required Sections
@@ -595,7 +595,7 @@ Thin API entry points that map one-to-one with PROMPTS.
 ```markdown
 Load Gradient architecture context.
 
-@../prompts/load-context.md
+@~/.claude/gradientprompts/load-context.md
 ```
 
 ---
@@ -616,8 +616,8 @@ You are a [role] specialized in [domain].
 
 ## Context
 
-@../[project]-spec/relevant-spec.md
-@../context/relevant-guide.md
+@~/.claude/gradient[project]-spec/relevant-spec.md
+@~/.claude/gradientcontext/relevant-guide.md
 
 ---
 
@@ -700,9 +700,9 @@ You are an architecture reviewer specialized in Gradient compliance validation.
 
 ## Context
 
-@../spec/architecture-spec.md
-@../spec/anti-duplication-principles.md
-@../context/decision-guide.md
+@~/.claude/gradientspec/architecture-spec.md
+@~/.claude/gradientspec/anti-duplication-principles.md
+@~/.claude/gradientcontext/decision-guide.md
 
 ---
 
@@ -926,7 +926,7 @@ Event-driven workflows triggered by Claude Code lifecycle events.
 
 ## Action
 
-@../prompts/workflow-prompt.md
+@~/.claude/gradientprompts/workflow-prompt.md
 
 ---
 
@@ -987,7 +987,7 @@ Event-driven workflows triggered by Claude Code lifecycle events.
 
 ## Action
 
-@../prompts/validate-architecture.md
+@~/.claude/gradientprompts/validate-architecture.md
 
 ---
 

@@ -2,8 +2,8 @@
 
 **Decision trees and guidance for making architectural choices when implementing Gradient.**
 
-For architecture specifications: @../spec/architecture-spec.md
-For layer specifications: @../spec/layer-spec.md
+For architecture specifications: @~/.claude/gradientspec/architecture-spec.md
+For layer specifications: @~/.claude/gradientspec/layer-spec.md
 
 ---
 
@@ -149,7 +149,7 @@ Pattern: ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$
 # In CONTEXT
 ## Email Validation Examples
 
-For validation rules: @../project/spec/validation-spec.md
+For validation rules: @~/.claude/gradientproject/spec/validation-spec.md
 
 ### Valid Emails
 - user@example.com ✓
@@ -436,10 +436,10 @@ project/spec/
 
 **Decision**:
 1. Create `project/spec/format-spec.md` with complete definition
-2. Replace README.md content with `@../project/spec/format-spec.md`
+2. Replace README.md content with `@~/.claude/gradientproject/spec/format-spec.md`
 3. Extract examples from guide.md to `context/examples.md`
 4. Update guide.md to reference both
-5. Replace prompts/load.md content with `@../project/spec/format-spec.md`
+5. Replace prompts/load.md content with `@~/.claude/gradientproject/spec/format-spec.md`
 
 ### Decision 10: Consolidation Strategy
 
@@ -549,8 +549,8 @@ prompts/
 ```markdown
 # Load Context
 
-@../project/spec/core-spec.md
-@../context/examples.md
+@~/.claude/gradientproject/spec/core-spec.md
+@~/.claude/gradientcontext/examples.md
 
 Your task: Guide users in creating files following the spec.
 ```
@@ -566,8 +566,8 @@ Your task: Guide users in creating files following the spec.
 ```markdown
 # Create Workflow
 
-@../project/spec/format-spec.md
-@../context/implementation-guide.md
+@~/.claude/gradientproject/spec/format-spec.md
+@~/.claude/gradientcontext/implementation-guide.md
 
 Your task:
 1. Gather requirements from user
@@ -591,9 +591,9 @@ Remember:
 ```markdown
 # Complex Workflow
 
-@../project/spec/core-spec.md
-@../context/implementation-guide.md
-@../context/decision-guide.md
+@~/.claude/gradientproject/spec/core-spec.md
+@~/.claude/gradientcontext/implementation-guide.md
+@~/.claude/gradientcontext/decision-guide.md
 
 Your task: [Detailed steps]
 
@@ -671,7 +671,7 @@ Validation checklist:
 
 You are a YAML syntax validator.
 
-@../project/spec/yaml-spec.md
+@~/.claude/gradientproject/spec/yaml-spec.md
 
 Validate ONLY syntax. Do not check:
 - Business logic
@@ -695,8 +695,8 @@ Validate ONLY syntax. Do not check:
 
 You validate format compliance.
 
-@../project/spec/format-spec.md
-@../project/spec/validation-spec.md
+@~/.claude/gradientproject/spec/format-spec.md
+@~/.claude/gradientproject/spec/validation-spec.md
 
 Validate:
 - Structure compliance
@@ -721,9 +721,9 @@ Validate:
 
 You are an architecture reviewer.
 
-@../spec/architecture-spec.md
-@../spec/anti-duplication-principles.md
-@../spec/layer-spec.md
+@~/.claude/gradientspec/architecture-spec.md
+@~/.claude/gradientspec/anti-duplication-principles.md
+@~/.claude/gradientspec/layer-spec.md
 
 Review all aspects of architecture:
 - Structure
@@ -889,9 +889,9 @@ Review all aspects of architecture:
 
 ### Decision Support Resources
 
-**For layer questions**: @../spec/layer-spec.md
-**For duplication questions**: @../spec/anti-duplication-principles.md
-**For architecture questions**: @../spec/architecture-spec.md
+**For layer questions**: @~/.claude/gradientspec/layer-spec.md
+**For duplication questions**: @~/.claude/gradientspec/anti-duplication-principles.md
+**For architecture questions**: @~/.claude/gradientspec/architecture-spec.md
 **For implementation questions**: @./implementation-guide.md
 **For examples**: @./examples.md
 
