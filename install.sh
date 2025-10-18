@@ -1,6 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
+# ============================================================================
 # Gradient Installer
 # Installs the Gradient architecture framework to ~/.claude/gradient
 # ============================================================================
@@ -18,6 +19,10 @@ readonly TMP_DIR="/tmp/gradient-$$"
 readonly CLAUDE_DIR="$HOME/.claude"
 readonly TARGET_DIR="$CLAUDE_DIR/gradient"
 readonly SOURCE_SUBDIR="gradient"
+
+# --- Marketplace Configuration ---
+readonly MARKETPLACE_URL="https://github.com/daviguides/claude-marketplace.git"
+readonly PLUGIN_IDENTIFIER="gradient@daviguides"
 
 # --- Cleanup ---
 cleanup() {
@@ -107,6 +112,42 @@ install() {
   printf "%b\n\n" "${GREEN}✓ gradient installed successfully!${NC}"
 }
 
+check_claude_cli() {
+  if ! command -v claude >/dev/null 2>&1; then
+    printf "%b\n" "${YELLOW}Warning: 'claude' CLI not found${NC}"
+    printf "%s\n" "Skipping marketplace setup. Install Claude CLI to use marketplace features."
+    return 1
+  fi
+  return 0
+}
+
+setup_marketplace() {
+  printf "%b\n" "${BLUE}Setting up Claude Plugin Marketplace...${NC}"
+
+  # Check if claude CLI is available
+  if ! check_claude_cli; then
+    return 0
+  fi
+
+  # Add marketplace if not already added
+  printf "%b\n" "${BLUE}Adding marketplace...${NC}"
+  if claude plugin marketplace add "$MARKETPLACE_URL" 2>/dev/null; then
+    printf "%b\n" "${GREEN}✓ Marketplace added${NC}"
+  else
+    # Marketplace might already be added, that's fine
+    printf "%b\n" "${BLUE}→ Marketplace already added or failed to add${NC}"
+  fi
+
+  # Install plugin from marketplace
+  printf "%b\n" "${BLUE}Installing plugin from marketplace...${NC}"
+  if claude plugin install "$PLUGIN_IDENTIFIER" 2>/dev/null; then
+    printf "%b\n\n" "${GREEN}✓ Plugin installed from marketplace: $PLUGIN_IDENTIFIER${NC}"
+  else
+    printf "%b\n\n" "${YELLOW}⚠ Failed to install plugin from marketplace${NC}"
+    printf "%s\n" "You can manually install with: claude plugin install $PLUGIN_IDENTIFIER"
+  fi
+}
+
 print_next_steps() {
   printf "%b\n" "${GREEN}Installation complete!${NC}"
   printf "%b\n\n" "${BLUE}Next steps:${NC}"
@@ -125,6 +166,7 @@ main() {
   clone_repository
   validate_source_structure
   install
+  setup_marketplace
   print_next_steps
 }
 

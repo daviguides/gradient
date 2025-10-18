@@ -135,10 +135,10 @@ generate_installer() {
   printf "%b\n" "${BLUE}Output: $output_file${NC}"
 
   # Use sed to:
-  # 1. Remove TEMPLATE USAGE section (lines 4-22)
+  # 1. Remove TEMPLATE USAGE section (lines 4-21)
   # 2. Replace placeholders
   sed \
-    -e '4,22d' \
+    -e '4,21d' \
     -e "s/{{project}}/$project_lower/g" \
     -e "s/{{Project}}/$project_cap/g" \
     "$TEMPLATE_FILE" > "$output_file"
