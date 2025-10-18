@@ -144,7 +144,7 @@ Gradient **is**:
 <!-- commands/command-name.md -->
 Brief description of what this command does.
 
-@./gradient/prompts/prompt-name.md
+@~/.claude/gradient/prompts/prompt-name.md
 ```
 
 **Validation**:
@@ -170,8 +170,8 @@ You are a [role] specialized in [domain].
 
 ## Context
 
-@./gradient/spec/relevant-spec.md
-@./gradient/context/relevant-guide.md
+@~/.claude/gradient/spec/relevant-spec.md
+@~/.claude/gradient/context/relevant-guide.md
 
 ## Your Task
 
@@ -258,7 +258,7 @@ This creates one level of indirection but preserves Single Source of Truth for r
 <!-- hooks/event-name.md -->
 Triggered on: [event]
 
-@./gradient/prompts/workflow.md
+@~/.claude/gradient/prompts/workflow.md
 ```
 
 **Validation**:
@@ -276,12 +276,12 @@ Use `@` for referencing:
 
 **Absolute references** (from installed location):
 ```markdown
-@./gradient/spec/architecture-spec.md
+@~/.claude/gradient/spec/architecture-spec.md
 ```
 
 **Relative references** (within project):
 ```markdown
-@./gradient/spec/architecture-spec.md
+@~/.claude/gradient/spec/architecture-spec.md
 @./examples.md
 ```
 
@@ -296,7 +296,7 @@ Use `@` for referencing:
 **Example**:
 ```
 gradient/prompts/load-context.md references:
-@./gradient/spec/architecture-spec.md
+@~/.claude/gradient/spec/architecture-spec.md
 
 Resolution:
 /path/to/project/gradient/prompts/ + ../spec/architecture-spec.md
@@ -308,9 +308,9 @@ Resolution:
 **Pattern 1: Thin Loader**
 ```markdown
 <!-- prompts/load-context.md -->
-@./gradient/spec/spec1.md
-@./gradient/spec/spec2.md
-@./gradient/context/examples.md
+@~/.claude/gradient/spec/spec1.md
+@~/.claude/gradient/spec/spec2.md
+@~/.claude/gradient/context/examples.md
 
 Your task: [brief meta-instruction]
 ```
@@ -319,9 +319,9 @@ Your task: [brief meta-instruction]
 ```markdown
 <!-- prompts/adaptive-load.md -->
 {% if need_specs %}
-@./gradient/spec/detailed-spec.md
+@~/.claude/gradient/spec/detailed-spec.md
 {% else %}
-@./gradient/context/quick-guide.md
+@~/.claude/gradient/context/quick-guide.md
 {% endif %}
 ```
 
@@ -329,10 +329,10 @@ Your task: [brief meta-instruction]
 ```markdown
 <!-- prompts/comprehensive-load.md -->
 ## Specifications (Normative)
-@./gradient/spec/spec.md
+@~/.claude/gradient/spec/spec.md
 
 ## Applied Knowledge (Practical)
-@./gradient/context/guide.md
+@~/.claude/gradient/context/guide.md
 
 ## Meta-Instructions
 [orchestration logic]
@@ -499,8 +499,8 @@ PMD files are pure markdown...
 **Solution**:
 ```markdown
 <!-- prompts/load.md -->
-@./gradient/spec/ymd-spec.md
-@./gradient/spec/pmd-spec.md
+@~/.claude/gradient/spec/ymd-spec.md
+@~/.claude/gradient/spec/pmd-spec.md
 
 Your task: [meta-instruction]
 ```
@@ -539,7 +539,7 @@ YMD files must have meta section with:
 ```markdown
 <!-- context/guide.md -->
 For YMD format rules:
-@./gradient/spec/ymd-spec.md
+@~/.claude/gradient/spec/ymd-spec.md
 
 Example YMD file:
 ```yaml
@@ -567,7 +567,7 @@ Now that you understand the format, you can:
 [Pure specification, no orchestration]
 
 <!-- prompts/format-workflow.md -->
-@./gradient/project/spec/format-spec.md
+@~/.claude/gradient/project/spec/format-spec.md
 
 Now that specifications are loaded, you can:
 1. Create new files
@@ -646,8 +646,8 @@ project-name/                    # Repository root
 
 **From prompts/** (internal to bundle):
 ```markdown
-@./gradient/spec/spec-file.md
-@./gradient/context/guide.md
+@~/.claude/gradient/spec/spec-file.md
+@~/.claude/gradient/context/guide.md
 ```
 
 **Installation**:
@@ -657,7 +657,7 @@ cp -r project-name/ ~/.claude/project-name/
 
 # References continue to work
 # Commands: @~/.claude/project-name/prompts/...
-# Prompts: @./gradient/spec/... (internal)
+# Prompts: @~/.claude/gradient/spec/... (internal)
 ```
 
 **Validation**:
@@ -910,7 +910,7 @@ PROMPTS:  @ references, meta-instructions
 
 ### For Humans Implementing Gradient
 
-See: `@./gradient/context/implementation-guide.md`
+See: `@~/.claude/gradient/context/implementation-guide.md`
 
 ---
 
@@ -991,7 +991,7 @@ See: `@./gradient/context/implementation-guide.md`
 - `@./layer-spec.md`
 
 **For implementation guidance** (applied, not normative):
-- `@./gradient/context/implementation-guide.md`
+- `@~/.claude/gradient/context/implementation-guide.md`
 
 ---
 

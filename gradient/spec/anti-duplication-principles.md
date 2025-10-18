@@ -94,10 +94,10 @@ Use `@` references when:
 **Example**:
 ```markdown
 For format syntax, see:
-@./gradient/specs/format-spec.md
+@~/.claude/gradient/specs/format-spec.md
 
 For complete examples:
-@./gradient/context/examples.md
+@~/.claude/gradient/context/examples.md
 ```
 
 ### When to Duplicate (Exceptions)
@@ -153,7 +153,7 @@ Detailed explanation of concept XYZ...
 
 <!-- After (referenced) -->
 For details on concept XYZ:
-@./gradient/specs/xyz-spec.md
+@~/.claude/gradient/specs/xyz-spec.md
 ```
 
 ### Step 4: Validate
@@ -243,7 +243,7 @@ If PROMPTS contains >5 lines of inline content
 
 ❌ WRONG:
 <!-- load-context.md -->
-@./gradient/spec/format-spec.md
+@~/.claude/gradient/spec/format-spec.md
 ```
 
 **Why**: Absolute references ensure load workflows work consistently when delegated from agents, prompts, or commands.
@@ -465,7 +465,7 @@ YMD files must have a meta section containing:
 ```markdown
 <!-- context/guide.md -->
 For YMD metadata requirements:
-@./gradient/specs/format.md
+@~/.claude/gradient/specs/format.md
 
 Example metadata:
 ```yaml
@@ -705,8 +705,8 @@ Danger: < 0.2 (too much inline content)
 - `@./layer-spec.md` - Layer-specific specifications
 
 **For implementation**:
-- `@./gradient/context/implementation-guide.md` - Step-by-step guide
-- `@./gradient/context/decision-guide.md` - Decision trees
+- `@~/.claude/gradient/context/implementation-guide.md` - Step-by-step guide
+- `@~/.claude/gradient/context/decision-guide.md` - Decision trees
 
 ---
 

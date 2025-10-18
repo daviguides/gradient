@@ -107,7 +107,7 @@ When detecting command delegation pattern:
 - Relative paths are correct
 
 **Check patterns**:
-- `@./gradient/spec/*.md` (absolute from installation)
+- `@~/.claude/gradient/spec/*.md` (absolute from installation)
 - `@../spec/*.md` (relative within gradient/ bundle)
 - `@./examples.md` (same directory)
 
@@ -134,7 +134,7 @@ When detecting command delegation pattern:
 **Bundle Naming** (CRITICAL):
 - Bundle directory MUST match project name
 - Example: For project `gradient/`, bundle must be `gradient/gradient/`
-- Commands reference: `@./gradient/prompts/validate.md`
+- Commands reference: `@~/.claude/gradient/prompts/validate.md`
 - Install: `cp -r gradient/ ~/.claude/gradient/`
 
 **File Sizes**:

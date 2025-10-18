@@ -720,7 +720,7 @@ Gradient uses `@` for file references, similar to imports in programming:
 
 **Absolute references** (from installed location):
 ```markdown
-@./gradient/gradient/spec/architecture-spec.md
+@~/.claude/gradient/gradient/spec/architecture-spec.md
 ```
 
 **Relative references** (within project):
