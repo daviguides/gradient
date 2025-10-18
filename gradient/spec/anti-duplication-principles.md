@@ -229,6 +229,90 @@ If PROMPTS contains >5 lines of inline content
   → Reference with @
 ```
 
+### Load Workflows
+
+**Purpose**: Load workflows are specialized PROMPTS that serve as SSOT for context loading.
+
+**Anti-Duplication Rules**:
+
+**Rule 1: Absolute References Only**
+```markdown
+✅ CORRECT:
+<!-- load-context.md -->
+@~/.claude/project/spec/format-spec.md
+
+❌ WRONG:
+<!-- load-context.md -->
+@../spec/format-spec.md
+```
+
+**Why**: Absolute references ensure load workflows work consistently when delegated from agents, prompts, or commands.
+
+**Rule 2: Single Source of Truth for References**
+```markdown
+✅ CORRECT:
+<!-- load-context.md -->
+@~/.claude/project/spec/file1.md
+@~/.claude/project/spec/file2.md
+
+<!-- agent.md -->
+Execute o command /project:load-context
+
+❌ WRONG:
+<!-- load-context.md -->
+@~/.claude/project/spec/file1.md
+
+<!-- agent.md -->
+@~/.claude/project/spec/file1.md
+@~/.claude/project/spec/file2.md
+```
+
+**Why**: Load workflows are the ONLY place where @ references should exist. Other files delegate via slash commands.
+
+**Rule 3: No File Duplication in Modular Loads**
+```markdown
+✅ CORRECT (Modular):
+<!-- load-universal-context.md -->
+@~/.claude/code-zen/spec/universal/naming.md
+@~/.claude/code-zen/spec/universal/structure.md
+
+<!-- load-zen-context.md -->
+@~/.claude/code-zen/spec/principles/zen.md
+
+<!-- load-python-context.md -->
+@~/.claude/code-zen/spec/python/language.md
+
+❌ WRONG (Duplicated):
+<!-- load-zen-context.md -->
+@~/.claude/code-zen/spec/universal/naming.md  ← duplicated
+@~/.claude/code-zen/spec/principles/zen.md
+
+<!-- load-python-context.md -->
+@~/.claude/code-zen/spec/universal/naming.md  ← duplicated
+@~/.claude/code-zen/spec/python/language.md
+```
+
+**Why**: In modular load strategies, each file must be referenced in exactly ONE load workflow. Users compose by calling multiple loads.
+
+**Validation**:
+```bash
+# Check for duplicated references across load workflows
+grep -h "^@" prompts/load-*.md | sort | uniq -d
+# Should return empty (no duplicates)
+```
+
+**When to Use Modular vs Monolithic**:
+- **Monolithic**: Project is cohesive, always needs full context (e.g., Gradient)
+- **Modular**: Project has independent contexts that can be composed (e.g., Code Zen: universal + zen + python)
+
+**Duplication check**:
+```
+If load workflows contain duplicate @ references
+  → Refactor to independent loads OR merge into monolithic
+If agents/prompts list @ references
+  → Extract to load workflow, delegate via slash command
+```
+
 ---
 
 ## Validation Checklist

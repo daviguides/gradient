@@ -480,6 +480,59 @@ You now understand:
 - Common use cases and examples
 ```
 
+### Load Workflow Specification
+
+**Purpose**: Load workflows are specialized PROMPTS that define what context to load.
+
+**Structure**:
+```markdown
+# Load [Project] Context
+
+**Purpose**: [What context this loads]
+
+## [Section Name]
+
+@~/.claude/project-name/spec/file1.md
+@~/.claude/project-name/spec/file2.md
+```
+
+**Validation Rules**:
+- [ ] ALL references are absolute (`@~/.claude/project/...`)
+- [ ] NO relative references (`@../` is forbidden in load workflows)
+- [ ] File is named `load-*.md`
+- [ ] Each reference points to existing file
+- [ ] No duplication with other load workflows (if modular)
+
+**Reference Pattern**:
+Load workflows MUST use absolute references starting with `@~/.claude/bundle-name/...`
+
+**Modular vs Monolithic**:
+- **Monolithic**: Single load for entire project (e.g., `/gradient:load-context`)
+- **Modular**: Multiple independent loads for different contexts (e.g., `/code-zen:load-universal-context`, `/code-zen:load-zen-context`, `/code-zen:load-python-context`)
+
+**Anti-Duplication Rule**:
+In modular loads, each file MUST be referenced in exactly ONE load workflow. No file duplication across loads.
+
+**Example (Modular)**:
+```markdown
+# Load Universal Standards Workflow
+
+Load universal coding principles applicable to all languages.
+
+## Universal Standards
+
+@~/.claude/code-zen/spec/universal/naming-conventions-spec.md
+@~/.claude/code-zen/spec/universal/code-structure-spec.md
+@~/.claude/code-zen/spec/universal/error-handling-spec.md
+
+## General Checklists
+
+@~/.claude/code-zen/context/checklists/pre-code-checklist.md
+@~/.claude/code-zen/context/checklists/review-checklist.md
+
+Apply these universal standards to ALL code in this session.
+```
+
 ---
 
 ## COMMANDS Layer
@@ -684,6 +737,66 @@ Do not include:
 - Full file contents
 - Line-by-line analysis
 - Redundant explanations
+```
+
+### Delegated Loading
+
+**Purpose**: Agents delegate context loading to slash commands instead of listing @ references.
+
+**Pattern**:
+```markdown
+# Agent Name
+
+You are a specialist in [domain].
+
+## Context Loading
+
+Antes de qualquer passo faça:
+- Execute o command /project:load-context
+<!-- OR for modular loads -->
+- Execute o command /project:load-universal-context
+- Execute o command /project:load-zen-context
+- Execute o command /project:load-python-context
+
+---
+
+## Your Task
+
+[Agent-specific instructions without any @ references]
+```
+
+**Benefits**:
+- Eliminates duplication (agents don't list refs)
+- Single source of truth (only load workflows have refs)
+- Easier maintenance (update load once, affects all agents)
+- Cleaner agent files (focus on behavior, not context)
+
+**Validation**:
+- [ ] Agent uses slash command delegation
+- [ ] No direct @ references to SPECS/CONTEXT
+- [ ] Load commands executed before task section
+- [ ] Load workflows exist and are valid
+
+**Example**:
+```markdown
+# Python Zen Expert
+
+You are a Python development specialist focused on Zen of Python principles.
+
+## Code Zen Standards Context
+
+Antes de qualquer passo faça:
+- Execute o command /code-zen:load-universal-context
+- Execute o command /code-zen:load-zen-context
+- Execute o command /code-zen:load-python-context
+
+---
+
+## Your Task
+
+Help developers write Pythonic code that is beautiful, explicit, simple, and maintainable.
+
+[Rest of agent instructions without any @ references]
 ```
 
 ---

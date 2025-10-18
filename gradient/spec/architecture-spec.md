@@ -318,6 +318,92 @@ Your task: [brief meta-instruction]
 [orchestration logic]
 ```
 
+**Pattern 4: Delegated Loading** (Recommended)
+```markdown
+<!-- agents/agent-name.md -->
+You are a specialist in [domain].
+
+## Context Loading
+
+Antes de qualquer passo faça:
+- Execute o command /project:load-context
+
+---
+
+## Your Task
+[Agent-specific instructions without any @ references]
+```
+
+**Why delegated loading**:
+- Eliminates duplication (agents don't list refs)
+- Single source of truth (only load workflows have refs)
+- Easier maintenance (update load once, affects all agents)
+- Cleaner agent files (focus on behavior, not context)
+
+### Load Workflow Patterns
+
+**Purpose**: Load workflows are specialized prompts that serve as Single Source of Truth for context loading.
+
+**Reference Style**:
+```markdown
+<!-- gradient/prompts/load-context.md -->
+# Load Project Context
+
+## Specifications
+
+@~/.claude/project-name/spec/spec1.md
+@~/.claude/project-name/spec/spec2.md
+
+## Context
+
+@~/.claude/project-name/context/guide.md
+@~/.claude/project-name/context/examples.md
+```
+
+**Key Rules**:
+- Load workflows MUST use absolute references (`@~/.claude/project/...`)
+- Never use relative references in load workflows
+- Load workflows are the ONLY place where specs/context are referenced
+- Other files (agents, prompts) MUST delegate to load workflows
+
+**Delegation Pattern**:
+```markdown
+<!-- agents/specialized-agent.md -->
+## Context Loading
+
+Antes de qualquer passo faça:
+- Execute o command /project:load-context
+
+---
+```
+
+**Modular Loads** (when applicable):
+```markdown
+<!-- For projects with multiple independent contexts -->
+/project:load-universal-context  → Universal principles only
+/project:load-specific-context   → Domain-specific only
+/project:load-complete-context   → Specialized content only
+```
+
+**Anti-Duplication in Loads**:
+- Each load MUST have independent scope
+- NO file should be referenced in multiple loads
+- Loads compose via multiple command execution, not via duplication
+
+**Example: Code Zen**:
+```markdown
+# Modular loads (no duplication)
+/code-zen:load-universal-context → naming, structure, error-handling
+/code-zen:load-zen-context       → zen principles, patterns
+/code-zen:load-python-context    → python specs, libraries, tdd
+
+# Agent uses composition
+Antes de qualquer passo faça:
+- Execute o command /code-zen:load-universal-context
+- Execute o command /code-zen:load-zen-context
+- Execute o command /code-zen:load-python-context
+```
+
 ---
 
 ## Validation Rules
