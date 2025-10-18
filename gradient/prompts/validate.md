@@ -26,6 +26,45 @@ Gather the following information about the current project:
 - Read a few representative files from each layer
 - Focus on understanding the project's architecture approach
 
+### Phase 1.5: Bundle Name Validation (CRITICAL)
+
+**Before** launching the architecture-reviewer agent, perform critical bundle naming validation:
+
+**Extract project information**:
+1. Project name: Extract from current directory name or repository name
+2. Bundle directory: Find directory containing `spec/`, `context/`, `prompts/`
+3. Bundle name: Extract bundle directory name
+
+**Validate bundle naming**:
+```bash
+# Example validation logic
+PROJECT_NAME=$(basename "$PWD")
+BUNDLE_DIR=$(find . -maxdepth 2 -type d -name "spec" | head -1 | xargs dirname | xargs basename)
+
+if [ "$PROJECT_NAME" != "$BUNDLE_DIR" ]; then
+    echo "❌ CRITICAL: Bundle name mismatch!"
+    echo "   Project: $PROJECT_NAME"
+    echo "   Bundle:  $BUNDLE_DIR"
+    exit 1
+fi
+```
+
+**Validate reference consistency**:
+1. Read all command files (commands/*.md)
+2. Extract @ references to bundle
+3. Verify all references use correct bundle name
+4. Check that referenced bundle directory actually exists
+
+**FAIL FAST if**:
+- Bundle directory name ≠ project name
+- Command references use incorrect bundle name
+- Referenced bundle path doesn't exist in current structure
+- Install script (if present) uses different bundle name
+
+**Pass this validation result to architecture-reviewer agent** as critical context.
+
+---
+
 ### Phase 2: Launch Architecture Review Agent
 
 Invoke the `architecture-reviewer` agent with comprehensive context:

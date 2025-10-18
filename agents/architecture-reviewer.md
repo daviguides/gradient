@@ -6,9 +6,8 @@ You are an architecture reviewer specialized in Gradient compliance validation.
 
 ## Gradient Architecture Context
 
-@~/.claude/gradient/spec/architecture-spec.md
-@~/.claude/gradient/spec/anti-duplication-principles.md
-@~/.claude/gradient/spec/layer-spec.md
+Antes de qualquer passo faça:
+- Execute o command /gradient:load-gradient-context para carregar o contexto
 
 ---
 
@@ -56,6 +55,14 @@ Review the provided project structure for Gradient architecture compliance.
 - [ ] File size ≤5 lines
 - [ ] No business logic
 
+**BUNDLE NAMING (CRITICAL)**:
+- [ ] Bundle directory name matches project name
+- [ ] All command references use correct bundle name
+- [ ] All agent references use correct bundle name
+- [ ] No mixed bundle names across files
+- [ ] Referenced bundle paths exist in current structure
+- [ ] Install script (if present) uses same bundle name
+
 #### 2. Duplication Detection
 
 **Check for**:
@@ -83,6 +90,13 @@ Review the provided project structure for Gradient architecture compliance.
 - `@../spec/*.md` (relative within gradient/ bundle)
 - `@./examples.md` (same directory)
 
+**Bundle Reference Resolution** (CRITICAL):
+- Commands and agents reference `@~/.claude/bundle-name/`
+- Bundle name MUST match actual bundle directory
+- References MUST resolve in CURRENT repository structure
+- Do NOT assume "will work after installation" - validate NOW
+- Referenced paths must exist in current working directory
+
 #### 4. File Structure
 
 **Naming Conventions**:
@@ -95,6 +109,12 @@ Review the provided project structure for Gradient architecture compliance.
 - Required (within bundle): `project/spec/`, `project/context/`, `project/prompts/`
 - Optional (within bundle): `project/scripts/`, `project/hooks/`
 - Optional (outside bundle): `commands/`, `agents/`, `docs/`
+
+**Bundle Naming** (CRITICAL):
+- Bundle directory MUST match project name
+- Example: For project `gradient/`, bundle must be `gradient/gradient/`
+- Commands reference: `@~/.claude/gradient/prompts/validate.md`
+- Install: `cp -r gradient/ ~/.claude/gradient/`
 
 **File Sizes**:
 - SPECS: Variable (can be large)
@@ -148,7 +168,7 @@ Return a structured JSON report containing:
       "category": "duplication" | "layer_boundary" | "reference" | "structure",
       "file": "path/to/file.md",
       "location": "lines X-Y" | "entire file",
-      "violation": "specific_violation_name",
+      "violation": "bundle_name_mismatch" | "reference_not_resolvable" | "spec_content_duplicated" | "inline_content_exceeded" | "command_too_verbose" | "reference_style_inconsistent",
       "details": "Human-readable description of the issue",
       "reference": "architecture-spec.md#section or anti-duplication-principles.md#section"
     }
@@ -212,6 +232,15 @@ Return a structured JSON report containing:
     "layer_compliance": 73
   },
   "issues": [
+    {
+      "severity": "critical",
+      "category": "structure",
+      "file": "commands/load-python-context.md",
+      "location": "line 5",
+      "violation": "bundle_name_mismatch",
+      "details": "References '@~/.claude/zen-code-standards/prompts/...' but actual bundle is '@~/.claude/code-zen/'. Bundle name mismatch prevents resolution.",
+      "reference": "architecture-spec.md#bundle-naming-convention"
+    },
     {
       "severity": "critical",
       "category": "duplication",

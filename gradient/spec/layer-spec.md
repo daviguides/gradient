@@ -523,6 +523,13 @@ Thin API entry points that map one-to-one with PROMPTS.
 - [ ] No business logic in COMMAND
 - [ ] File ≤5 lines
 
+**Bundle Name Consistency** (CRITICAL):
+- [ ] References use correct bundle directory name
+- [ ] Bundle name matches project name
+- [ ] No legacy/incorrect bundle names in references
+- [ ] Referenced bundle paths exist in current structure
+- [ ] Install script (if present) uses same bundle name
+
 ### Quality Metrics
 
 **Target**:

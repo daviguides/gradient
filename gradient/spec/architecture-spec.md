@@ -502,6 +502,79 @@ project/
     └── event.md
 ```
 
+### Bundle Naming Convention
+
+**Rule**: The bundle directory MUST be named exactly as the project name.
+
+**Rationale**:
+- Ensures consistency between repository structure and installed structure
+- Prevents reference path mismatches
+- Simplifies installation and usage
+
+**Structure**:
+```
+project-name/                    # Repository root
+├── commands/                    # Outside bundle
+├── agents/                      # Outside bundle
+└── project-name/                # Bundle (MUST match project!)
+    ├── spec/
+    ├── context/
+    ├── prompts/
+    ├── scripts/ (optional)
+    └── hooks/ (optional)
+```
+
+**Reference Patterns**:
+
+**From commands/** (external to bundle):
+```markdown
+@~/.claude/project-name/prompts/workflow.md
+```
+
+**From agents/** (external to bundle):
+```markdown
+@~/.claude/project-name/spec/spec-file.md
+```
+
+**From prompts/** (internal to bundle):
+```markdown
+@../spec/spec-file.md
+@../context/guide.md
+```
+
+**Installation**:
+```bash
+# Install preserves bundle name
+cp -r project-name/ ~/.claude/project-name/
+
+# References continue to work
+# Commands: @~/.claude/project-name/prompts/...
+# Prompts: @../spec/... (internal)
+```
+
+**Validation**:
+- Bundle directory name MUST equal project/repository name
+- All external references (commands/, agents/) MUST use correct bundle name
+- Install script TARGET_DIR MUST match bundle name
+- No mixed naming (some refs using old name, others using new name)
+
+**Anti-Pattern**:
+```markdown
+❌ BAD:
+Repository: my-awesome-plugin/
+Bundle: my-awesome-plugin/old-name/
+Commands reference: @~/.claude/different-name/
+Install target: ~/.claude/yet-another-name/
+
+✅ GOOD:
+Repository: my-awesome-plugin/
+Bundle: my-awesome-plugin/my-awesome-plugin/
+Commands reference: @~/.claude/my-awesome-plugin/
+Install target: ~/.claude/my-awesome-plugin/
+```
+
+---
+
 ### Naming Conventions
 
 **SPECS**:
