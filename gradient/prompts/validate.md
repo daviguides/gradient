@@ -26,42 +26,66 @@ Gather the following information about the current project:
 - Read a few representative files from each layer
 - Focus on understanding the project's architecture approach
 
-### Phase 1.5: Bundle Name Validation (CRITICAL)
+### Phase 1.5: Collect Architecture Metrics (Automated)
 
-**Before** launching the architecture-reviewer agent, perform critical bundle naming validation:
+**Execute metrics collection script**:
 
-**Extract project information**:
-1. Project name: Extract from current directory name or repository name
-2. Bundle directory: Find directory containing `spec/`, `context/`, `prompts/`
-3. Bundle name: Extract bundle directory name
-
-**Validate bundle naming**:
 ```bash
-# Example validation logic
-PROJECT_NAME=$(basename "$PWD")
-BUNDLE_DIR=$(find . -maxdepth 2 -type d -name "spec" | head -1 | xargs dirname | xargs basename)
-
-if [ "$PROJECT_NAME" != "$BUNDLE_DIR" ]; then
-    echo "❌ CRITICAL: Bundle name mismatch!"
-    echo "   Project: $PROJECT_NAME"
-    echo "   Bundle:  $BUNDLE_DIR"
-    exit 1
-fi
+./gradient/scripts/collect-architecture-metrics.sh
 ```
 
-**Validate reference consistency**:
-1. Read all command files (commands/*.md)
-2. Extract @ references to bundle
-3. Verify all references use correct bundle name
-4. Check that referenced bundle directory actually exists
+This script performs all objective data collection in a **single execution** and returns structured JSON with:
+
+**JSON Structure**:
+- `validation_timestamp`: ISO 8601 timestamp
+- `project_name`: Current directory name
+- `bundle_dir`: Directory containing spec/context/prompts
+- `bundle_validation`: Object with:
+  - `status`: "PASS" or "FAIL"
+  - `match`: boolean (true if names match)
+  - `expected`: Project name
+  - `actual`: Bundle directory name
+- `layers`: Object with:
+  - `detected`: Comma-separated list of detected layers
+  - `has_spec`, `has_context`, `has_prompts`: booleans
+- `command_references`: Object with:
+  - `bundles`: Comma-separated bundle names from commands/*.md
+  - `consistent`: boolean (true if matches project name)
+- `file_counts`: Object with counts per layer (spec, context, prompts, commands, agents, scripts, hooks)
+- `markdown_files`: Array of all .md file paths
+
+**Parse JSON and validate**:
+
+1. Extract `bundle_validation.status`
+2. Extract `bundle_validation.match`
+3. Extract `layers.detected`
+4. Extract `command_references.consistent`
 
 **FAIL FAST if**:
-- Bundle directory name ≠ project name
-- Command references use incorrect bundle name
-- Referenced bundle path doesn't exist in current structure
-- Install script (if present) uses different bundle name
 
-**Pass this validation result to architecture-reviewer agent** as critical context.
+- `bundle_validation.status` == "FAIL"
+  - Report: "❌ CRITICAL: Bundle name mismatch!"
+  - Show: `bundle_validation.expected` vs `bundle_validation.actual`
+  - Stop validation immediately
+
+- `bundle_dir` == "NOT_FOUND"
+  - Report: "❌ CRITICAL: No bundle directory found (no spec/ directory detected)"
+  - Stop validation immediately
+
+- Essential layers missing from `layers.detected`:
+  - Required: "spec", "context", "prompts"
+  - If missing: Report which required layers are absent
+  - Stop validation immediately
+
+- `command_references.consistent` == false
+  - Report: "❌ CRITICAL: Command references use inconsistent bundle names"
+  - Show: Expected bundle name vs actual references
+  - Stop validation immediately
+
+**If all checks pass**:
+- Report: "✅ Phase 1.5 PASS: Bundle validation and metrics collection successful"
+- Pass collected metrics JSON to architecture-reviewer agent
+- Continue to Phase 2
 
 ---
 

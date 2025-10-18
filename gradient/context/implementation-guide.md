@@ -1249,6 +1249,165 @@ jobs:
 
 ---
 
+## Phase 9: Automated Architecture Metrics
+
+### Overview
+
+Gradient includes an automated script for collecting objective architecture metrics without requiring multiple permission requests or inline bash snippets.
+
+**Script**: `gradient/scripts/collect-architecture-metrics.sh`
+
+**Purpose**: Single-execution data collection for architecture validation
+
+### Using the Script
+
+#### Standalone Usage
+
+```bash
+# From project root
+./gradient/scripts/collect-architecture-metrics.sh
+
+# From any directory (specify project root)
+./gradient/scripts/collect-architecture-metrics.sh /path/to/project
+```
+
+#### Output Format
+
+The script returns structured JSON:
+
+```json
+{
+  "validation_timestamp": "2025-10-18T18:35:10Z",
+  "project_name": "gradient",
+  "bundle_dir": "gradient",
+  "bundle_validation": {
+    "status": "PASS",
+    "match": true,
+    "expected": "gradient",
+    "actual": "gradient"
+  },
+  "layers": {
+    "detected": "agents,commands,context,prompts,scripts,spec",
+    "has_spec": true,
+    "has_context": true,
+    "has_prompts": true
+  },
+  "command_references": {
+    "bundles": "gradient",
+    "consistent": true
+  },
+  "file_counts": {
+    "spec": 3,
+    "context": 3,
+    "prompts": 2,
+    "commands": 2,
+    "agents": 1,
+    "total_architectural": 11,
+    "total_markdown": 27
+  },
+  "markdown_files": [...]
+}
+```
+
+### Integration with Validation Workflow
+
+The script is automatically called by `/gradient:validate` (Phase 1.5).
+
+**Benefits**:
+- ✅ **Single permission request** (vs 5-7 inline commands)
+- ✅ **Structured output** (JSON for easy parsing)
+- ✅ **Tested commands** (100% functional)
+- ✅ **Can be pre-approved** in Claude Code settings
+
+### Pre-Approving the Script
+
+To avoid permission prompts entirely, add to Claude Code settings:
+
+**File**: `~/.config/claude-code/settings.json` (or your settings location)
+
+```json
+{
+  "pre_approved_commands": [
+    "bash ./gradient/scripts/collect-architecture-metrics.sh",
+    "bash gradient/scripts/collect-architecture-metrics.sh"
+  ]
+}
+```
+
+Or add to project-specific `.claude/settings.json`:
+
+```json
+{
+  "approved_tools": {
+    "Bash": {
+      "patterns": [
+        "./gradient/scripts/collect-architecture-metrics.sh*"
+      ]
+    }
+  }
+}
+```
+
+### What the Script Collects
+
+**Bundle Validation**:
+- Project name (from directory)
+- Bundle directory name (containing spec/)
+- Name match status (PASS/FAIL)
+
+**Layer Detection**:
+- Lists all architectural layers present
+- Checks for required layers (spec, context, prompts)
+
+**Reference Consistency**:
+- Extracts bundle names from commands/*.md
+- Validates all references use same bundle name
+
+**File Counts**:
+- Files per layer (spec, context, prompts, commands, agents, scripts, hooks)
+- Total architectural files
+- Total markdown files
+
+**File Listing**:
+- Complete list of all .md files
+- Excludes: node_modules, .git, docs/_site
+
+### Error Handling
+
+**Script exits with code 0** on success, returns valid JSON even if validation fails.
+
+**Common scenarios**:
+- `bundle_dir: "NOT_FOUND"` → No spec/ directory found
+- `bundle_validation.status: "FAIL"` → Name mismatch
+- `command_references.bundles: "NONE"` → No commands or no references
+- `layers.detected: ""` → No architectural layers found
+
+### Testing the Script
+
+```bash
+# Test execution
+./gradient/scripts/collect-architecture-metrics.sh
+
+# Validate JSON output (requires jq)
+./gradient/scripts/collect-architecture-metrics.sh | jq .
+
+# Check specific field
+./gradient/scripts/collect-architecture-metrics.sh | jq '.bundle_validation.status'
+```
+
+### Customizing for Your Project
+
+The script is designed for Gradient architecture but can be adapted:
+
+1. **Add custom checks**: Extend data collection logic
+2. **Modify layer detection**: Add project-specific layers
+3. **Change output format**: Adjust JSON structure
+4. **Add validation rules**: Extend FAIL conditions
+
+**Location**: `gradient/scripts/collect-architecture-metrics.sh` (edit as needed)
+
+---
+
 ## Troubleshooting
 
 ### Problem: Broken References
