@@ -58,7 +58,7 @@ validate:
 # Run installation script
 install:
 	@echo "Running installation script..."
-	bash install.sh
+	@bash -c "$(curl -fsSL https://raw.githubusercontent.com/daviguides/gradient/main/install.sh)"
 
 # Test installation without actually installing
 test-install:
